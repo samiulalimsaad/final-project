@@ -1,0 +1,32 @@
+{
+  "name": "lite-media",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.4.1",
+    "@heroicons/react": "^1.0.4",
+    "axios": "^0.21.4",
+    "dotenv": "^10.0.0",
+    "firebase": "^9.0.2",
+    "formik": "^2.2.9",
+    "next": "11.1.2",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.21",
+    "autoprefixer": "^10.3.4",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.15",
+    "typescript": "4.4.3"
+  }
+}
