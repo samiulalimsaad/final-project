@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "test-pyton"
+version = "1.0.0"
+description = ""
+authors = [""]
+
+[tool.poetry.dependencies]
+python = "^3.8.10"
+openfabric-pysdk = "^0.1.6"
+ChatterBot = "^1.1.0"
+chatterbot-corpus = {git = "https://github.com/gunthercox/chatterbot-corpus.git"}
+spacy = "^2.1"
+
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

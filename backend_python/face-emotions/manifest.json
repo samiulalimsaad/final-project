@@ -1,0 +1,10 @@
+{
+  "name" : "face-emotions",
+  "version" : "1.0.0",
+  "description" : "",
+  "organization" : null,
+  "sdk" : "^0.1.6",
+  "overview" : null,
+  "input" : "dc8f06af066e4a7880a5938933236037/916d2f11193f82fbff1b13b2102d755c/1.0",
+  "output" : "dc8f06af066e4a7880a5938933236037/02a3a357710cc2a5dfdfb74ed012fb59/1.0"
+}
