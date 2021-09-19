@@ -5,7 +5,6 @@ import subprocess
 import time
 import webbrowser
 
-import pyttsx3
 import requests
 import speech_recognition as sr
 import wikipedia
@@ -16,18 +15,11 @@ from ecapture import ecapture as ec
 
 print('Loading your AI personal assistant - G One')
 
-engine=pyttsx3.init()
-# voices=engine.getProperty('voices')
-# engine.setProperty('volume',0.5)
-# engine.setProperty('rate',120)
-# engine.setProperty('voice','voices[0].id')
 
 
 def speak(text):
     print(text)
     return text
-    # engine.say(text)
-    # engine.runAndWait()
 
 def wishMe():
     hour=datetime.datetime.now().hour
