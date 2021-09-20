@@ -1,0 +1,15 @@
+__pycache__
+.idea
+*.mp4
+face-recognition/images
+
+# PyCharm IDE
+models/binaries
+out-images/
+
+# Images in the root (if they exist)
+*.jpg
+*.png
+*.psd
+test.py
+*.sqlite3

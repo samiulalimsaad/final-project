@@ -4,16 +4,12 @@ Many people always become bored to read long-length article. What if, we only re
 
 Well, This App will generate a summary of any long text.
 
-### **`NB`** : The long text must be in english language. Otherwise, it will not work..
-
-<br/>
+## **`NB`** : The long text must be in english language. Otherwise, it will not work
 
 ## Original Package
 
 **`package name:`** **[vidsum](https://github.com/OpenGenus/vidsum)**\
-**`package link:` https://github.com/OpenGenus/vidsum**
-
-<br/>
+**`package link:` <https://github.com/OpenGenus/vidsum>**
 
 ## Feature of this App
 
@@ -24,7 +20,3 @@ Well, This App will generate a summary of any long text.
 ### sort-length text
 
 ![long-length text](featureImages/2.png?raw=true "long-length text")
-
-## See More
-
-For future development to this approach, read [Openfabric](https://www.openfabric.ai) and check out whitepaper [approaches](https://www.openfabric.ai/openfabric-whitepaper.pdf).

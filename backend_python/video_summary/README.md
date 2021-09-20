@@ -4,16 +4,12 @@ Many people always become bored seeing long-length videos. What if, we only see 
 
 Well, This App will generate a summary of any video through its subtitles. This program will summarize the video in less than 1 minute.
 
-### **`NB`** : The long-length video must have english subtitles and the video length must be more than 1 minute. Otherwise, it will not work.
-
-<br/>
+## **`NB`** : The long-length video must have english subtitles and the video length must be more than 1 minute. Otherwise, it will not work
 
 ## Original Package
 
 **`package name:`** **[vidsum](https://github.com/OpenGenus/vidsum)**\
-**`package link:` https://github.com/OpenGenus/vidsum**
-
-<br/>
+**`package link:` <https://github.com/OpenGenus/vidsum>**
 
 ## Feature of this App
 
@@ -44,9 +40,3 @@ Well, This App will generate a summary of any video through its subtitles. This 
 ### Summarized video of the original video
 
 ![long-length video](featureImages/7.png?raw=true "long-length video")
-
-<br/>
-
-## See More
-
-For future development to this approach, see [Openfabric](https://www.openfabric.ai) and check out whitepaper [approaches](https://www.openfabric.ai/openfabric-whitepaper.pdf).

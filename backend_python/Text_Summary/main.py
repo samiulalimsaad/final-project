@@ -37,7 +37,7 @@ def Text_Summary_Post():
         parser = PlaintextParser.from_string(text, Tokenizer(LANGUAGE))
         return {"summary": getSummary(parser),'success':True}
     else:
-        return {"error":"Only Text & url Acceptable", 'success':False}
+        return {"error":"Only [text] & [url] Acceptable", 'success':False}
 
     
         

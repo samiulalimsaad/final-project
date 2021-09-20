@@ -2,7 +2,6 @@ import os
 from time import time
 
 from flask import make_response, request, send_file
-from flask_restful import Resource
 
 from video_summary.sum import getVideoSummarize
 
@@ -24,7 +23,7 @@ def Post_Video_Summary():
                 
 
     else:
-        return {"error":"Only url key Acceptable", 'success':False}
+        return {"error":"Only [url] key Acceptable", 'success':False}
 
     
 
