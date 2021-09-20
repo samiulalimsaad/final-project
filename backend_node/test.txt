@@ -1,0 +1,18 @@
+============backend-python=============
+
+
+test-summarization = https://github.com/miso-belica/sumy
+video-summarization = https://github.com/OpenGenus/vidsum
+chatbot = https://chatterbot.readthedocs.io/en/stable/index.html
+AI Assistant = https://github.com/mmirthula02/AI-Personal-Voice-assistant-using-Python
+face recognition = https://github.com/ageitgey/face_recognition
+face emotions = 
+object detectation = 
+
+
+
+
+
+==================front end==============
+
+text to speech = https://dev.to/asaoluelijah/text-to-speech-in-3-lines-of-javascript-b8h
