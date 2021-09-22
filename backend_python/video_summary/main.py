@@ -1,6 +1,7 @@
 import os
 from time import time
 
+import validators
 from flask import make_response, request, send_file
 
 from video_summary.sum import getVideoSummarize
@@ -9,18 +10,17 @@ from video_summary.sum import getVideoSummarize
 def Post_Video_Summary():
     body = request.get_json(force=True)
     print('body = ',body)
-    if "url" in body:
-        url = body["url"]
-        print('url = ',url)
-        vid_name = str(round(time() * 1000))
-        try:
+    url = body.get("url")
+    
+    if url:
+        if validators.url(url):
+            vid_name = str(round(time() * 1000))
             res = getVideoSummarize(url, vid_name=vid_name)
-        except print(0):
-            return {"error":"Something went wrong. Please make sure the video length is more than 1 minute and has english subtitle", 'success':False}
-            
-        path = request.host_url
-        return {"summary":f"{path}vidsum/video/" + res, 'success':True}
-                
+            path = request.host_url
+            return {"message":f"{path}vidsum/video/" + res, 'success':True}
+        else:
+            return {"message": "invalid url",'success':True}           
+
 
     else:
         return {"error":"Only [url] key Acceptable", 'success':False}

@@ -177,11 +177,11 @@ def get_summary(filename="1.mp4", subtitles="1.srt", vid_name='1'):
     base_dir = os.path.dirname(os.path.realpath(__file__))
     video = os.path.join(base_dir+'/video')
     output = f"{video}/"+vid_name+".mp4"
-    summary.to_videofile(output, codec="libx264", temp_audiofile="temp.m4a", remove_temp=True, audio_codec="aac")
+    summary.to_videofile(output, codec="libx264", temp_audiofile=F"{filename}.m4a", remove_temp=True, audio_codec="aac")
     return True
 
 
-def download_video_srt(url):
+def download_video_srt(url,vid_name):
     """ Downloads specified Youtube video's subtitles as a vtt/srt file.
 
     Args:
@@ -198,7 +198,7 @@ def download_video_srt(url):
     """
     ydl_opts = {
         'format': 'best',
-        'outtmpl': '1.%(ext)s',
+        'outtmpl': f'{vid_name}.%(ext)s',
         'subtitlesformat': 'srt',
         'writeautomaticsub': True,
         # 'allsubtitles': True # Get all subtitles
@@ -214,16 +214,15 @@ def download_video_srt(url):
         subtitle_language = list(subtitle_info.keys())[0]
         subtitle_ext = subtitle_info[subtitle_language]['ext']
         subtitle_filename = movie_filename.replace(".mp4", ".%s.%s" %(subtitle_language, subtitle_ext))
+    
     return movie_filename, subtitle_filename
 
 
 def getVideoSummarize(url, vid_name):
 
-    movie_filename, subtitle_filename = download_video_srt(url)
-    mov_name = movie_filename.replace('1',vid_name)
-    sub_name = subtitle_filename.replace('1',vid_name)
-    os.rename(movie_filename,mov_name)
-    os.rename(subtitle_filename, sub_name)
+
+    mov_name, sub_name = download_video_srt(url,vid_name=vid_name)
+
     
     summary_retrieval_process = multiprocessing.Process(target=get_summary, args=(mov_name,sub_name,vid_name))
     summary_retrieval_process.start()

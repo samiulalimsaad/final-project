@@ -1,6 +1,7 @@
 from __future__ import (absolute_import, division, print_function,
                         unicode_literals)
 
+import validators
 from flask import request
 from sumy.nlp.stemmers import Stemmer
 from sumy.nlp.tokenizers import Tokenizer
@@ -28,14 +29,17 @@ def getSummary(parser):
 
 def Text_Summary_Post():
     body = request.get_json(force=True)
-    if "url" in body:
-        url = body["url"]
-        parser = HtmlParser.from_url(url, Tokenizer(LANGUAGE))
-        return {"summary": getSummary(parser),'success':True}
-    if "text" in body:
-        text =  body["text"]
+    url = body.get("url")
+    text =  body.get("text")
+    if url:
+        if validators.url(url):
+            parser = HtmlParser.from_url(url, Tokenizer(LANGUAGE))
+            return {"message": getSummary(parser),'success':True}
+        else:
+            return {"message": "invalid url",'success':True}
+    if text:
         parser = PlaintextParser.from_string(text, Tokenizer(LANGUAGE))
-        return {"summary": getSummary(parser),'success':True}
+        return {"message": getSummary(parser),'success':True}
     else:
         return {"error":"Only [text] & [url] Acceptable", 'success':False}
 

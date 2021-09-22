@@ -1,2 +1,9 @@
-a =13.949999999999999
-print(round(a,2))
+import validators
+
+a = ''
+b= "http://google.com"
+
+if validators.url(a):
+    print("Valid")
+else:
+    print("Not valid")
