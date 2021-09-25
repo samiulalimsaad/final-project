@@ -1,9 +1,9 @@
 import SignUp from "../components/signup/index";
 function signup() {
     return (
-        <div>
+        <section>
             <SignUp />
-        </div>
+        </section>
     );
 }
 
