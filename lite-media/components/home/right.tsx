@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Suggested from "./suggested";
+import Trends from "./trends";
 
 const RightSide: NextPage = () => {
     return (
@@ -12,8 +14,9 @@ const RightSide: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head> */}
-            <section>
-                <h1>Right</h1>
+            <section className="pt-1 h-screen drop-shadow-md">
+               <Suggested/>
+               <Trends/>
             </section>
         </div>
     );

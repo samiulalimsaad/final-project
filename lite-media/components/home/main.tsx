@@ -12,7 +12,7 @@ const Main: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head> */}
-            <section>
+            <section className="py-6 px-5 bg-gray-200 h-screen drop-shadow-md rounded-sm shadow-lg">
                 <h1>Main</h1>
             </section>
         </div>

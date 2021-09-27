@@ -7,22 +7,22 @@ import React from "react";
 import MenuItems from "./menuItems";
 import Notification from "./notification";
 
-
 export default function Navbar() {
     return (
         <Disclosure as="nav" className="bg-gray-800">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
                 <div className="relative flex items-center justify-between h-16">
                     <div className="flex-1 flex items-center ">
-                        <div className="flex-shrink-0 flex items-center">
+                        <div className="ml-4 flex-shrink-0 flex items-center">
                             <Link href="/" passHref>
-                                <Image
-                                    className="cursor-pointer rounded-full"
-                                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                                    alt="Workflow"
-                                    height={78}
-                                    width={48}
-                                />
+                                <a className="relative h-12 w-12">
+                                    <Image
+                                        className="cursor-pointer rounded-full"
+                                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                                        alt="Workflow"
+                                        layout="fill"
+                                    />
+                                </a>
                             </Link>
                         </div>
                         <form className="hidden sm:flex items-center justify-between ml-auto mr-auto">
@@ -52,7 +52,7 @@ export default function Navbar() {
                             </div>
                         </form>
                     </div>
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                    <div className="mr-4 absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-50">
                         <Notification />
                         <MenuItems />
                     </div>
