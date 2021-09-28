@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import suggestedUser from "../../utils/suggestedUser.json";
+import suggestedUser from "../../util/suggestedUser.json";
 const Suggested = () => {
     return (
         <section className="bg-gray-200 border border-gray-500 rounded overflow-hidden">
@@ -12,7 +12,7 @@ const Suggested = () => {
                 <hr className="bg-gray-500 h-1" />
             </div>
             <div className="h-72 overflow-y-scroll">
-                {suggestedUser.splice(0, 10).map((item) => (
+                {suggestedUser.splice(0, 100).map((item) => (
                     <div key={item.userName}>
                         <div className="flex items-center p-1 text-sm transition ease-in-out duration-500 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
                             <div className="flex items-center justify-between w-full">

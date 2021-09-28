@@ -1,5 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Posts from "./posts";
+import Story from "./story";
 
 const Main: NextPage = () => {
     return (
@@ -12,8 +14,20 @@ const Main: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head> */}
-            <section className="py-6 px-5 bg-gray-200 h-screen drop-shadow-md rounded-sm shadow-lg">
-                <h1>Main</h1>
+            <section className="pt-2 bg-gray-300 h-screen w-full drop-shadow-md rounded-sm shadow-lg overflow-y-scroll">
+                <Story/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
+                <Posts/>
             </section>
         </div>
     );

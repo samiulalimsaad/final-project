@@ -1,7 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
 import React, { Fragment } from "react";
-import { classNames } from "../../utils";
+import { classNames } from "../../util";
 
 
 const MenuItems = () => {

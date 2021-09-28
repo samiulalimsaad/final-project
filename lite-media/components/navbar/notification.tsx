@@ -1,7 +1,7 @@
 import { Menu, Transition } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/outline";
 import React, { Fragment } from "react";
-import { classNames } from "../../utils";
+import { classNames } from "../../util";
 
 const Notification = () => {
     return (
