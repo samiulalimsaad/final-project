@@ -1,7 +1,11 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import React from "react";
+import React, { createContext, ReactNode, useContext, useReducer } from "react";
+import { initialState } from "../state";
+import { rootReducer } from "../state/actions";
+import { StateProvider } from "../state/stateProvider";
 import "../styles/globals.css";
+
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -17,7 +21,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                 />
             </Head>
             <main className="overflow-hidden h-screen w-screen">
-                <Component {...pageProps} />
+                <StateProvider>
+                    <Component {...pageProps} />
+                </StateProvider>
             </main>
         </div>
     );

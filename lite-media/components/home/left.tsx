@@ -7,8 +7,11 @@ import {
     UserAddIcon,
     UserGroupIcon,
 } from "@heroicons/react/outline";
+import Link from "next/link";
 import React from "react";
-
+import { GetState } from "../../state/stateProvider";
+import { CREATE_POST } from "../../state/types";
+import Assistant from "./Assistant";
 const bar = [
     {
         name: "Home",
@@ -48,22 +51,26 @@ const bar = [
 ];
 
 const LeftSide = () => {
+    const { dispatch } = GetState();
     return (
-        <section className="py-6 px-5 bg-gray-200 h-screen drop-shadow-md">
+        <section className="py-4 px-5 bg-gray-200 h-screen drop-shadow-md">
             {bar.map((item) => (
-                <div
-                    className="flex items-center space-x-4 p-3 transition ease-in-out duration-500 hover:bg-indigo-700 active:bg-indigo-900 hover:text-gray-50 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-semibold hover:font-extrabold"
-                    key={item.name}
-                >
-                    <span className="self-center">{item.icon}</span>
-                    <span className="self-center">{item.name}</span>
-                </div>
+                <Link href={item.link} passHref key={item.name}>
+                    <div className="flex items-center space-x-4 p-2 transition ease-in-out duration-500 hover:bg-indigo-700 active:bg-indigo-900 hover:text-gray-50 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-semibold hover:font-extrabold">
+                        <span className="self-center">{item.icon}</span>
+                        <span className="self-center">{item.name}</span>
+                    </div>
+                </Link>
             ))}
             <div>
-                <button className="group relative w-full mt-4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button
+                    className="group relative w-full mt-4 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-full text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={() => dispatch({ type: CREATE_POST })}
+                >
                     New Post
                 </button>
             </div>
+            <Assistant/>
         </section>
     );
 };

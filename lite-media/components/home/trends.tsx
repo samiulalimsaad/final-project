@@ -22,7 +22,10 @@ const Trends = () => {
                                         <div className="pl-2 flex">
                                             <h4 className="font-semibold">
                                                 <span>{i + 1}</span>
-                                                <Link href={`trends/${item.trends}`} passHref>
+                                                <Link
+                                                    href={`/explore/${item.trends}`}
+                                                    passHref
+                                                >
                                                     <a className="ml-3 capitalize">
                                                         #{item.trends}
                                                     </a>

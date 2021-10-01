@@ -52,7 +52,7 @@ export default function Navbar() {
                             </div>
                         </form>
                     </div>
-                    <div className="mr-4 absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-50">
+                    <div className="mr-4 absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-10">
                         <Notification />
                         <MenuItems />
                     </div>

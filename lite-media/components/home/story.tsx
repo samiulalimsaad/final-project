@@ -5,7 +5,7 @@ const temp = story[0];
 const Story = () => {
     return (
         <section className="flex bg-gray-200 space-x-1 px-2 overflow-x-scroll w-full">
-            <div className="h-32 w-24 bg-blue-500 rounded-md bg-gray-900/50">
+            <div className="h-36 w-24 bg-blue-500 rounded-md bg-gray-900/50">
                 <div className="relative">
                     <div className="relative h-20 w-24">
                         <Image
