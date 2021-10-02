@@ -53,7 +53,7 @@ const bar = [
 const LeftSide = () => {
     const { dispatch } = GetState();
     return (
-        <section className="py-4 px-5 bg-gray-200 h-screen drop-shadow-md">
+        <section className="py-1 px-5 bg-gray-200 h-screen drop-shadow-md">
             {bar.map((item) => (
                 <Link href={item.link} passHref key={item.name}>
                     <div className="flex items-center space-x-4 p-2 transition ease-in-out duration-500 hover:bg-indigo-700 active:bg-indigo-900 hover:text-gray-50 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 font-semibold hover:font-extrabold">

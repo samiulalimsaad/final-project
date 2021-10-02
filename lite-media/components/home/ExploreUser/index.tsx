@@ -15,13 +15,12 @@ const Suggested = () => {
                 {suggestedUser.splice(0, 100).map((item) => (
                     <div key={item.userName}>
                         <SuggestedUserBody item={item} />
-            <hr className="border-b border-indigo-300" />
-
+                        <hr className="border-b border-indigo-300" />
                     </div>
                 ))}
             </div>
             <div className="border-t border-gray-500 p-1">
-                <Link href="/suggested">
+                <Link href="/explore">
                     <a className="py-2 px-4 text-sm font-medium text-indigo-600 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         See more
                     </a>

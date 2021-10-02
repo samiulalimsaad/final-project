@@ -1,11 +1,8 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import React, { createContext, ReactNode, useContext, useReducer } from "react";
-import { initialState } from "../state";
-import { rootReducer } from "../state/actions";
+import React from "react";
 import { StateProvider } from "../state/stateProvider";
 import "../styles/globals.css";
-
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (

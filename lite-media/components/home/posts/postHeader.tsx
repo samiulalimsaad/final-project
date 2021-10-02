@@ -33,7 +33,7 @@ const PostHeader = ({
 
     const ttsx = () => {
         setStop(p=>!p)
-        // !stop && speechSynthesis.pause()
+        !stop && speechSynthesis.pause()
         speechSynthesis.speak(new SpeechSynthesisUtterance("Hello World"));
         // !stop && console.log("Hello World")
  

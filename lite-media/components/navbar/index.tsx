@@ -4,10 +4,15 @@ import { SearchIcon, XIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { GetState } from "../../state/stateProvider";
+import Progressbar from "../progress/progressbar";
 import MenuItems from "./menuItems";
 import Notification from "./notification";
 
 export default function Navbar() {
+    const { createPost } = GetState();
+
+
     return (
         <Disclosure as="nav" className="bg-gray-800">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
@@ -58,6 +63,7 @@ export default function Navbar() {
                     </div>
                 </div>
             </div>
+                {createPost && <Progressbar/>}
         </Disclosure>
     );
 }

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import Home from "../components/home/index";
-import Navbar from "../components/navbar";
+import Home from "../../components/home/index";
+import Navbar from "../../components/navbar";
 
 const Index: NextPage = () => {
     const id = useRouter().query.id;
