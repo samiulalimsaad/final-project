@@ -1,9 +1,39 @@
-const moment = require("moment");
-// let b = "October 2nd 2021, 6:59:53 pm";
-// b = "2021-10-02T19:01:07+06:00";
-// b = "2021-10-02T12:52:28.449+00:00";
-// const date = moment(); // October 2nd 2021, 6:59:05 pm
-// b = Date.now()
-let b = moment().format();
-console.log(b)
-console.log(moment(b).format("h:MM:SS a DD/MM/YYYY"));
+const data = {
+    email: {
+        name: "ValidatorError",
+        message: "Path `email` is required.",
+        properties: {
+            message: "Path `email` is required.",
+            type: "required",
+            path: "email",
+        },
+        kind: "required",
+        path: "email",
+    },
+    userName: {
+        name: "ValidatorError",
+        message: "Path `userName` is required.",
+        properties: {
+            message: "Path `userName` is required.",
+            type: "required",
+            path: "userName",
+        },
+        kind: "required",
+        path: "userName",
+    },
+    userId: {
+        name: "ValidatorError",
+        message: "Path `userId` is required.",
+        properties: {
+            message: "Path `userId` is required.",
+            type: "required",
+            path: "userId",
+        },
+        kind: "required",
+        path: "userId",
+    },
+};
+
+const errors = Object.keys(data).map((v) => data[v].message);
+
+console.log(errors)

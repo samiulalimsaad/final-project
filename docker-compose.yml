@@ -1,0 +1,15 @@
+version: "3"
+services:
+    python_app:
+        container_name: final_backend_python
+        image: final_backend_python:test
+        restart: always
+        ports:
+            - 5000:5000
+    
+    node_app:
+        container_name: final_backend_node
+        image: final_backend_node:test
+        restart: always
+        ports:
+            - 8080:8080

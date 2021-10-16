@@ -1,22 +1,23 @@
 const { Router } = require("express");
-const { getAllUser, getSingleUser } = require("../controllers/user.Controller");
+const {
+    getAllUser,
+    getSingleUser,
+    createUser,
+    updateUser,
+    deleteUser,
+    findUserMiddleware,
+} = require("../controllers/user.Controller");
 
 const userRoute = Router();
 
-userRoute.get("/", getAllUser);
+userRoute.get("/all", getAllUser);
 
-userRoute.get("/:id", getSingleUser);
+userRoute.get("/:id", findUserMiddleware, getSingleUser);
 
-userRoute.post("/", (req, res) => {
-    res.send(`<h1>UserRoute Page</h1>`);
-});
+userRoute.post("/", createUser);
 
-userRoute.put("/", (req, res) => {
-    res.send(`<h1>UserRoute Page</h1>`);
-});
+userRoute.put("/:id", findUserMiddleware, updateUser);
 
-userRoute.delete("/", (req, res) => {
-    res.send(`<h1>UserRoute Page</h1>`);
-});
+userRoute.delete("/:id", findUserMiddleware, deleteUser);
 
 module.exports = userRoute;

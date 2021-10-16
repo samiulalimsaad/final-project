@@ -1,22 +1,21 @@
-// Import the functions you need from the SDKs you need
-import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore";
+import getConfig from "next/config";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const { publicRuntimeConfig } = getConfig();
+
 const firebaseConfig = {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
-    measurementId: process.env.measurementId,
+    apiKey: publicRuntimeConfig.FIREBASE_apiKey,
+    authDomain: publicRuntimeConfig.FIREBASE_authDomain,
+    projectId: publicRuntimeConfig.FIREBASE_projectId,
+    storageBucket: publicRuntimeConfig.FIREBASE_storageBucket,
+    messagingSenderId: publicRuntimeConfig.FIREBASE_messagingSenderId,
+    appId: publicRuntimeConfig.FIREBASE_appId,
+    measurementId: publicRuntimeConfig.FIREBASE_measurementId,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-console.log(app)
-// const analytics = getAnalytics(app);
+console.log(firebaseConfig)
+const firebaseApp = initializeApp(firebaseConfig);
+export const db = getFirestore();
+
+export default firebaseApp;

@@ -1,9 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
+import { GetState } from "../../state/stateProvider";
+import Loading from "../progress/Loading";
 import SignUpForm from "./SignupForm";
 
 export default function SignUp() {
+    const {loading}=GetState()
     return (
         <>
             <Head>
@@ -31,11 +34,12 @@ export default function SignUp() {
                             />
                         </span>
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                           Create a new Account
+                            Create a new Account
                         </h2>
                     </div>
                     <SignUpForm />
                 </div>
+                {loading && <Loading/>}
             </div>
         </>
     );

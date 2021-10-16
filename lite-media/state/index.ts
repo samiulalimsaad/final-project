@@ -3,14 +3,14 @@ import { Dispatch } from "react";
 export interface reducerInterface {
     createPost: boolean;
     loading: boolean;
-    userName: null;
+    displayName: null;
     auth: boolean;
     dispatch: Dispatch<any>;
 }
 
 export const initialState = {
     createPost: false,
-    loading: true,
-    userName: null,
+    loading: false,
+    displayName: null,
     auth: false,
 };

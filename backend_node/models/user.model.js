@@ -17,7 +17,7 @@ const nameSchema = new Schema({
         trim: true,
         default: "",
     },
-    name: String,
+    fullName: String,
 });
 
 const addressSchema = new Schema({
@@ -40,61 +40,53 @@ const userSchema = new Schema(
             required: true,
             unique: true,
         },
-        userName: {
-            type: String,
-            trim: true,
-            required: true,
-        },
-        active : Boolean,
         email: {
             type: String,
             trim: true,
+            unique: true,
             required: true,
         },
+        active: Boolean,
         gender: {
             type: String,
             trim: true,
-            required: true,
         },
         name: nameSchema,
         contact: contactSchema,
         post: String,
+        assistant: String,
+        message: [String],
         profilePic: {
             type: String,
             trim: true,
-            required: true,
         },
         coverPic: {
             type: String,
             trim: true,
-            required: true,
         },
         following: [
             {
                 type: String,
                 trim: true,
-                required: true,
             },
         ],
         follower: [
             {
                 type: String,
                 trim: true,
-                required: true,
             },
         ],
         posts: [
             {
                 type: String,
                 trim: true,
-                required: true,
             },
         ],
     },
     { timestamps: true }
 );
 
-const userModel = model("User", userSchema);
+const userModel = model("testUser", userSchema);
 // console.log(JSON.stringify(userSchema, null, 4));
 
 module.exports = userModel;

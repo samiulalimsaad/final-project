@@ -3,6 +3,7 @@ import Head from "next/head";
 import React from "react";
 import { StateProvider } from "../state/stateProvider";
 import "../styles/globals.css";
+import "../firebase.ts"
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
