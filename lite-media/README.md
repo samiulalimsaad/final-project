@@ -1,4 +1,6 @@
-# All python api
+# Helper Text
+
+## All python api
 
 ```python
 @app.route('/')
@@ -28,4 +30,86 @@ def serve_video(vid_name):
 @app.route('/assistant', methods=["POST"])
 def assistant():
     return Assistant()
+```
+
+## user Schema
+
+```typescript
+{
+    userId: {
+        type: String,
+        trim: true,
+        required: true,
+        unique: true,
+    },
+    email: {
+        type: String,
+        trim: true,
+        unique: true,
+        required: true,
+    },
+    active: Boolean,
+    gender: {
+        type: String,
+        trim: true,
+    },
+    name: {
+        firstName: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        lastName: {
+            type: String,
+            trim: true,
+            required: true,
+            default: "",
+        },
+        nickName: {
+            type: String,
+            trim: true,
+            default: "",
+        },
+        fullName: String,
+    },
+    contact: {
+        tel: [Number],
+        email: [String],
+        address: {
+            city: String,
+            street: String,
+            houseNumber: String,
+        },
+    },
+    post: [String],
+    assistant: String,
+    message: [String],
+    profilePic: {
+        type: String,
+        trim: true,
+    },
+    coverPic: {
+        type: String,
+        trim: true,
+    },
+    following: [
+        {
+            type: String,
+            trim: true,
+        },
+    ],
+    follower: [
+        {
+            type: String,
+            trim: true,
+        },
+    ],
+    posts: [
+        {
+            type: String,
+            trim: true,
+        },
+    ],
+};
+
 ```

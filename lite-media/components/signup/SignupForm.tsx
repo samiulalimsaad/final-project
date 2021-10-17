@@ -23,7 +23,7 @@ const initialValue = {
 
 const SignUpForm = () => {
     const { dispatch } = GetState();
-    const router = useRouter()
+    const router = useRouter();
     const [error, setError] = useState("");
     const signup = (
         value: typeof initialValue,
@@ -38,13 +38,15 @@ const SignUpForm = () => {
                 .then(async (userCredential) => {
                     const user = userCredential.user;
                     const userData = {
-                        name:{
-                            firstName:value.firstName,
-                            lastName:value.lastName,
+                        name: {
+                            firstName: value.firstName,
+                            lastName: value.lastName,
                             fullName: `${value.firstName} ${value.lastName}`,
                         },
                         email: user.email,
                         userId: user.uid,
+                        active: true,
+                        assistant: user.uid + "assistant",
                         created_at: moment().format(),
                     };
                     try {
@@ -57,10 +59,12 @@ const SignUpForm = () => {
                         if (!data.success) {
                             setError(data.message);
                         } else {
-                            router.push("/")
+                            router.push("/");
                             dispatch({
                                 type: LOGIN,
-                                payload: { displayName: userData.name.fullName },
+                                payload: {
+                                    displayName: userData.name.fullName,
+                                },
                             });
                         }
                     } catch (e) {

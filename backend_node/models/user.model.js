@@ -53,9 +53,10 @@ const userSchema = new Schema(
         },
         name: nameSchema,
         contact: contactSchema,
-        post: String,
+        posts: [String],
         assistant: String,
         message: [String],
+        unreadMessage: [String],
         profilePic: {
             type: String,
             trim: true,

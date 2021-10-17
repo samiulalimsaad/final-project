@@ -41,8 +41,8 @@ def wishMe():
 
 def Assistant():
     body = request.get_json(force=True)
-    if "message" in body:
-        message:str = body["message"]
+    if "text" in body:
+        message:str = body["text"]
         message = message.lower()
 
         if "good bye" in message  or "bye" in message or "ok bye" in message or "stop" in message or "good night" in message:
@@ -97,4 +97,4 @@ def Assistant():
         
         return {"message": response,'success':True}
     else:
-        return {"error":"Only [message] Acceptable", 'success':False}
+        return {"error":"Only [text] Acceptable", 'success':False}

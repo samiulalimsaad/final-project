@@ -4,8 +4,11 @@ import React from "react";
 
 interface itemInterface {
     item: {
-        userName: string;
-        profileImage: string;
+        userId: string;
+        profilePic: string;
+        name:{
+            fullName:string;
+        }
     };
 }
 
@@ -13,20 +16,23 @@ const SuggestedUserBody = ({ item }: itemInterface) => {
     return (
             <div className="flex items-center p-1 text-sm transition ease-in-out duration-500 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
                 <div className="flex items-center justify-between w-full">
-                    <Link href={`/profile/${item.userName}`} passHref>
+                    <Link href={`/profile/${item.userId}`} passHref>
                         <div className="flex truncate">
-                            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-gray-500">
+                            <div className="overflow-hidden rounded-full border border-gray-500">
                                 <Image
-                                    className="w-full h-full object-center object-cover "
-                                    src={item.profileImage}
-                                    alt={item.userName}
-                                    layout="fill"
+                                    // className="absolute inset-0 h-full w-full object-center object-cover "
+                                    // src={item.profilePic || "/userIcon.png"}
+                                    src="/userIcon.png"
+                                    alt={item.name.fullName}
+                                    // layout="fill"
+                                    height={50}
+                                    width={50}
                                 />
                             </div>
                             <div className="ml-4">
-                                <h4 className="font-medium">{item.userName}</h4>
+                                <h4 className="font-medium">{item.name.fullName}</h4>
                                 <span className="font-thin text-sm">
-                                    @{item.userName.split(" ").join("_")}
+                                    @{item.userId}
                                 </span>
                             </div>
                         </div>

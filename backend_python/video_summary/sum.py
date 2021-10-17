@@ -5,7 +5,7 @@ import multiprocessing
 import os
 import re
 from itertools import starmap
-from random import randint
+from time import time
 
 import chardet
 import imageio
@@ -177,7 +177,7 @@ def get_summary(filename="1.mp4", subtitles="1.srt", vid_name='1'):
     base_dir = os.path.dirname(os.path.realpath(__file__))
     video = os.path.join(base_dir+'/video')
     output = f"{video}/"+vid_name+".mp4"
-    summary.to_videofile(output, codec="libx264", temp_audiofile=F"{filename}.m4a", remove_temp=True, audio_codec="aac")
+    summary.to_videofile(output, codec="libx264", temp_audiofile=f"{vid_name}.m4a", remove_temp=True, audio_codec="aac")
     return True
 
 
@@ -224,15 +224,11 @@ def getVideoSummarize(url, vid_name):
     mov_name, sub_name = download_video_srt(url,vid_name=vid_name)
 
     
-    summary_retrieval_process = multiprocessing.Process(target=get_summary, args=(mov_name,sub_name,vid_name))
+    summary_retrieval_process = multiprocessing.Process(target=get_summary, args=(mov_name, sub_name, vid_name,))
     summary_retrieval_process.start()
     summary_retrieval_process.join()
     os.remove(mov_name)
     os.remove(sub_name)
     print("[sum.py] Remove the original files")
     return vid_name
-
-
-
-
 

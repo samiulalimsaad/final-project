@@ -29,8 +29,8 @@ def getSummary(parser):
 
 def Text_Summary_Post():
     body = request.get_json(force=True)
-    url = body.get("url")
-    text =  body.get("text")
+    url:str = body.get("url")
+    text:str =  body.get("text")
     if url:
         if validators.url(url):
             parser = HtmlParser.from_url(url, Tokenizer(LANGUAGE))

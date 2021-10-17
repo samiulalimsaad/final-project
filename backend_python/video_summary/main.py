@@ -6,6 +6,8 @@ from flask import make_response, request, send_file
 
 from video_summary.sum import getVideoSummarize
 
+VIDEO_DIR_PATH = os.path.join(os.getcwd(), 'video_summary/video')
+os.makedirs(VIDEO_DIR_PATH, exist_ok=True)
 
 def Post_Video_Summary():
     body = request.get_json(force=True)

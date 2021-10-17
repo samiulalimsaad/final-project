@@ -3,13 +3,15 @@ import React from "react";
 
 const Conversation = () => {
     return (
-        <div className="relative rounded h-full over">
+        <div className="relative rounded h-full">
             <h4 className="bg-blue-500 text-white p-2 text-xl rounded">
                 {"Conversation Name"}
             </h4>
-            <div className="h-640 h-full bg-blue-800"></div>
+            <div className="h-640 h-full bg-gray-100">
+                
+            </div>
 
-            <div className="absolute left-0 right-0 bottom-16 ">
+            <div className="absolute left-0 right-0">
                 <form className="flex items-center justify-between ml-auto mr-auto w-full">
                     <div className="relative rounded-md shadow-sm w-full">
                         <textarea

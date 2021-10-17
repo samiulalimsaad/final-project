@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def get():
-    return {'AI_Assistant': wishMe()}
+    return {'messsage': wishMe()}
 
 @app.route('/textsum', methods=["POST"])
 def textsum():
@@ -32,4 +32,4 @@ def assistant():
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host="0.0.0.0")
+    app.run(debug=False, host="0.0.0.0", port=5000)

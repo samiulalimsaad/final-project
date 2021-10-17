@@ -1,8 +1,24 @@
+import axios from "axios";
 import Link from "next/link";
-import React from "react";
-import suggestedUser from "../../../util/suggestedUser.json";
+import React, { useEffect, useState } from "react";
+import { NODE_SERVER } from "../../../util/index";
 import SuggestedUserBody from "./suggestedUserBody";
 const Suggested = () => {
+    const [state, setState] = useState([]);
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const { data } = await axios.get(NODE_SERVER("/user/all"));
+                if (data.success) setState(data.users);
+                console.log({data})
+            } catch (error: any) {
+                console.error(error.message);
+            }
+        };
+        getData()
+    }, []);
+
     return (
         <section className="bg-gray-200 border border-gray-500 rounded overflow-hidden">
             <div>
@@ -12,8 +28,8 @@ const Suggested = () => {
                 <hr className="bg-gray-500 h-1" />
             </div>
             <div className="h-72 overflow-y-scroll">
-                {suggestedUser.splice(0, 100).map((item) => (
-                    <div key={item.userName}>
+                {state.map((item: any) => (
+                    <div key={item.userId}>
                         <SuggestedUserBody item={item} />
                         <hr className="border-b border-indigo-300" />
                     </div>

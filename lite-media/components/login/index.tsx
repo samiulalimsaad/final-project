@@ -1,9 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
 import React from "react";
+import { GetState } from "../../state/stateProvider";
+import Loading from "../progress/Loading";
 import LoginForm from "./LoginForm";
 
 export default function Login() {
+    const { loading } = GetState();
     return (
         <>
             <Head>
@@ -36,6 +39,7 @@ export default function Login() {
                     </div>
                     <LoginForm />
                 </div>
+                {loading && <Loading />}
             </div>
         </>
     );
