@@ -1,25 +1,26 @@
 const { Router } = require("express");
+const {
+    getAllPost,
+    getSinglePost,
+    createPost,
+    updatePost,
+    deletePost,
+    getPostMiddleware,
+} = require("../controllers/post.controller");
+
+const { findUserMiddleware } = require("../controllers/user.Controller");
 
 const postRoute = Router();
 
-postRoute.get("/", (req, res) => {
-    res.send(`<h1>post Route Page</h1>`);
-});
+// followers
+postRoute.get("/all", getAllPost);
 
-postRoute.get("/:id", (req, res) => {
-    res.send(`<h1>post Route Page</h1>`);
-});
+postRoute.get("/:id", findUserMiddleware, getPostMiddleware, getSinglePost);
 
-postRoute.post("/", (req, res) => {
-    res.send(`<h1>post Route Page</h1>`);
-});
+postRoute.post("/:id", findUserMiddleware, createPost);
 
-postRoute.put("/", (req, res) => {
-    res.send(`<h1>post Route Page</h1>`);
-});
+postRoute.put("/:id", findUserMiddleware, getPostMiddleware, updatePost);
 
-postRoute.delete("/", (req, res) => {
-    res.send(`<h1>post Route Page</h1>`);
-});
+postRoute.delete("/:id", findUserMiddleware, getPostMiddleware, deletePost);
 
 module.exports = postRoute;

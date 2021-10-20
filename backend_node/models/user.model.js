@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const postSchema = require("./post.model");
 
 const nameSchema = new Schema({
     firstName: {
@@ -27,19 +28,14 @@ const addressSchema = new Schema({
 });
 
 const contactSchema = new Schema({
-    tel: [Number],
+    tel: [String],
     email: [String],
     address: addressSchema,
 });
 
 const userSchema = new Schema(
     {
-        userId: {
-            type: String,
-            trim: true,
-            required: true,
-            unique: true,
-        },
+        _id: String,
         email: {
             type: String,
             trim: true,
@@ -53,7 +49,7 @@ const userSchema = new Schema(
         },
         name: nameSchema,
         contact: contactSchema,
-        posts: [String],
+        post: [{ type: Schema.Types.String, ref: "User" }],
         assistant: String,
         message: [String],
         unreadMessage: [String],
@@ -65,29 +61,13 @@ const userSchema = new Schema(
             type: String,
             trim: true,
         },
-        following: [
-            {
-                type: String,
-                trim: true,
-            },
-        ],
-        follower: [
-            {
-                type: String,
-                trim: true,
-            },
-        ],
-        posts: [
-            {
-                type: String,
-                trim: true,
-            },
-        ],
+        following: [{ type: Schema.Types.String, ref: "User" }],
+        follower: [{ type: Schema.Types.String, ref: "User" }],
     },
-    { timestamps: true }
+    { timestamps: true, _id: false }
 );
 
-const userModel = model("testUser", userSchema);
+const userModel = model("User", userSchema);
 // console.log(JSON.stringify(userSchema, null, 4));
 
 module.exports = userModel;
