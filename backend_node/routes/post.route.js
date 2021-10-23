@@ -13,7 +13,7 @@ const { findUserMiddleware } = require("../controllers/user.Controller");
 const postRoute = Router();
 
 // followers
-postRoute.get("/all", getAllPost);
+postRoute.get("/all/:id",findUserMiddleware, getAllPost);
 
 postRoute.get("/:id", findUserMiddleware, getPostMiddleware, getSinglePost);
 

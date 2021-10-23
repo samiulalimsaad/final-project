@@ -1,33 +1,25 @@
 const userModel = require("../models/user.model");
 
-exports.getAllBookmarks = async (req, res) => {
-    const bookmarks = await userModel
-        .findById(req.params.id)
-        .select("bookmark");
+exports.getActiveUser = async (req, res) => {
+    const users = await userModel.find().select("_id active");
+    const suggestedUser = users.filter(
+        (v) => v._id !== req.params.id && v.active
+    );
     return res.json({
-        bookmarks: bookmarks.bookmark,
+        suggestedUser,
         success: true,
-        message: "All Bookmarks",
+        message: "Suggested Users",
     });
 };
 
-const isBookmark = (res)=>{
-    return res.json({
-            success: false,
-            message: "Only Bookmark Allow",
-        });
-}
-
-exports.addBookmark = async (req, res) => {
+exports.setActive = async (req, res) => {
     try {
-        if (!req.body.bookmark) isBookmark(res);
-        const data = {
-            bookmark: [req.body.bookmark],
-        };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
             {
-                $push: data,
+                $set: {
+                    active: true,
+                },
             },
             {
                 new: true,
@@ -36,7 +28,7 @@ exports.addBookmark = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "Bookmark Added Successfully",
+            message: "Follower Added Successfully",
         });
     } catch (error) {
         const errors = Object.keys(error.errors).map((v) => ({
@@ -46,16 +38,14 @@ exports.addBookmark = async (req, res) => {
     }
 };
 
-exports.removeBookmark = async (req, res) => {
+exports.setDeactive = async (req, res) => {
     try {
-        if(!req.body.bookmark)  isBookmark(res)
-        const data = {
-            bookmark: [req.body.bookmark],
-        };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
             {
-                $pullAll: data,
+                $set: {
+                    active: false,
+                },
             },
             {
                 new: true,
@@ -64,7 +54,7 @@ exports.removeBookmark = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "Bookmark Removed Successfully",
+            message: "Follower Added Successfully",
         });
     } catch (error) {
         const errors = Object.keys(error.errors).map((v) => ({

@@ -1,8 +1,6 @@
 const { Router } = require("express");
 const { getAllBookmarks, addBookmark } = require("../controllers/bookmark.controller");
 const {
-    getAllFollowers,
-    addFollower,
     removeFollower,
 } = require("../controllers/follower.controller");
 const { findUserMiddleware } = require("../controllers/user.Controller");

@@ -21,6 +21,5 @@ const postSchema = new Schema(
 );
 
 const postModel = model("Post", postSchema);
-// console.log(JSON.stringify(postModel, null, 4));
 
 module.exports = postModel;

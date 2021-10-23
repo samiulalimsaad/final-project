@@ -1,5 +1,4 @@
 const { Schema, model } = require("mongoose");
-const postSchema = require("./post.model");
 
 const nameSchema = new Schema({
     firstName: {
@@ -69,6 +68,5 @@ const userSchema = new Schema(
 );
 
 const userModel = model("User", userSchema);
-// console.log(JSON.stringify(userSchema, null, 4));
 
 module.exports = userModel;

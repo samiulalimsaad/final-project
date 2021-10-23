@@ -3,7 +3,7 @@ const userModel = require("../models/user.model");
 exports.findUserMiddleware = async (req, res, next) => {
     const user = await userModel.findById(req.params.id);
     if (user) next();
-    else return res.json({ message: "User Not Found", success: false });
+    else return res.json({ message: "User Not Found / Unauthenticated User", success: false });
 };
 
 exports.getAllUser = async (_req, res) => {
@@ -14,7 +14,6 @@ exports.getAllUser = async (_req, res) => {
 };
 
 exports.getSingleUser = async (req, res) => {
-    console.log({ userId: req.params });
     const user = await userModel
         .findById(req.params.id)
         .populate("post follower following");
@@ -24,7 +23,6 @@ exports.getSingleUser = async (req, res) => {
 exports.createUser = async (req, res) => {
     try {
         const data = req.body;
-        console.log(data);
         const user = new userModel(data);
         await user.save((error, v) => {
             if (error) {

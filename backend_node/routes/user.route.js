@@ -10,7 +10,7 @@ const {
 
 const userRoute = Router();
 
-userRoute.get("/all", getAllUser);
+userRoute.get("/all/:id", findUserMiddleware, getAllUser);
 
 userRoute.get("/:id", findUserMiddleware, getSingleUser);
 

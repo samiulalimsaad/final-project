@@ -2,7 +2,6 @@ const postModel = require("../models/post.model");
 const userModel = require("../models/user.model");
 
 exports.getPostMiddleware = async (req, res, next) => {
-    console.log({ userId: req.params });
     const post = await postModel.findById(req.body.postId);
     if (post) next();
     else return res.json({ message: "post Not Found", success: false });
@@ -14,7 +13,6 @@ exports.getAllPost = async (_req, res) => {
 };
 
 exports.getSinglePost = async (req, res) => {
-    console.log({ userId: req.params });
     const post = await postModel.findById(req.body.postId).populate("user");
     return res.json({ post, success: true, message: "post Found" });
 };
@@ -23,9 +21,7 @@ exports.createPost = async (req, res) => {
     try {
         const data = req.body;
         data.user = req.params.id;
-        console.log(data);
         const post = new postModel(data);
-        console.log(post);
         await post.save(async (error, v) => {
             if (error) {
                 console.error({ error });
@@ -53,9 +49,7 @@ exports.updatePost = async (req, res) => {
     try {
         const data = req.body;
         const id = req.body.postId;
-        console.log(data);
         delete data.postId;
-        console.log(id);
         const post = await postModel.findByIdAndUpdate(
             id,
             {

@@ -11,6 +11,7 @@ const followerRoute = require("./routes/follower.route");
 const followingRoute = require("./routes/following.route");
 const bookmarkRoute = require("./routes/bookmark.route");
 const suggestedUserRoute = require("./routes/suggested.route");
+const activeUserRoute = require("./routes/activeUser.route");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/follower", followerRoute);
 app.use("/following", followingRoute);
 app.use("/bookmark", bookmarkRoute);
 app.use("/suggested-user", suggestedUserRoute);
+app.use("/active-user", activeUserRoute);
 
 app.get("*", (_, res) => {
     res.send(
@@ -51,5 +53,4 @@ app.listen(PORT, () => {
         .catch((e) => {
             console.error(e);
         });
-    // mongoose.connect("mongodb://localhost:27017/test");
 });

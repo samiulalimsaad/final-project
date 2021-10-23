@@ -1,9 +1,5 @@
 const { Router } = require("express");
-const {
-    getAllBookmarks,
-    addBookmark,
-} = require("../controllers/bookmark.controller");
-const { getSuggestedUser } = require("../controllers/suhhested.controller");
+const { getSuggestedUser } = require("../controllers/suggested.controller");
 const { findUserMiddleware } = require("../controllers/user.Controller");
 
 const suggestedUserRoute = Router();

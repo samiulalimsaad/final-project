@@ -4,7 +4,6 @@ exports.getAllFollowers = async (req, res) => {
     const followers = await userModel
         .findById(req.params.id)
         .select("follower");
-    console.log(followers);
     return res.json({
         followers: followers.follower,
         success: true,
@@ -25,7 +24,6 @@ exports.addFollower = async (req, res) => {
         const data = {
             follower: [req.body.follower],
         };
-        console.log(data);
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
             {
