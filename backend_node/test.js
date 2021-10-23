@@ -37,5 +37,5 @@
 let c = [1, 2, 3, 4, 5, 6];
 console.log(c);
 let cc = c.splice(1, 2);
-console.log(c);
+console.log(c.in);
 console.log(cc);

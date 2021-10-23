@@ -9,6 +9,8 @@ const postRoute = require("./routes/post.route");
 const userRoute = require("./routes/user.route");
 const followerRoute = require("./routes/follower.route");
 const followingRoute = require("./routes/following.route");
+const bookmarkRoute = require("./routes/bookmark.route");
+const suggestedUserRoute = require("./routes/suggested.route");
 
 const app = express();
 
@@ -24,6 +26,8 @@ app.use("/user", userRoute);
 app.use("/post", postRoute);
 app.use("/follower", followerRoute);
 app.use("/following", followingRoute);
+app.use("/bookmark", bookmarkRoute);
+app.use("/suggested-user", suggestedUserRoute);
 
 app.get("*", (_, res) => {
     res.send(
