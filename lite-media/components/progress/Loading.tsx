@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import React from "react";
+import React,{memo} from "react";
 
 const Loading = () => {
     return (
@@ -18,4 +18,4 @@ const Loading = () => {
     );
 };
 
-export default Loading;
+export default memo(Loading);

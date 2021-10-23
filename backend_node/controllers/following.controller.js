@@ -2,21 +2,32 @@ const userModel = require("../models/user.model");
 
 exports.getAllFollowing = async (req, res) => {
     const followings = await userModel
-        .findOne({ userId: req.params.id }, { _id: 0 })
+        .findById(req.params.id)
         .select("following");
     console.log(followings);
-    res.json({
+    return res.json({
         followings: followings.following,
         success: true,
         message: "All followings",
     });
 };
 
+const isFollowing = (res) => {
+    return res.json({
+        success: false,
+        message: "Only Following Allow",
+    });
+};
+
 exports.addFollowing = async (req, res) => {
     try {
-        const data = req.body;
-        const user = await userModel.findOneAndUpdate(
-            { userId: req.params.id },
+        if (!req.body.following) isFollowing(res);
+        const data = {
+            following: [req.body.following],
+        };
+        console.log(data);
+        const user = await userModel.findByIdAndUpdate(
+            req.params.id,
             {
                 $push: data,
             },
@@ -27,20 +38,23 @@ exports.addFollowing = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "User Updated Successfully",
+            message: "Following Added Successfully",
         });
     } catch (error) {
         const errors = Object.keys(error.errors).map((v) => ({
             [v]: error.errors[v].message,
         }));
-        res.json({ message: JSON.stringify(errors), success: true });
+        return res.json({ message: JSON.stringify(errors), success: true });
     }
 };
 
 exports.removeFollowing = async (req, res) => {
     try {
-        const data = req.body;
-        const user = await userModel.findOneAndUpdate(
+        if (!req.body.following) isFollowing(res);
+        const data = {
+            following: [req.body.following],
+        };
+        const user = await userModel.findByIdAndUpdate(
             req.params.id,
             {
                 $pullAll: data,
@@ -52,12 +66,12 @@ exports.removeFollowing = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "User Updated Successfully",
+            message: "Following Removed Successfully",
         });
     } catch (error) {
         const errors = Object.keys(error.errors).map((v) => ({
             [v]: error.errors[v].message,
         }));
-        res.json({ message: JSON.stringify(errors), success: true });
+        return res.json({ message: JSON.stringify(errors), success: true });
     }
 };

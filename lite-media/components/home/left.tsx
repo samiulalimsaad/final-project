@@ -11,7 +11,7 @@ import Link from "next/link";
 import React from "react";
 import { GetState } from "../../state/stateProvider";
 import { CREATE_POST } from "../../state/types";
-import Assistant from "./Assistant";
+import Assistant from "./assistant";
 const bar = [
     {
         name: "Home",
@@ -22,11 +22,6 @@ const bar = [
         name: "Explore",
         icon: <HashtagIcon className="h-6 w-6" aria-hidden="true" />,
         link: "/explore",
-    },
-    {
-        name: "Notification",
-        icon: <BellIcon className="h-6 w-6" aria-hidden="true" />,
-        link: "/notification",
     },
     {
         name: "Message",

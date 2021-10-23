@@ -1,10 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
+import React, { Fragment,memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import { CLOSE_MODAL } from "../../state/types";
 import MyEditor from "./TextEditor";
 
-export default function CreatPost() {
+const CreatPost=()=> {
     const { createPost, dispatch } = GetState();
     const [editorState, setEditorState] = React.useState("");
 
@@ -89,3 +89,4 @@ export default function CreatPost() {
         </Transition>
     );
 }
+export default memo(CreatPost)

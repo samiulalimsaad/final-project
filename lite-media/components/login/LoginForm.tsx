@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState,memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import { LOADING, LOGIN } from "../../state/types";
 import { NODE_SERVER } from "../../util";
@@ -161,4 +161,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default memo(LoginForm);

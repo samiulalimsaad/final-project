@@ -1,6 +1,6 @@
 import axios from "axios";
 import { collection, getDocs } from "firebase/firestore";
-import { useEffect } from "react";
+import { useEffect,memo } from "react";
 import { db } from "../../firebase";
 import { NODE_SERVER } from "../../util";
 const Message = ({ conversationId }: { conversationId: string }) => {
@@ -15,8 +15,8 @@ const Message = ({ conversationId }: { conversationId: string }) => {
             }
         };
         getData();
-    }, []);
+    }, [conversationId]);
     return <div>Enter</div>;
 };
 
-export default Message;
+export default memo(Message);

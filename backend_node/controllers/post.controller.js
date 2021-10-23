@@ -5,18 +5,18 @@ exports.getPostMiddleware = async (req, res, next) => {
     console.log({ userId: req.params });
     const post = await postModel.findById(req.body.postId);
     if (post) next();
-    else res.json({ message: "post Not Found", success: false });
+    else return res.json({ message: "post Not Found", success: false });
 };
 
 exports.getAllPost = async (_req, res) => {
-    const posts = await postModel.find();
-    res.json({ posts, success: true, message: "All posts" });
+    const posts = await postModel.find().populate("user");
+    return res.json({ posts, success: true, message: "All posts" });
 };
 
 exports.getSinglePost = async (req, res) => {
     console.log({ userId: req.params });
-    const post = await postModel.findById(req.body.postId);
-    res.json({ post, success: true, message: "post Found" });
+    const post = await postModel.findById(req.body.postId).populate("user");
+    return res.json({ post, success: true, message: "post Found" });
 };
 
 exports.createPost = async (req, res) => {
@@ -45,7 +45,7 @@ exports.createPost = async (req, res) => {
             [v]: error.errors[v].message,
         }));
         console.error({ errors });
-        res.json({ message: JSON.stringify(errors), success: true });
+        return res.json({ message: JSON.stringify(errors), success: true });
     }
 };
 
@@ -53,9 +53,9 @@ exports.updatePost = async (req, res) => {
     try {
         const data = req.body;
         const id = req.body.postId;
-        console.log(data)
+        console.log(data);
         delete data.postId;
-        console.log(id)
+        console.log(id);
         const post = await postModel.findByIdAndUpdate(
             id,
             {
@@ -75,7 +75,7 @@ exports.updatePost = async (req, res) => {
             [v]: error.errors[v].message,
         }));
         console.error({ errors });
-        res.json({ message: JSON.stringify(errors), success: true });
+        return res.json({ message: JSON.stringify(errors), success: true });
     }
 };
 
@@ -99,6 +99,6 @@ exports.deletePost = async (req, res) => {
         }
     } catch (error) {
         console.error({ error });
-        res.json({ message: error.message, success: false });
+        return res.json({ message: error.message, success: false });
     }
 };

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React,{memo} from "react";
 
 const Conversation = () => {
     return (
@@ -40,4 +40,4 @@ const Conversation = () => {
     );
 };
 
-export default Conversation;
+export default memo(Conversation);

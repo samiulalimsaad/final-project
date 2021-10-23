@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import React from "react";
+import React,{memo} from "react";
 
 const Progressbar = () => {
     const [progress, setProgress] = React.useState(20);
@@ -27,4 +27,4 @@ const Progressbar = () => {
         );
 };
 
-export default Progressbar;
+export default memo(Progressbar);

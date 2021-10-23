@@ -1,26 +1,29 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure } from "@headlessui/react";
-import { LogoutIcon, SearchIcon, XIcon } from "@heroicons/react/outline";
+import { SearchIcon, XIcon } from "@heroicons/react/outline";
+import { getAuth, signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import {useRouter} from "next/router";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import Progressbar from "../progress/progressbar";
+import MenuItems from "./menuItems";
 import Notification from "./notification";
-import { getAuth,signOut } from 'firebase/auth';
 
-export default function Navbar() {
+const Navbar = () => {
     const { createPost } = GetState();
-    const route = useRouter()
-    const logOut=()=>{
-        const auth = getAuth()
-        signOut(auth).then(()=>{
-            route.push("/login")
-        }).catch(e=>{
-            console.error(e.message)
-        })
-    }
+    const route = useRouter();
+    const logOut = () => {
+        const auth = getAuth();
+        signOut(auth)
+            .then(() => {
+                route.push("/login");
+            })
+            .catch((e) => {
+                console.error(e.message);
+            });
+    };
 
     return (
         <Disclosure as="nav" className="bg-gray-800">
@@ -68,18 +71,12 @@ export default function Navbar() {
                     </div>
                     <div className="mr-4 absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-10">
                         <Notification />
-                        {/* <MenuItems /> */}
-                        <button className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white ml-2">
-                            <LogoutIcon
-                                className="h-6 w-6 "
-                                aria-hidden="true"
-                                onClick={logOut}
-                            />
-                        </button>
+                        <MenuItems />
                     </div>
                 </div>
             </div>
             {createPost && <Progressbar />}
         </Disclosure>
     );
-}
+};
+export default memo(Navbar);

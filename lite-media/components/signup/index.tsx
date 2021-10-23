@@ -1,11 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import React from "react";
+import React,{memo} from "react";
 import { GetState } from "../../state/stateProvider";
 import Loading from "../progress/Loading";
 import SignUpForm from "./SignupForm";
 
-export default function SignUp() {
+const SignUp = () =>{
     const {loading}=GetState()
     return (
         <>
@@ -44,3 +44,4 @@ export default function SignUp() {
         </>
     );
 }
+export default memo(SignUp)

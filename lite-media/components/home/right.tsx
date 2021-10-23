@@ -2,7 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import React from "react";
 import Suggested from "./ExploreUser";
-import Trends from "./trends";
+import Trends from "./activeFriends";
+import ActiveFriends from "./activeFriends";
 
 const RightSide: NextPage = () => {
     return (
@@ -17,7 +18,7 @@ const RightSide: NextPage = () => {
             </Head> */}
             <section className="pt-1 h-screen drop-shadow-md">
                <Suggested/>
-               <Trends/>
+               <ActiveFriends/>
             </section>
         </div>
     );

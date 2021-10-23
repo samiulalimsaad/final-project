@@ -73,7 +73,7 @@ const index = ({ conversationName }) => {
                     totalUnread:conversationName.totalUnread+1
                 });
                 })
-                .catch((error) => {
+                .catch((error: any) => {
                     console.log(error);
                 });
         }

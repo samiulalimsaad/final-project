@@ -49,7 +49,7 @@ const userSchema = new Schema(
         },
         name: nameSchema,
         contact: contactSchema,
-        post: [{ type: Schema.Types.String, ref: "User" }],
+        post: [{ type: Schema.Types.ObjectId, ref: "Post" }],
         assistant: String,
         message: [String],
         unreadMessage: [String],

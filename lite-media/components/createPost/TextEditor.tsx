@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, {memo, useEffect, useRef } from "react";
 
 interface myEditorInterface{
     editorState:string;
     setEditorState:any;
 }
 
-export default function MyEditor({editorState, setEditorState}:myEditorInterface) {
+const MyEditor = ({editorState, setEditorState}:myEditorInterface) =>{
     const ref = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
@@ -22,3 +22,4 @@ export default function MyEditor({editorState, setEditorState}:myEditorInterface
         />
     );
 }
+export default  memo(MyEditor)

@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { memo } from "react";
 import Home from "../components/home/index";
 import Main from "../components/home/main";
 import Navbar from "../components/navbar";
@@ -18,4 +19,4 @@ const Index: NextPage = () => {
     );
 };
 
-export default Index;
+export default memo(Index);

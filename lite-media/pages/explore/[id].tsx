@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
+import { memo } from "react";
 import Explore from "../../components/explore";
 import Home from "../../components/home/index";
 import Navbar from "../../components/navbar";
-import {useRouter} from 'next/router'
-import posts from '../../util/posts.json'
 
 const Index: NextPage = () => {
-    const id = useRouter().query.id
-    console.log(id)
+    const id = useRouter().query.id;
+    console.log(id);
 
     return (
         <>
@@ -23,4 +23,4 @@ const Index: NextPage = () => {
     );
 };
 
-export default Index;
+export default memo(Index);

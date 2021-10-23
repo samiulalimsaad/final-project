@@ -5,7 +5,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useState,memo } from "react";
 import { db } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
 import { LOADING, LOGIN } from "../../state/types";
@@ -257,4 +257,4 @@ const SignUpForm = () => {
     );
 };
 
-export default SignUpForm;
+export default memo(SignUpForm);

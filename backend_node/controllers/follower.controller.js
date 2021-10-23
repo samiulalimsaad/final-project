@@ -5,15 +5,23 @@ exports.getAllFollowers = async (req, res) => {
         .findById(req.params.id)
         .select("follower");
     console.log(followers);
-    res.json({
+    return res.json({
         followers: followers.follower,
         success: true,
         message: "All followers",
     });
 };
 
+const isFollower = (res)=>{
+    return res.json({
+            success: false,
+            message: "Only Follower Allow",
+        });
+}
+
 exports.addFollower = async (req, res) => {
     try {
+        if (!req.body.follower) isFollower(res);
         const data = {
             follower: [req.body.follower],
         };
@@ -30,19 +38,22 @@ exports.addFollower = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "User Updated Successfully",
+            message: "Follower Added Successfully",
         });
     } catch (error) {
         const errors = Object.keys(error.errors).map((v) => ({
             [v]: error.errors[v].message,
         }));
-        res.json({ message: JSON.stringify(errors), success: true });
+        return res.json({ message: JSON.stringify(errors), success: true });
     }
 };
 
 exports.removeFollower = async (req, res) => {
     try {
-        const data = req.body;
+        if(!req.body.follower)  isFollower(res)
+        const data = {
+            follower: [req.body.follower],
+        };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
             {
@@ -55,12 +66,12 @@ exports.removeFollower = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "User Updated Successfully",
+            message: "Follower Removed Successfully",
         });
     } catch (error) {
         const errors = Object.keys(error.errors).map((v) => ({
             [v]: error.errors[v].message,
         }));
-        res.json({ message: JSON.stringify(errors), success: true });
+        return res.json({ message: JSON.stringify(errors), success: true });
     }
 };

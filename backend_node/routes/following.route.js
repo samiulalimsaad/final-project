@@ -11,7 +11,7 @@ const followingRoute = Router();
 // followers
 followingRoute.get("/:id", findUserMiddleware, getAllFollowing);
 
-followingRoute.put("/:id", findUserMiddleware, addFollowing);
+followingRoute.post("/:id", findUserMiddleware, addFollowing);
 
 followingRoute.delete("/:id", findUserMiddleware, removeFollowing);
 

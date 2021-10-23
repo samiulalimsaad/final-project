@@ -3,19 +3,22 @@ const userModel = require("../models/user.model");
 exports.findUserMiddleware = async (req, res, next) => {
     const user = await userModel.findById(req.params.id);
     if (user) next();
-    else res.json({ message: "user Not Found", success: false });
+    else return res.json({ message: "User Not Found", success: false });
 };
 
 exports.getAllUser = async (_req, res) => {
-    const users = await userModel.find();
-    res.json({ users, success: true, message: "All Users" });
+    const users = await userModel
+        .find()
+        .populate(["post", "follower", "following"]);
+    return res.json({ users, success: true, message: "All Users" });
 };
-
 
 exports.getSingleUser = async (req, res) => {
     console.log({ userId: req.params });
-    const user = await userModel.findById(req.params.id).populate("post follower following");
-    res.json({ user, success: true, message: "user Found" });
+    const user = await userModel
+        .findById(req.params.id)
+        .populate("post follower following");
+    return res.json({ user, success: true, message: "user Found" });
 };
 
 exports.createUser = async (req, res) => {
@@ -39,7 +42,7 @@ exports.createUser = async (req, res) => {
             [v]: error.errors[v].message,
         }));
         console.error({ errors });
-        res.json({ message: JSON.stringify(errors), success: true });
+        return res.json({ message: JSON.stringify(errors), success: false });
     }
 };
 
@@ -61,11 +64,8 @@ exports.updateUser = async (req, res) => {
             message: "User Updated Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        console.error({ errors });
-        res.json({ message: JSON.stringify(errors), success: true });
+        console.error(error.message);
+        return res.json({ error: error.message, success: false });
     }
 };
 
@@ -79,6 +79,6 @@ exports.deleteUser = async (req, res) => {
         });
     } catch (error) {
         console.error({ error });
-        res.json({ message: error.message, success: false });
+        return res.json({ message: error.message, success: false });
     }
 };

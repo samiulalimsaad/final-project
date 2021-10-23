@@ -10,7 +10,7 @@ const followerRoute = Router();
 // followers
 followerRoute.get("/:id", findUserMiddleware, getAllFollowers);
 
-followerRoute.put("/:id", findUserMiddleware, addFollower);
+followerRoute.post("/:id", findUserMiddleware, addFollower);
 
 followerRoute.delete("/:id", findUserMiddleware, removeFollower);
 
