@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const { sendError } = require("../utils/sendError");
 
 exports.getAllFollowing = async (req, res) => {
     const followings = await userModel
@@ -39,10 +40,7 @@ exports.addFollowing = async (req, res) => {
             message: "Following Added Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };
 
@@ -67,9 +65,6 @@ exports.removeFollowing = async (req, res) => {
             message: "Following Removed Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };

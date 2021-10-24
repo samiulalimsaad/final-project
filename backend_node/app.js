@@ -12,6 +12,7 @@ const followingRoute = require("./routes/following.route");
 const bookmarkRoute = require("./routes/bookmark.route");
 const suggestedUserRoute = require("./routes/suggested.route");
 const activeUserRoute = require("./routes/activeUser.route");
+const storyRoute = require("./routes/story.route");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use("/following", followingRoute);
 app.use("/bookmark", bookmarkRoute);
 app.use("/suggested-user", suggestedUserRoute);
 app.use("/active-user", activeUserRoute);
+app.use("/story", storyRoute);
 
 app.get("*", (_, res) => {
     res.send(

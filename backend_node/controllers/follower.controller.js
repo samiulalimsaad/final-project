@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const { sendError } = require("../utils/sendError");
 
 exports.getAllFollowers = async (req, res) => {
     const followers = await userModel
@@ -11,12 +12,12 @@ exports.getAllFollowers = async (req, res) => {
     });
 };
 
-const isFollower = (res)=>{
+const isFollower = (res) => {
     return res.json({
-            success: false,
-            message: "Only Follower Allow",
-        });
-}
+        success: false,
+        message: "Only Follower Allow",
+    });
+};
 
 exports.addFollower = async (req, res) => {
     try {
@@ -39,16 +40,13 @@ exports.addFollower = async (req, res) => {
             message: "Follower Added Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };
 
 exports.removeFollower = async (req, res) => {
     try {
-        if(!req.body.follower)  isFollower(res)
+        if (!req.body.follower) isFollower(res);
         const data = {
             follower: [req.body.follower],
         };
@@ -67,9 +65,6 @@ exports.removeFollower = async (req, res) => {
             message: "Follower Removed Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };

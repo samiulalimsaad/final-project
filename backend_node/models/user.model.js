@@ -31,6 +31,18 @@ const contactSchema = new Schema({
     email: [String],
     address: addressSchema,
 });
+const storySchema = new Schema(
+    {
+        image: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        user:{ type: Schema.Types.String, ref: "User" },
+        expired: String,
+    },
+    { timestamps: true }
+);
 
 const userSchema = new Schema(
     {
@@ -50,6 +62,7 @@ const userSchema = new Schema(
         contact: contactSchema,
         post: [{ type: Schema.Types.ObjectId, ref: "Post" }],
         bookmark: [{ type: Schema.Types.ObjectId, ref: "Post" }],
+        story: [storySchema],
         assistant: String,
         message: [String],
         unreadMessage: [String],

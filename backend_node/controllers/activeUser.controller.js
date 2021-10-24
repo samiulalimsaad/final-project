@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const { sendError } = require("../utils/sendError");
 
 exports.getActiveUser = async (req, res) => {
     const users = await userModel.find().select("_id active");
@@ -31,10 +32,7 @@ exports.setActive = async (req, res) => {
             message: "Follower Added Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };
 
@@ -57,9 +55,6 @@ exports.setDeactive = async (req, res) => {
             message: "Follower Added Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };

@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const { sendError } = require("../utils/sendError");
 
 exports.getAllBookmarks = async (req, res) => {
     const bookmarks = await userModel
@@ -11,12 +12,12 @@ exports.getAllBookmarks = async (req, res) => {
     });
 };
 
-const isBookmark = (res)=>{
+const isBookmark = (res) => {
     return res.json({
-            success: false,
-            message: "Only Bookmark Allow",
-        });
-}
+        success: false,
+        message: "Only Bookmark Allow",
+    });
+};
 
 exports.addBookmark = async (req, res) => {
     try {
@@ -39,16 +40,13 @@ exports.addBookmark = async (req, res) => {
             message: "Bookmark Added Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };
 
 exports.removeBookmark = async (req, res) => {
     try {
-        if(!req.body.bookmark)  isBookmark(res)
+        if (!req.body.bookmark) isBookmark(res);
         const data = {
             bookmark: [req.body.bookmark],
         };
@@ -67,9 +65,6 @@ exports.removeBookmark = async (req, res) => {
             message: "Bookmark Removed Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };

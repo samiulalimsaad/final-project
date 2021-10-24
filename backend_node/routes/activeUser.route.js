@@ -3,9 +3,11 @@ const { getActiveUser, setDeactive, setActive } = require("../controllers/active
 const { findUserMiddleware } = require("../controllers/user.Controller");
 
 const activeUserRoute = Router();
-// followers
+
 activeUserRoute.get("/:id", findUserMiddleware, getActiveUser);
+
 activeUserRoute.post("/:id", findUserMiddleware, setActive);
+
 activeUserRoute.delete("/:id", findUserMiddleware, setDeactive);
 
 module.exports = activeUserRoute;

@@ -6,7 +6,7 @@ const {
 const { findUserMiddleware } = require("../controllers/user.Controller");
 
 const bookmarkRoute = Router();
-// followers
+
 bookmarkRoute.get("/:id", findUserMiddleware, getAllBookmarks);
 
 bookmarkRoute.post("/:id", findUserMiddleware, addBookmark);

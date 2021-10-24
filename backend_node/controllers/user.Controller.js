@@ -1,9 +1,14 @@
 const userModel = require("../models/user.model");
+const { sendError } = require("../utils/sendError");
 
 exports.findUserMiddleware = async (req, res, next) => {
     const user = await userModel.findById(req.params.id);
     if (user) next();
-    else return res.json({ message: "User Not Found / Unauthenticated User", success: false });
+    else
+        return res.json({
+            message: "User Not Found / Unauthenticated User",
+            success: false,
+        });
 };
 
 exports.getAllUser = async (_req, res) => {
@@ -36,11 +41,7 @@ exports.createUser = async (req, res) => {
             });
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        console.error({ errors });
-        return res.json({ message: JSON.stringify(errors), success: false });
+        sendError(res, error);
     }
 };
 
@@ -62,8 +63,7 @@ exports.updateUser = async (req, res) => {
             message: "User Updated Successfully",
         });
     } catch (error) {
-        console.error(error.message);
-        return res.json({ error: error.message, success: false });
+        sendError(res, error);
     }
 };
 
@@ -76,7 +76,6 @@ exports.deleteUser = async (req, res) => {
             message: "User Deleted Successfully",
         });
     } catch (error) {
-        console.error({ error });
-        return res.json({ message: error.message, success: false });
+        sendError(res, error);
     }
 };

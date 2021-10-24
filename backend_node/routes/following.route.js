@@ -8,7 +8,6 @@ const { findUserMiddleware } = require("../controllers/user.Controller");
 
 const followingRoute = Router();
 
-// followers
 followingRoute.get("/:id", findUserMiddleware, getAllFollowing);
 
 followingRoute.post("/:id", findUserMiddleware, addFollowing);

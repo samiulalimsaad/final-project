@@ -1,5 +1,6 @@
 const postModel = require("../models/post.model");
 const userModel = require("../models/user.model");
+const { sendError } = require("../utils/sendError");
 
 exports.getPostMiddleware = async (req, res, next) => {
     const post = await postModel.findById(req.body.postId);
@@ -24,8 +25,7 @@ exports.createPost = async (req, res) => {
         const post = new postModel(data);
         await post.save(async (error, v) => {
             if (error) {
-                console.error({ error });
-                return res.json({ message: error.message, success: false });
+                sendError(res, error);
             }
             const userPost = await userModel.findById(req.params.id);
             userPost.post.push(post);
@@ -37,11 +37,7 @@ exports.createPost = async (req, res) => {
             });
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        console.error({ errors });
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };
 
@@ -65,11 +61,7 @@ exports.updatePost = async (req, res) => {
             message: "post Updated Successfully",
         });
     } catch (error) {
-        const errors = Object.keys(error.errors).map((v) => ({
-            [v]: error.errors[v].message,
-        }));
-        console.error({ errors });
-        return res.json({ message: JSON.stringify(errors), success: true });
+        sendError(res, error);
     }
 };
 
@@ -92,7 +84,6 @@ exports.deletePost = async (req, res) => {
             });
         }
     } catch (error) {
-        console.error({ error });
-        return res.json({ message: error.message, success: false });
+        sendError(res, error);
     }
 };
