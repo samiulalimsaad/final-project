@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState,memo } from "react";
+import React, { memo, useState } from "react";
 import { GetState } from "../../state/stateProvider";
 import { LOADING, LOGIN } from "../../state/types";
 import { NODE_SERVER } from "../../util";
@@ -34,13 +34,14 @@ const LoginForm = () => {
                         if (!data.success) {
                             setError(data.message);
                         } else {
-                            router.push("/");
                             dispatch({
                                 type: LOGIN,
                                 payload: {
                                     displayName: data.user.name.fullName,
+                                    uid: data.user._id,
                                 },
                             });
+                            router.push("/");
                         }
                     } catch (e) {
                         console.error("Error adding document: ", e);

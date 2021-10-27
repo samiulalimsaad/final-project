@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import trends from "../../util/trends.json";
 const ActiveFriends = () => {
     return (
@@ -56,4 +56,4 @@ const ActiveFriends = () => {
     );
 };
 
-export default ActiveFriends;
+export default memo(ActiveFriends);

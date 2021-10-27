@@ -35,7 +35,6 @@ const PostHeader = ({
         setStop(p=>!p)
         !stop && speechSynthesis.pause()
         speechSynthesis.speak(new SpeechSynthesisUtterance("Hello World"));
-        // !stop && console.log("Hello World")
  
     };
 

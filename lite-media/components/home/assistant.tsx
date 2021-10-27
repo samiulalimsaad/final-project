@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Conversation from "../message/index";
 const Assistant = () => {
     return (
@@ -7,4 +8,4 @@ const Assistant = () => {
     );
 };
 
-export default Assistant;
+export default memo(Assistant);

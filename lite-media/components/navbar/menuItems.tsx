@@ -1,12 +1,17 @@
+import { signOut,getAuth } from "@firebase/auth";
 import { Menu, Transition } from "@headlessui/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { Fragment,memo } from "react";
+import React, { Fragment, memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import { classNames } from "../../util";
 
 const MenuItems = () => {
     const { displayName } = GetState();
+    const logOut=()=>{
+        signOut(getAuth())
+    }
+
     return (
         <Menu as="div" className="ml-3 relative">
             <div>
@@ -41,7 +46,9 @@ const MenuItems = () => {
                                         "block px-4 py-2 text-sm text-gray-700"
                                     )}
                                 >
-                                    Your Profile
+
+                                    {displayName}
+                                    {/* Your Profile <span className="text-xs">{displayName}</span> */}
                                 </a>
                             </Link>
                         )}
@@ -61,15 +68,19 @@ const MenuItems = () => {
                     </Menu.Item>
                     <Menu.Item>
                         {({ active }) => (
-                            <a
-                                href="#"
+                            <Link
+                                href="/login"
+                                >
+                                <a
+                                    onClick={logOut}
                                 className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
                                 )}
-                            >
+                                >
                                 Sign out
-                            </a>
+                                </a>
+                            </Link>
                         )}
                     </Menu.Item>
                 </Menu.Items>

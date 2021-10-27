@@ -8,7 +8,7 @@ import {
     UserGroupIcon,
 } from "@heroicons/react/outline";
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import { CREATE_POST } from "../../state/types";
 import Assistant from "./assistant";
@@ -70,4 +70,4 @@ const LeftSide = () => {
     );
 };
 
-export default LeftSide;
+export default memo(LeftSide);

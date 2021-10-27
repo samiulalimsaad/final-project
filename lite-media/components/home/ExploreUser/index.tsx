@@ -3,15 +3,16 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { NODE_SERVER } from "../../../util/index";
 import SuggestedUserBody from "./suggestedUserBody";
+import { getAuth } from 'firebase/auth';
 const Suggested = () => {
     const [state, setState] = useState([]);
 
     useEffect(() => {
         const getData = async () => {
             try {
-                const { data } = await axios.get(NODE_SERVER("/user/all"));
-                if (data.success) setState(data.users);
-                console.log({data})
+                const auth = getAuth()
+                const { data } = await axios.get(NODE_SERVER(`/suggested-user/${auth?.currentUser?.uid}`));
+                if (data.success) setState(data.suggestedUser);
             } catch (error: any) {
                 console.error(error.message);
             }
@@ -29,7 +30,7 @@ const Suggested = () => {
             </div>
             <div className="h-72 overflow-y-scroll">
                 {state.map((item: any) => (
-                    <div key={item.userId}>
+                    <div key={item._id}>
                         <SuggestedUserBody item={item} />
                         <hr className="border-b border-indigo-300" />
                     </div>

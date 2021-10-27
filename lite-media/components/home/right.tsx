@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import React from "react";
-import Suggested from "./ExploreUser";
-import Trends from "./activeFriends";
+import React, { memo } from "react";
 import ActiveFriends from "./activeFriends";
+import Suggested from "./ExploreUser";
 
 const RightSide: NextPage = () => {
     return (
@@ -24,4 +22,4 @@ const RightSide: NextPage = () => {
     );
 };
 
-export default RightSide;
+export default memo(RightSide);

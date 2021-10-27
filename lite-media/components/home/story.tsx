@@ -1,5 +1,6 @@
 import { PlusCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
+import { memo } from "react";
 import story from "../../util/story2.json";
 const temp = story[0];
 const Story = () => {
@@ -58,4 +59,4 @@ const Story = () => {
     );
 };
 
-export default Story;
+export default memo(Story);

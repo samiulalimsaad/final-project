@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { memo } from "react";
 import Posts from "./posts";
 import Story from "./story";
 
@@ -13,4 +14,4 @@ const Main: NextPage = () => {
     );
 };
 
-export default Main;
+export default memo(Main);

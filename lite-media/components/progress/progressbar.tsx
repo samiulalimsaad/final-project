@@ -8,10 +8,8 @@ const Progressbar = () => {
                 setProgress((prevProgress) => prevProgress>= 100 ? 20 :prevProgress + 10
                 );
         }, 2000);
-        console.log("mount");
         return () => {
             clearInterval(t);
-            console.log("unmount");
         };
     }, [ progress]);
 

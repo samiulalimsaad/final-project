@@ -44,14 +44,14 @@ const SignUpForm = () => {
                             fullName: `${value.firstName} ${value.lastName}`,
                         },
                         email: user.email,
-                        userId: user.uid,
+                        _id: user.uid,
                         active: true,
                         assistant: user.uid + "assistant",
                         created_at: moment().format(),
                     };
                     try {
                         await addDoc(collection(db, "users"), userData);
-                        await addDoc(collection(db, userData.userId), userData);
+                        await addDoc(collection(db, userData._id), userData);
                         const { data } = (await axios.post(
                             NODE_SERVER("/user"),
                             userData
@@ -64,6 +64,7 @@ const SignUpForm = () => {
                                 type: LOGIN,
                                 payload: {
                                     displayName: userData.name.fullName,
+                                    uid: userData._id,
                                 },
                             });
                         }

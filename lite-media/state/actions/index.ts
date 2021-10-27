@@ -7,7 +7,7 @@ export interface actionInterface {
 }
 
 export const rootReducer = (state = initialState, action: actionInterface) => {
-    console.log(state);
+    console.log({globalState:state});
     switch (action.type) {
         case LOADING:
             return { ...state, loading: !state.loading };
@@ -18,11 +18,12 @@ export const rootReducer = (state = initialState, action: actionInterface) => {
         case LOGIN:
             return {
                 ...state,
-                auth: true,
+                isAuth: true,
+                uid: action.payload.uid,
                 displayName: action.payload.displayName,
             };
         case LOGOUT:
-            return { ...state, auth: false, displayName: null };
+            return { ...state, isAuth: false, displayName: null };
 
         default:
             return state;

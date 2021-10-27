@@ -1,10 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure } from "@headlessui/react";
 import { SearchIcon, XIcon } from "@heroicons/react/outline";
-import { getAuth, signOut } from "firebase/auth";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import Progressbar from "../progress/progressbar";
@@ -13,17 +11,6 @@ import Notification from "./notification";
 
 const Navbar = () => {
     const { createPost } = GetState();
-    const route = useRouter();
-    const logOut = () => {
-        const auth = getAuth();
-        signOut(auth)
-            .then(() => {
-                route.push("/login");
-            })
-            .catch((e) => {
-                console.error(e.message);
-            });
-    };
 
     return (
         <Disclosure as="nav" className="bg-gray-800">
@@ -80,3 +67,7 @@ const Navbar = () => {
     );
 };
 export default memo(Navbar);
+function dispatch(arg0: { type: string; payload: { displayName: any; }; }) {
+    throw new Error("Function not implemented.");
+}
+

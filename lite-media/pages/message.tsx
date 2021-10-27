@@ -7,7 +7,6 @@ import Navbar from "../components/navbar";
 
 const Index: NextPage = () => {
     const id = useRouter().query.id;
-    console.log(id);
 
     return (
         <>

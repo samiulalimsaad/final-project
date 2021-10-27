@@ -13,7 +13,6 @@ const CreatPost=()=> {
     };
 
     const uploadPost=()=>{
-        console.log(editorState)
     }
 
 

@@ -7,7 +7,6 @@ import Navbar from "../components/navbar";
 import suggestedUser from "../util/suggestedUser.json";
 const Index: NextPage = () => {
     const id = useRouter().query.id;
-    console.log(id);
 
     return (
         <>

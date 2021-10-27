@@ -14,7 +14,6 @@ const firebaseConfig = {
     measurementId: publicRuntimeConfig.FIREBASE_measurementId,
 };
 
-console.log(firebaseConfig)
 const firebaseApp = initializeApp(firebaseConfig);
 export const db = getFirestore();
 
