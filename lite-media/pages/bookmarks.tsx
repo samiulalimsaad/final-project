@@ -1,11 +1,25 @@
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import { memo } from "react";
+import React, { memo } from "react";
+import useSWR from "swr";
+import BookmarkBody from "../components/BookmarkBody";
+import BookmarksBody from "../components/BookmarkBody";
+import SuggestedUserBody from "../components/home/ExploreUser/suggestedUserBody";
 import Home from "../components/home/index";
 import Navbar from "../components/navbar";
+import Loading from "../components/progress/Loading";
+import { GetState } from "../state/stateProvider";
+import { fetcher, NODE_SERVER } from "../util";
 
 const Index: NextPage = () => {
-    const id = useRouter().query.id;
+    const { uid } = GetState();
+
+    console.log({ uid });
+    
+    const { data, error } = useSWR(
+        NODE_SERVER(`/bookmark/${uid}`),
+        fetcher
+        );
+        console.log({ data });
 
     return (
         <>
@@ -13,7 +27,25 @@ const Index: NextPage = () => {
                 <Navbar />
             </header>
             <section className="max-w-7xl h-screen w-screen mx-auto px-2 sm:px-6 lg:px-8">
-                <Home>Bookmarks</Home>
+                <Home>
+                    <div className="relative">
+                        <div className="absolute inset-0 p-2 bg-white">
+                            <h2 className="text-xl font-medium capitalize">
+                                Bookmarks
+                            </h2>
+                            <hr className="bg-gray-500 h-1 mt-2" />
+                        </div>
+                    </div>
+                    <div className="relative mt-12 h-screen overflow-y-scroll space-y-5">
+                        {error ? 
+                            <div>failed to load</div>
+                         : data?.bookmarks ? 
+                                    <BookmarkBody/>
+                         : 
+                            <Loading transparent />
+                        }
+                    </div>
+                </Home>
             </section>
         </>
     );

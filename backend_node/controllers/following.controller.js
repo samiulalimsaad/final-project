@@ -4,7 +4,8 @@ const { sendError } = require("../utils/sendError");
 exports.getAllFollowing = async (req, res) => {
     const followings = await userModel
         .findById(req.params.id)
-        .select("following");
+        .select("following")
+        .populate("following");
     return res.json({
         followings: followings.following,
         success: true,

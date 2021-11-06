@@ -1,12 +1,23 @@
 import type { NextPage } from "next";
-import { useRouter } from "next/router";
 import React, { memo } from "react";
+import useSWR from "swr";
 import SuggestedUserBody from "../components/home/ExploreUser/suggestedUserBody";
 import Home from "../components/home/index";
 import Navbar from "../components/navbar";
-import suggestedUser from "../util/suggestedUser.json";
+import Loading from "../components/progress/Loading";
+import { GetState } from "../state/stateProvider";
+import { fetcher, NODE_SERVER } from "../util";
+
 const Index: NextPage = () => {
-    const id = useRouter().query.id;
+    const { uid } = GetState();
+
+    console.log({ uid });
+    
+    const { data, error } = useSWR(
+        NODE_SERVER(`/follower/${uid}`),
+        fetcher
+        );
+        console.log({ data });
 
     return (
         <>
@@ -23,13 +34,19 @@ const Index: NextPage = () => {
                             <hr className="bg-gray-500 h-1 mt-2" />
                         </div>
                     </div>
-                    <div className="mt-12 h-screen overflow-y-scroll space-y-5">
-                        {suggestedUser.splice(0, 500).map((item) => (
-                            <div key={item.userName}>
-                                <SuggestedUserBody item={item} />
-                                <hr className="border-b border-gray-300/50" />
-                            </div>
-                        ))}
+                    <div className="relative mt-12 h-screen overflow-y-scroll space-y-5">
+                        {error ? (
+                            <div>failed to load</div>
+                        ) : data?.followers ? (
+                            data?.followers?.map((item: any) => (
+                                <div key={item._id}>
+                                    <SuggestedUserBody item={item} />
+                                    <hr className="border-b border-indigo-300" />
+                                </div>
+                            ))
+                        ) : (
+                            <Loading transparent />
+                        )}
                     </div>
                 </Home>
             </section>

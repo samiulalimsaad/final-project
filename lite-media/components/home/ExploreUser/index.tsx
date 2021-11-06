@@ -3,8 +3,8 @@ import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
 import { fetcher, NODE_SERVER } from "../../../util/index";
+import Loading from "../../progress/Loading";
 import SuggestedUserBody from "./suggestedUserBody";
-
 
 const Suggested = () => {
     const auth = getAuth();
@@ -14,25 +14,27 @@ const Suggested = () => {
         fetcher
     );
 
-    if (error) console.error(error.message);
-    if (error) return <div>failed to load</div>;
-    if (!data) return <div>loading...</div>;
-
     return (
-        <section className="bg-gray-200 border border-gray-500 rounded overflow-hidden">
+        <section className="min-h-[18rem] bg-gray-200 border border-gray-500 rounded overflow-hidden">
             <div>
                 <div className="px-2">
                     <h2 className="text-xl font-medium">Suggested</h2>
                 </div>
                 <hr className="bg-gray-500 h-1" />
             </div>
-            <div className="h-72 overflow-y-scroll">
-                {data?.suggestedUser.map((item: any) => (
-                    <div key={item._id}>
-                        <SuggestedUserBody item={item} />
-                        <hr className="border-b border-indigo-300" />
-                    </div>
-                ))}
+            <div className="h-72 relative overflow-y-scroll">
+                {error ? (
+                    <div>failed to load</div>
+                ) : data?.suggestedUser ? (
+                    data?.suggestedUser.map((item: any) => (
+                        <div key={item._id}>
+                            <SuggestedUserBody item={item} />
+                            <hr className="border-b border-indigo-300" />
+                        </div>
+                    ))
+                ) : (
+                    <Loading transparent />
+                )}
             </div>
             <div className="border-t border-gray-500 p-1">
                 <Link href="/explore">

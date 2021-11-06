@@ -60,7 +60,20 @@ const Home = ({ children }: { children: any }) => {
                 </div>
             </section>
         );
-    return <Loading />;
+        return (
+            <section className="grid grid-cols-8 justify-center divide-x-8 divide-gray-50">
+                <div className="col-span-2">
+                    <LeftSide />
+                </div>
+                <div className="relative col-span-4 h-[78%]"><Loading/></div>
+                <div className="col-span-2">
+                    <RightSide />
+                </div>
+                <div className="inset-0">
+                    <CreatPost />
+                </div>
+            </section>
+        );
 };
 
 export default memo(Home);

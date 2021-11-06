@@ -23,10 +23,10 @@ const SuggestedUserBody = ({ item }: itemInterface) => {
         console.log(`${item.name.fullName} ==> ${item._id}`)
         console.log(`${displayName} ==> ${uid}`)
        try {
-            const follower = await axios.post(NODE_SERVER(`/following/${item._id}`), {
+            const follower = await axios.post(NODE_SERVER(`/follower/${item._id}`), {
             following: uid,
         });
-        const following = await axios.post(NODE_SERVER(`/follower/${uid}`), {
+        const following = await axios.post(NODE_SERVER(`/following/${uid}`), {
             follower: item._id,
         });
         if (follower.data.success && following.data.success) {
