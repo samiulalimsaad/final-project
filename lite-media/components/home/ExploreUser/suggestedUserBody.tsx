@@ -17,14 +17,17 @@ interface itemInterface {
 }
 
 const SuggestedUserBody = ({ item }: itemInterface) => {
-    const { uid } = GetState();
-    const addFollow = async (id: string) => {
+    const { uid, displayName } = GetState();
+    
+    const addFollow = async () => {
+        console.log(`${item.name.fullName} ==> ${item._id}`)
+        console.log(`${displayName} ==> ${uid}`)
        try {
-            const follower = await axios.post(NODE_SERVER(`/follower/${id}`), {
-            follower: uid,
+            const follower = await axios.post(NODE_SERVER(`/following/${item._id}`), {
+            following: uid,
         });
-        const following = await axios.post(NODE_SERVER(`/following/${uid}`), {
-            following: id,
+        const following = await axios.post(NODE_SERVER(`/follower/${uid}`), {
+            follower: item._id,
         });
         if (follower.data.success && following.data.success) {
         }
@@ -32,21 +35,7 @@ const SuggestedUserBody = ({ item }: itemInterface) => {
          alert(error)  
        }
     };
-   
-    const removeFollow = async (id: string) => {
-       try {
-            const follower = await axios.delete(NODE_SERVER(`/follower/${id}`), {
-            follower: uid,
-        });
-        const following = await axios.delete(NODE_SERVER(`/following/${uid}`), {
-            following: id,
-        });
-        if (follower.data.success && following.data.success) {
-        }
-       } catch (error) {
-         alert(error)  
-       }
-    };
+
     return (
         <div className="flex items-center p-1 text-sm transition ease-in-out duration-500 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
             <div className="flex items-center justify-between w-full">
@@ -83,22 +72,12 @@ const SuggestedUserBody = ({ item }: itemInterface) => {
                     </div>
                 </div>
                 <div className="flex items-center mr-2">
-                    {item.following.includes(uid)?<button
-                        className="group w-full flex justify-center py-1 px-3 transition ease-in-out duration-500 border border-indigo-700 text-sm font-medium rounded-full bg-indigo-500 hover:text-indigo-700 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        onClick={() => {
-                            addFollow(item._id);
-                        }}
-                    >
-                        Follow
-                    </button>:
                     <button
                         className="group w-full flex justify-center py-1 px-3 transition ease-in-out duration-500 border border-indigo-700 text-sm font-medium rounded-full text-indigo-500 hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        onClick={() => {
-                            removeFollow(item._id);
-                        }}
+                        onClick={addFollow}
                     >
                         Follow
-                    </button>}
+                    </button>
                 </div>
             </div>
         </div>

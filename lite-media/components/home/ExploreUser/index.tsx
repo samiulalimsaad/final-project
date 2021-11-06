@@ -1,24 +1,22 @@
-import axios from "axios";
+import { getAuth } from "firebase/auth";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { NODE_SERVER } from "../../../util/index";
+import React from "react";
+import useSWR from "swr";
+import { fetcher, NODE_SERVER } from "../../../util/index";
 import SuggestedUserBody from "./suggestedUserBody";
-import { getAuth } from 'firebase/auth';
-const Suggested = () => {
-    const [state, setState] = useState([]);
 
-    useEffect(() => {
-        const getData = async () => {
-            try {
-                const auth = getAuth()
-                const { data } = await axios.get(NODE_SERVER(`/suggested-user/${auth?.currentUser?.uid}`));
-                if (data.success) setState(data.suggestedUser);
-            } catch (error: any) {
-                console.error(error.message);
-            }
-        };
-        getData()
-    }, []);
+
+const Suggested = () => {
+    const auth = getAuth();
+
+    const { data, error } = useSWR(
+        NODE_SERVER(`/suggested-user/${auth?.currentUser?.uid}`),
+        fetcher
+    );
+
+    if (error) console.error(error.message);
+    if (error) return <div>failed to load</div>;
+    if (!data) return <div>loading...</div>;
 
     return (
         <section className="bg-gray-200 border border-gray-500 rounded overflow-hidden">
@@ -29,7 +27,7 @@ const Suggested = () => {
                 <hr className="bg-gray-500 h-1" />
             </div>
             <div className="h-72 overflow-y-scroll">
-                {state.map((item: any) => (
+                {data?.suggestedUser.map((item: any) => (
                     <div key={item._id}>
                         <SuggestedUserBody item={item} />
                         <hr className="border-b border-indigo-300" />

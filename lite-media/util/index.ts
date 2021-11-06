@@ -1,3 +1,4 @@
+import axios from "axios";
 import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
@@ -10,3 +11,18 @@ export const NODE_SERVER = (v: string) => {
 export function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");
 }
+
+export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+//  export const fetcher = async (url: string) => {
+//      console.log("fetcher function called")
+//      try {
+//          const res = await axios.get(url);
+//          console.log({res:res.data})
+//          return res.data;
+         
+//      } catch (error) {
+//           throw new Error("An error occurred while fetching the data.");
+//     }
+      
+//   };
