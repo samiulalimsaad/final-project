@@ -1,20 +1,81 @@
 import { Dialog, Transition } from "@headlessui/react";
-import React, { Fragment,memo } from "react";
+import axios from "axios";
+import {
+    getDownloadURL,
+    getStorage,
+    ref,
+    uploadBytesResumable,
+} from "firebase/storage";
+import React, { Fragment, memo, useState } from "react";
 import { GetState } from "../../state/stateProvider";
 import { CLOSE_MODAL } from "../../state/types";
+import { NODE_SERVER } from "../../util";
 import MyEditor from "./TextEditor";
 
-const CreatPost=()=> {
-    const { createPost, dispatch } = GetState();
-    const [editorState, setEditorState] = React.useState("");
+const CreatPost = () => {
+    const { createPost, dispatch, uid } = GetState();
+    const [editorState, setEditorState] = useState("");
+    const [imageState, setImageState] = useState<File>();
+    const storage = getStorage();
 
     const closeModal = () => {
         dispatch({ type: CLOSE_MODAL });
     };
 
-    const uploadPost=()=>{
-    }
+    const uploadPost = async () => {
+        console.log({ imageState });
+        const storageRef = ref(
+            storage,
+            `${uid}/${imageState!.name.replace(
+                imageState!.name,
+                Date.now().toString()
+            )}`
+        );
+        console.log({ storageRef });
+        const uploadTask = uploadBytesResumable(storageRef, imageState!);
+        console.log({ uploadTask });
 
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log("Upload is " + progress + "% done");
+                switch (snapshot.state) {
+                    case "paused":
+                        console.log("Upload is paused");
+                        break;
+                    case "running":
+                        console.log("Upload is running");
+                        break;
+                }
+            },
+            (error) => {
+                console.log("error", error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then(
+                    async (downloadURL) => {
+                        console.log("File available at", downloadURL, uid);
+                        try {
+                            const post = await axios.post(
+                                NODE_SERVER(`/post/${uid}`),
+                                {
+                                    postBody: editorState,
+                                    postImage: downloadURL,
+                                }
+                            );
+                            if (post.data.success) {
+                                console.log({ post });
+                            }
+                        } catch (error) {
+                            alert(error);
+                        }
+                    }
+                );
+            }
+        );
+    };
 
     return (
         <Transition appear show={createPost} as={Fragment}>
@@ -64,7 +125,27 @@ const CreatPost=()=> {
                                         as="h3"
                                         className="text-xl font-medium leading-6 text-gray-900"
                                     >
-                                        Create a Post
+                                        <>
+                                            <label
+                                                htmlFor="file"
+                                                className="flex items-center py-2 "
+                                            >
+                                                <span className="flex items-center py-2 px-4 transition ease-in-out duration-500 cursor-pointer rounded-full font-semibold hover:font-extrabold bg-gray-300 text-gray-900 hover:bg-indigo-900 active:bg-indigo-900 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
+                                                    Add a Photo
+                                                </span>
+                                                <span>{imageState?.name}</span>
+                                            </label>
+                                            <input
+                                                type="file"
+                                                id="file"
+                                                onChange={(e: any) =>
+                                                    setImageState(
+                                                        e!.target!.files[0]!
+                                                    )
+                                                }
+                                                hidden
+                                            />
+                                        </>
                                     </Dialog.Title>
                                     <div className="">
                                         <button
@@ -78,7 +159,10 @@ const CreatPost=()=> {
                                     </div>
                                 </div>
                                 <div className="mt-6 h-full w-full">
-                                    <MyEditor editorState={editorState} setEditorState={setEditorState} />
+                                    <MyEditor
+                                        editorState={editorState}
+                                        setEditorState={setEditorState}
+                                    />
                                 </div>
                             </div>
                         </Transition.Child>
@@ -87,5 +171,5 @@ const CreatPost=()=> {
             </div>
         </Transition>
     );
-}
-export default memo(CreatPost)
+};
+export default memo(CreatPost);

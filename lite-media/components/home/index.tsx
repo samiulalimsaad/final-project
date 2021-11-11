@@ -7,6 +7,7 @@ import { LOADING, LOGIN } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 import CreatPost from "../createPost";
 import Loading from "../progress/Loading";
+import ShowImage from "../showImage";
 import LeftSide from "./left";
 import RightSide from "./right";
 
@@ -57,6 +58,7 @@ const Home = ({ children }: { children: any }) => {
                 </div>
                 <div className="inset-0">
                     <CreatPost />
+                <ShowImage />
                 </div>
             </section>
         );
@@ -71,6 +73,7 @@ const Home = ({ children }: { children: any }) => {
                 </div>
                 <div className="inset-0">
                     <CreatPost />
+                    <ShowImage />
                 </div>
             </section>
         );

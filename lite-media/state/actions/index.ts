@@ -1,14 +1,25 @@
 import { initialState } from "..";
-import { CLOSE_MODAL, CREATE_POST, LOADING, LOGIN, LOGOUT } from "../types";
+import {
+    CLOSE_IMAGE,
+    CLOSE_MODAL,
+    CREATE_POST,
+    LOADING,
+    LOGIN,
+    LOGOUT,
+    SHOW_IMAGE
+} from "../types";
 
 export interface actionInterface {
     type: string;
     payload?: any;
 }
 
-export const rootReducer = (state = initialState, action: actionInterface) => {
-    console.log({globalState:state});
-    switch (action.type) {
+export const rootReducer = (
+    state = initialState,
+    { type, payload }: actionInterface
+) => {
+    console.log({ globalState: state });
+    switch (type) {
         case LOADING:
             return { ...state, loading: !state.loading };
         case CREATE_POST:
@@ -19,11 +30,21 @@ export const rootReducer = (state = initialState, action: actionInterface) => {
             return {
                 ...state,
                 isAuth: true,
-                uid: action.payload.uid,
-                displayName: action.payload.displayName,
+                uid: payload.uid,
+                displayName: payload.displayName,
             };
         case LOGOUT:
             return { ...state, isAuth: false, displayName: null };
+        case SHOW_IMAGE:
+            return {
+                ...state,
+                displayImage: { isShowing: true, imageSrc: payload.imageSrc },
+            };
+        case CLOSE_IMAGE:
+            return {
+                ...state,
+                displayImage: { isShowing: false, imageSrc: "" },
+            };
 
         default:
             return state;

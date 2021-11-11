@@ -9,7 +9,7 @@ module.exports = {
         FIREBASE_messagingSenderId: process.env.FIREBASE_messagingSenderId,
         FIREBASE_appId: process.env.FIREBASE_appId,
         FIREBASE_measurementId: process.env.FIREBASE_measurementId,
-        NODE_SERVER:process.env.NODE_SERVER
+        NODE_SERVER: process.env.NODE_SERVER,
     },
     images: {
         domains: [
@@ -17,6 +17,7 @@ module.exports = {
             "images.unsplash.com",
             "robohash.org",
             "dummyimage.com",
+            "firebasestorage.googleapis.com",
         ],
     },
 };

@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
+import { GetState } from "../../../state/stateProvider";
+import { SHOW_IMAGE } from "../../../state/types";
 
 interface postBodyInterface {
     image: undefined | string;
@@ -8,6 +10,7 @@ interface postBodyInterface {
 }
 
 const PostBody = ({ image, post, userName }: postBodyInterface) => {
+    const {dispatch} = GetState()
     const [lineClamp, setLineClamp] = useState(true);
     return (
         <div className="">
@@ -22,7 +25,10 @@ const PostBody = ({ image, post, userName }: postBodyInterface) => {
                 </div>
             )}
             {image && (
-                <div className="relative h-48 w-full mt-3">
+                <div
+                    className="relative h-48 w-full mt-3"
+                    onClick={() => dispatch({ type: SHOW_IMAGE, payload:{imageSrc:image} })}
+                >
                     <Image
                         className="object-center object-cover "
                         src={image}
