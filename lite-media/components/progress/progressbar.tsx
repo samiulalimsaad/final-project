@@ -1,17 +1,9 @@
 /* This example requires Tailwind CSS v2.0+ */
-import React,{memo} from "react";
+import React, { memo } from "react";
+import { GetState } from "../../state/stateProvider";
 
 const Progressbar = () => {
-    const [progress, setProgress] = React.useState(20);
-    React.useEffect(() => {
-        const t = setInterval(() => {
-                setProgress((prevProgress) => prevProgress>= 100 ? 20 :prevProgress + 10
-                );
-        }, 2000);
-        return () => {
-            clearInterval(t);
-        };
-    }, [ progress]);
+    const {progress} = GetState()
 
         return (
             <div

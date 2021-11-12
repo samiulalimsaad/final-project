@@ -17,11 +17,9 @@ interface itemInterface {
 }
 
 const SuggestedUserBody = ({ item }: itemInterface) => {
-    const { uid, displayName } = GetState();
+    const { uid } = GetState();
     
     const addFollow = async () => {
-        console.log(`${item.name.fullName} ==> ${item._id}`)
-        console.log(`${displayName} ==> ${uid}`)
        try {
             const follower = await axios.post(NODE_SERVER(`/follower/${item._id}`), {
             following: uid,

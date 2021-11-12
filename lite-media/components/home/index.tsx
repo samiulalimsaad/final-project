@@ -58,25 +58,27 @@ const Home = ({ children }: { children: any }) => {
                 </div>
                 <div className="inset-0">
                     <CreatPost />
-                <ShowImage />
-                </div>
-            </section>
-        );
-        return (
-            <section className="grid grid-cols-8 justify-center divide-x-8 divide-gray-50">
-                <div className="col-span-2">
-                    <LeftSide />
-                </div>
-                <div className="relative col-span-4 h-[78%]"><Loading/></div>
-                <div className="col-span-2">
-                    <RightSide />
-                </div>
-                <div className="inset-0">
-                    <CreatPost />
                     <ShowImage />
                 </div>
             </section>
         );
+    return (
+        <section className="grid grid-cols-8 justify-center divide-x-8 divide-gray-50">
+            <div className="col-span-2">
+                <LeftSide />
+            </div>
+            <div className="relative col-span-4 h-[78%]">
+                <Loading />
+            </div>
+            <div className="col-span-2">
+                <RightSide />
+            </div>
+            <div className="inset-0">
+                <CreatPost />
+                <ShowImage />
+            </div>
+        </section>
+    );
 };
 
 export default memo(Home);

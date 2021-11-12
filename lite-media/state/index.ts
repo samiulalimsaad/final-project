@@ -7,6 +7,7 @@ export interface reducerInterface {
     profilePic: string | null;
     isAuth: boolean;
     uid: string | null;
+    progress: number | null;
     displayImage: {
         imageSrc: string;
         isShowing: boolean;
@@ -23,6 +24,7 @@ export const initialState = {
     loading: false,
     displayName: null,
     profilePic: null,
+    progress:0,
     isAuth: false,
     uid: null,
 };

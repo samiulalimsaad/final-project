@@ -14,7 +14,6 @@ const Posts = () => {
     if (error) {
         alert(error)
     }
-    console.log({data})
     return (
         <>
             {data?.posts.map((v: { _id: any; }) => (

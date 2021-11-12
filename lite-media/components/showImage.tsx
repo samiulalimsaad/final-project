@@ -55,16 +55,16 @@ const ShowImage = () => {
                             <div className="w-[80vw] h-full px-5 overflow-hidden transition-all transform bg-white shadow-xl rounded-2xl">
                                 <Dialog.Description as="div">
                                     {displayImage.imageSrc && (
-                                            <Image
-                                                className="object-center object-cover "
-                                                src={displayImage.imageSrc}
-                                                alt="display Image"
-                                                // layout="fill"
-                                                width="100%"
-                                                height="100%"
-                                                layout="responsive"
-                                                objectFit="contain"
-                                            />
+                                        <Image
+                                            className="object-center object-cover "
+                                            src={displayImage.imageSrc}
+                                            alt="display Image"
+                                            // layout="fill"
+                                            width="100%"
+                                            height="100%"
+                                            layout="responsive"
+                                            objectFit="contain"
+                                        />
                                     )}
                                 </Dialog.Description>
                             </div>

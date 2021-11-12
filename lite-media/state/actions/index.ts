@@ -6,6 +6,7 @@ import {
     LOADING,
     LOGIN,
     LOGOUT,
+    PROGRESS,
     SHOW_IMAGE
 } from "../types";
 
@@ -25,7 +26,7 @@ export const rootReducer = (
         case CREATE_POST:
             return { ...state, createPost: true };
         case CLOSE_MODAL:
-            return { ...state, createPost: false };
+            return { ...state, createPost: false, progress: 0 };
         case LOGIN:
             return {
                 ...state,
@@ -44,6 +45,11 @@ export const rootReducer = (
             return {
                 ...state,
                 displayImage: { isShowing: false, imageSrc: "" },
+            };
+        case PROGRESS:
+            return {
+                ...state,
+                progress: payload.progress,
             };
 
         default:

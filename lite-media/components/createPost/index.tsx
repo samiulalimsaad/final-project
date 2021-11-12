@@ -4,11 +4,11 @@ import {
     getDownloadURL,
     getStorage,
     ref,
-    uploadBytesResumable,
+    uploadBytesResumable
 } from "firebase/storage";
 import React, { Fragment, memo, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import { CLOSE_MODAL } from "../../state/types";
+import { CLOSE_MODAL, PROGRESS } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 import MyEditor from "./TextEditor";
 
@@ -26,7 +26,7 @@ const CreatPost = () => {
         console.log({ imageState });
         const storageRef = ref(
             storage,
-            `${uid}/${imageState!.name.replace(
+            `posts/${uid}/${imageState!.name.replace(
                 imageState!.name,
                 Date.now().toString()
             )}`
@@ -41,6 +41,7 @@ const CreatPost = () => {
                 const progress =
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                 console.log("Upload is " + progress + "% done");
+                dispatch({ type: PROGRESS, payload: { progress } });
                 switch (snapshot.state) {
                     case "paused":
                         console.log("Upload is paused");
@@ -67,6 +68,9 @@ const CreatPost = () => {
                             );
                             if (post.data.success) {
                                 console.log({ post });
+                                setEditorState("");
+                                setImageState(undefined);
+                                closeModal();
                             }
                         } catch (error) {
                             alert(error);

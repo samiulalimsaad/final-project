@@ -1,4 +1,5 @@
 export const LOADING = "LOADING";
+export const PROGRESS = "PROGRESS";
 export const CREATE_POST = "CREATE_POST";
 export const CLOSE_MODAL = "CLOSE_MODAL";
 export const SHOW_IMAGE = "SHOW_IMAGE";

@@ -1,6 +1,6 @@
-const postModel = require("../models/post.model");
-const userModel = require("../models/user.model");
-const { sendError } = require("../utils/sendError");
+const postModel = require("../../models/post.model");
+const userModel = require("../../models/user.model");
+const { sendError } = require("../../utils/sendError");
 
 exports.getPostMiddleware = async (req, res, next) => {
     const post = await postModel.findById(req.body.postId);
@@ -9,7 +9,7 @@ exports.getPostMiddleware = async (req, res, next) => {
 };
 
 exports.getAllPost = async (_req, res) => {
-    const posts = await postModel.find().populate("user");
+    const posts = await (await postModel.find().populate("user")).reverse();
     return res.json({ posts, success: true, message: "All posts" });
 };
 

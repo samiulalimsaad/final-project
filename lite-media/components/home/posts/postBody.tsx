@@ -4,13 +4,13 @@ import { GetState } from "../../../state/stateProvider";
 import { SHOW_IMAGE } from "../../../state/types";
 
 interface postBodyInterface {
+    id: string;
     image: undefined | string;
     post: undefined | string;
-    userName: string;
 }
 
-const PostBody = ({ image, post, userName }: postBodyInterface) => {
-    const {dispatch} = GetState()
+const PostBody = ({ id, image, post }: postBodyInterface) => {
+    const { dispatch } = GetState();
     const [lineClamp, setLineClamp] = useState(true);
     return (
         <div className="">
@@ -27,12 +27,17 @@ const PostBody = ({ image, post, userName }: postBodyInterface) => {
             {image && (
                 <div
                     className="relative h-48 w-full mt-3"
-                    onClick={() => dispatch({ type: SHOW_IMAGE, payload:{imageSrc:image} })}
+                    onClick={() =>
+                        dispatch({
+                            type: SHOW_IMAGE,
+                            payload: { imageSrc: id },
+                        })
+                    }
                 >
                     <Image
                         className="object-center object-cover "
                         src={image}
-                        alt={userName}
+                        alt="post image"
                         layout="fill"
                     />
                 </div>
