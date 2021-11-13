@@ -2,7 +2,7 @@ import { getAuth } from "firebase/auth";
 import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
-import { fetcher, NODE_SERVER } from "../../../util/index";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../../util/index";
 import Loading from "../../progress/Loading";
 import SuggestedUserBody from "./suggestedUserBody";
 
@@ -11,7 +11,8 @@ const Suggested = () => {
 
     const { data, error } = useSWR(
         NODE_SERVER(`/suggested-user/${auth?.currentUser?.uid}`),
-        fetcher
+        fetcher,
+        { refreshInterval: REFRESH_INTERVAL }
     );
 
     return (

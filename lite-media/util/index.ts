@@ -1,6 +1,8 @@
 import axios from "axios";
 import getConfig from "next/config";
 
+export const REFRESH_INTERVAL = 15000
+
 const { publicRuntimeConfig } = getConfig();
 export const NODE_SERVER = (v: string) => {
     const a = publicRuntimeConfig.NODE_SERVER + v;

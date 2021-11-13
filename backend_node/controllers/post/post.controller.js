@@ -3,7 +3,7 @@ const userModel = require("../../models/user.model");
 const { sendError } = require("../../utils/sendError");
 
 exports.getPostMiddleware = async (req, res, next) => {
-    const post = await postModel.findById(req.body.postId);
+    const post = await postModel.findById(req.body.postId || req.params.postId);
     if (post) next();
     else return res.json({ message: "post Not Found", success: false });
 };

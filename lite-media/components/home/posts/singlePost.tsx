@@ -19,7 +19,7 @@ const SinglePost = ({ post }: any) => {
                 />
             <PostFooter
                 id={post?._id}
-                like={post?.like?.length}
+                like={post?.like}
                 comment={post?.comments}
                 share={post?.share}
             />

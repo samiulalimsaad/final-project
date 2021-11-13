@@ -6,15 +6,14 @@ import Home from "../components/home/index";
 import Navbar from "../components/navbar";
 import Loading from "../components/progress/Loading";
 import { GetState } from "../state/stateProvider";
-import { fetcher, NODE_SERVER } from "../util";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
 
 const Index: NextPage = () => {
     const { uid } = GetState();
 
-    const { data, error } = useSWR(
-        NODE_SERVER(`/following/${uid}`),
-        fetcher
-        );
+    const { data, error } = useSWR(NODE_SERVER(`/following/${uid}`), fetcher, {
+        refreshInterval: REFRESH_INTERVAL,
+    });
 
     return (
         <>

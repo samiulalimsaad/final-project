@@ -3,7 +3,7 @@ const { sendError } = require("../../utils/sendError");
 
 exports.getAllLikes = async (req, res) => {
     const likes = await postModel
-        .findById(req.body.id)
+        .findById(req.body.postId)
         .select("like")
         .populate("like")
     return res.json({
@@ -27,7 +27,7 @@ exports.addLike = async (req, res) => {
             like: [req.body.like],
         };
         const post = await postModel.findByIdAndUpdate(
-            req.body.id,
+            req.body.postId,
             {
                 $push: data,
             },
@@ -47,12 +47,12 @@ exports.addLike = async (req, res) => {
 
 exports.removeLike = async (req, res) => {
     try {
-        if (!req.body.like) isLike(res);
+        if (!req.params.id) isLike(res);
         const data = {
-            like: [req.body.like],
+            like: [req.params.id],
         };
         const post = await postModel.findByIdAndUpdate(
-            req.body.id,
+            req.params.postId,
             {
                 $pullAll: data,
             },

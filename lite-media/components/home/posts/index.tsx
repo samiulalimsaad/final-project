@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import React from "react";
 import useSWR from "swr";
-import { fetcher, NODE_SERVER } from "../../../util";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../../util";
 import SinglePost from "./singlePost";
 
 const Posts = () => {
@@ -9,7 +9,8 @@ const Posts = () => {
 
     const { data, error } = useSWR(
         NODE_SERVER(`/post/all/${auth?.currentUser?.uid}`),
-        fetcher
+        fetcher,
+        { refreshInterval: REFRESH_INTERVAL }
     );
     if (error) {
         alert(error)

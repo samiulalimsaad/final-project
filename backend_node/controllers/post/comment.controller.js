@@ -1,9 +1,9 @@
 const postModel = require("../../models/post.model");
-const { sendError } = require("../utils/sendError");
+const { sendError } = require("../../utils/sendError");
 
 exports.getAllComments = async (req, res) => {
     const comments = await postModel
-        .findById(req.params.id)
+        .findById(req.body.postId || req.params.postId)
         .select("comment").populate("comment");
     return res.json({
         comments: comments.comment,
@@ -26,7 +26,7 @@ exports.addComment = async (req, res) => {
             comment: [req.body.comment],
         };
         const user = await postModel.findByIdAndUpdate(
-            req.params.id,
+            req.body.postId,
             {
                 $push: data,
             },
@@ -46,12 +46,12 @@ exports.addComment = async (req, res) => {
 
 exports.removeComment = async (req, res) => {
     try {
-        if (!req.body.comment) isComment(res);
+        if (!req.params.id) isComment(res);
         const data = {
-            comment: [req.body.comment],
+            comment: [req.params.id],
         };
         const user = await postModel.findByIdAndUpdate(
-            req.params.id,
+            req.params.postId,
             {
                 $pullAll: data,
             },
