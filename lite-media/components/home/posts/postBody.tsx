@@ -5,8 +5,8 @@ import { SHOW_IMAGE } from "../../../state/types";
 
 interface postBodyInterface {
     id: string;
-    image: undefined | string;
-    post: undefined | string;
+    image?: undefined | string;
+    post?: undefined | string;
 }
 
 const PostBody = ({ id, image, post }: postBodyInterface) => {

@@ -14,7 +14,7 @@ exports.getAllPost = async (_req, res) => {
 };
 
 exports.getSinglePost = async (req, res) => {
-    const post = await postModel.findById(req.body.postId).populate("user");
+    const post = await postModel.findById(req.params.postId).populate("user");
     return res.json({ post, success: true, message: "post Found" });
 };
 

@@ -23,7 +23,7 @@ const { findUserMiddleware } = require("../controllers/user.Controller");
 const postRoute = Router();
 
 postRoute.get("/all/:id", findUserMiddleware, getAllPost);
-postRoute.get("/:id", findUserMiddleware, getPostMiddleware, getSinglePost);
+postRoute.get("/:id/:postId", findUserMiddleware, getPostMiddleware, getSinglePost);
 postRoute.post("/:id", findUserMiddleware, createPost);
 postRoute.put("/:id", findUserMiddleware, getPostMiddleware, updatePost);
 postRoute.delete("/:id", findUserMiddleware, getPostMiddleware, deletePost);

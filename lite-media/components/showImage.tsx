@@ -1,12 +1,25 @@
 import { Dialog, Transition } from "@headlessui/react";
 import Image from "next/image";
 import React, { Fragment } from "react";
+import useSWR from "swr";
 import { GetState } from "../state/stateProvider";
 import { CLOSE_IMAGE } from "../state/types";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
+import ShowPost from "./home/posts/showPost";
 
 const ShowImage = () => {
-    const { displayImage, dispatch } = GetState();
+    const { displayImage, dispatch, uid } = GetState();
 
+    const { data, error } = useSWR(
+        NODE_SERVER(`/post/${uid}/${displayImage?.imageSrc}`),
+        fetcher,
+        { refreshInterval: REFRESH_INTERVAL }
+    );
+    console.log({ displayImage });
+    console.log({ data });
+    if (error) {
+        alert(error);
+    }
     const closeModal = () => {
         dispatch({ type: CLOSE_IMAGE });
     };
@@ -52,19 +65,10 @@ const ShowImage = () => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-0"
                         >
-                            <div className="w-[80vw] h-full px-5 overflow-hidden transition-all transform bg-white shadow-xl rounded-2xl">
+                            <div className="w-[75vw] h-[50vh] overflow-hidden transition-all transform bg-black/95 shadow-xl rounded-2xl">
                                 <Dialog.Description as="div">
-                                    {displayImage.imageSrc && (
-                                        <Image
-                                            className="object-center object-cover "
-                                            src={displayImage.imageSrc}
-                                            alt="display Image"
-                                            // layout="fill"
-                                            width="100%"
-                                            height="100%"
-                                            layout="responsive"
-                                            objectFit="contain"
-                                        />
+                                    {data?.success && (
+                                        <ShowPost post={data.post}/>
                                     )}
                                 </Dialog.Description>
                             </div>

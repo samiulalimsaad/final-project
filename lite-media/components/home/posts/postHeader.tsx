@@ -14,14 +14,14 @@ interface postHeaderInterface {
     userName: string;
     createdAt: string;
     profilePic: string;
-    post: undefined | string;
+    postBody: undefined | string;
 }
 
 const PostHeader = ({
     userName,
     createdAt,
     profilePic,
-    post,
+    postBody,
 }: postHeaderInterface) => {
     const [stop, setStop] = useState(false);
     const [text, setText] = useState("");
@@ -63,7 +63,7 @@ const PostHeader = ({
                 </div>
             </div>
             <div className="flex items-center">
-                {post && (
+                {postBody && (
                     <button
                         className="p-3 transition ease-in-out duration-500 hover:bg-indigo-400/50 active:bg-indigo-700/50 rounded-full"
                         onClick={ttsx}

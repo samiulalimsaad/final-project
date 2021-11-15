@@ -2,6 +2,7 @@ import { getAuth } from "firebase/auth";
 import React from "react";
 import useSWR from "swr";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../../util";
+import { postInterface } from "../../../util/interfaces";
 import SinglePost from "./singlePost";
 
 const Posts = () => {
@@ -17,7 +18,7 @@ const Posts = () => {
     }
     return (
         <>
-            {data?.posts.map((v: { _id: any; }) => (
+            {data?.posts.map((v: postInterface) => (
                 <SinglePost post={v} key={v._id} />
             ))}
         </>

@@ -10,9 +10,9 @@ import { GetState } from "../../../state/stateProvider";
 import { NODE_SERVER } from "../../../util";
 
 interface postHeaderInterface {
-    like: [string];
-    comment: number;
-    share: number;
+    like: string[];
+    comment: string[];
+    share: string[];
     id: string;
 }
 
