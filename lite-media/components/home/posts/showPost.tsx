@@ -23,11 +23,13 @@ const ShowPost = ({ post }: { post: postInterface }) => {
                     createdAt={post?.createdAt}
                     userName={post?.user?.name.fullName}
                     postBody={post?.postBody}
+                    bookmark={post?.user?.bookmark}
+                    id={post?._id}
                 />
                 <div className="h-1/2 overflow-y-scroll">
-                <PostBody id={post?._id} post={post?.postBody} />
+                    <PostBody id={post?._id} post={post?.postBody} />
                 </div>
-                    
+
                 <PostFooter
                     id={post?._id}
                     like={post?.like}

@@ -38,7 +38,7 @@ const storySchema = new Schema(
             trim: true,
             required: true,
         },
-        user:{ type: Schema.Types.String, ref: "User" },
+        user: { type: Schema.Types.String, ref: "User" },
         expired: String,
     },
     { timestamps: true }

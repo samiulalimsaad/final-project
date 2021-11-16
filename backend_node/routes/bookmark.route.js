@@ -9,8 +9,8 @@ const bookmarkRoute = Router();
 
 bookmarkRoute.get("/:id", findUserMiddleware, getAllBookmarks);
 
-bookmarkRoute.post("/:id", findUserMiddleware, addBookmark);
+bookmarkRoute.post("/:id/:bookmarkId", findUserMiddleware, addBookmark);
 
-bookmarkRoute.delete("/:id", findUserMiddleware, removeFollower);
+bookmarkRoute.delete("/:id:/:bookmarkId", findUserMiddleware, removeFollower);
 
 module.exports = bookmarkRoute;

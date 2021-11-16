@@ -1,12 +1,23 @@
+const postModel = require("../models/post.model");
 const userModel = require("../models/user.model");
 const { sendError } = require("../utils/sendError");
 
 exports.getAllBookmarks = async (req, res) => {
     const bookmarks = await userModel
         .findById(req.params.id)
-        .select("bookmark");
+        .select("bookmark")
+        .populate({
+            path: "bookmark",
+            populate: [
+                {
+                    path: "user",
+                    model: "User",
+                },
+            ],
+        });
+
     return res.json({
-        bookmarks: bookmarks.bookmark,
+        bookmarks,
         success: true,
         message: "All Bookmarks",
     });
@@ -21,9 +32,9 @@ const isBookmark = (res) => {
 
 exports.addBookmark = async (req, res) => {
     try {
-        if (!req.body.bookmark) isBookmark(res);
+        if (!req.params.bookmarkId) isBookmark(res);
         const data = {
-            bookmark: [req.body.bookmark],
+            bookmark: [req.params.bookmarkId],
         };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
@@ -46,9 +57,9 @@ exports.addBookmark = async (req, res) => {
 
 exports.removeBookmark = async (req, res) => {
     try {
-        if (!req.body.bookmark) isBookmark(res);
+        if (!req.params.bookmarkId) isBookmark(res);
         const data = {
-            bookmark: [req.body.bookmark],
+            bookmark: [req.params.bookmarkId],
         };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,

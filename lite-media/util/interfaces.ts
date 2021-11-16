@@ -33,3 +33,27 @@ export interface postInterface {
     postImage: string;
     user: userInterface;
 }
+export interface bookmarkInterface {
+    _id: string;
+    postBody: string;
+    postImage: string;
+    like: string[];
+    share: string[];
+    user: {
+        _id: string;
+        name: {
+            firstName: string;
+            lastName: string;
+            nickName: string;
+            fullName: string;
+            _id: string;
+        };
+        bookmark: string[];
+        createdAt: string;
+        profilePic: string;
+        updatedAt: string;
+    };
+    comments: string[];
+    createdAt: string;
+    updatedAt: string;
+}

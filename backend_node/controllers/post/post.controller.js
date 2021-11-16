@@ -9,7 +9,7 @@ exports.getPostMiddleware = async (req, res, next) => {
 };
 
 exports.getAllPost = async (_req, res) => {
-    const posts = await (await postModel.find().populate("user")).reverse();
+    const posts = (await postModel.find().populate("user")).reverse();
     return res.json({ posts, success: true, message: "All posts" });
 };
 

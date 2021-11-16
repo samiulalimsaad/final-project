@@ -15,8 +15,6 @@ const ShowImage = () => {
         fetcher,
         { refreshInterval: REFRESH_INTERVAL }
     );
-    console.log({ displayImage });
-    console.log({ data });
     if (error) {
         alert(error);
     }

@@ -1,15 +1,15 @@
-const BookmarkBody = () => {
+import React from "react";
+import { postInterface } from "../util/interfaces";
+import SinglePost from "./home/posts/singlePost";
+
+
+const BookmarkBody = ({ bookmark }: { bookmark: postInterface[] }) => {
+    console.log({bookmark})
     return (
-        <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((item: any) => (
-                <div
-                    className="h-28 w-48 bg-red-500 rounded grid place-items-center"
-                    key={item._id}
-                >
-                    {item}
-                </div>
-            ))}
-        </div>
+        <>
+        {bookmark?.map((v: postInterface) => (
+                <SinglePost post={v} key={v._id} />
+            ))}</>
     );
 };
 
