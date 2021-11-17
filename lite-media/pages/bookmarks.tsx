@@ -32,7 +32,7 @@ const Index: NextPage = () => {
                             <hr className="bg-gray-500 h-1 mt-2" />
                         </div>
                     </div>
-                    <div className="relative mt-12 h-screen overflow-y-scroll space-y-5">
+                    <div className="relative mt-12 pb-32 h-screen overflow-y-scroll space-y-5">
                         {error ? (
                             <div>failed to load</div>
                         ) : data?.bookmarks ? (

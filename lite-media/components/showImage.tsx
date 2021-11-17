@@ -63,7 +63,7 @@ const ShowImage = () => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-0"
                         >
-                            <div className="w-[75vw] h-[50vh] overflow-hidden transition-all transform bg-black/95 shadow-xl rounded-2xl">
+                            <div className="w-[75vw] h-[75vh] overflow-hidden transition-all transform bg-black/95 shadow-xl rounded-2xl">
                                 <Dialog.Description as="div">
                                     {data?.success && (
                                         <ShowPost post={data.post}/>

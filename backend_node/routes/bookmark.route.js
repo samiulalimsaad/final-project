@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { getAllBookmarks, addBookmark } = require("../controllers/bookmark.controller");
+const { getAllBookmarks, addBookmark, removeBookmark } = require("../controllers/bookmark.controller");
 const {
     removeFollower,
 } = require("../controllers/follower.controller");
@@ -11,6 +11,6 @@ bookmarkRoute.get("/:id", findUserMiddleware, getAllBookmarks);
 
 bookmarkRoute.post("/:id/:bookmarkId", findUserMiddleware, addBookmark);
 
-bookmarkRoute.delete("/:id:/:bookmarkId", findUserMiddleware, removeFollower);
+bookmarkRoute.delete("/:id/:bookmarkId", findUserMiddleware, removeBookmark);
 
 module.exports = bookmarkRoute;

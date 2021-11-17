@@ -47,9 +47,8 @@ const PostHeader = ({
         speechSynthesis.speak(new SpeechSynthesisUtterance("Hello World"));
     };
 
-    console.log({userName})
-
     const addBookmark = async () => {
+        console.log("addbookmark called")
         try {
             if (bookmark.includes(id!)) {
                 const { data } = await axios.delete(
@@ -82,16 +81,18 @@ const PostHeader = ({
                         layout="fill"
                     />
                 </div>
-                <div className="ml-2">
+                <div className="ml-2 flex-col">
                     <div className="flex items-center">
                         <h3 className="font-medium">{userName}</h3>
                         <h4 className="text-xs font-light ml-3">
                             @{userName?.split(" ").join("_")}
                         </h4>
                     </div>
-                    <time className="text-xs font-light">
-                        {moment(createdAt).fromNow()}
-                    </time>
+                    <div>
+                        <time className="text-xs font-light text-left">
+                            {moment(createdAt).fromNow()}
+                        </time>
+                    </div>
                 </div>
             </div>
             <div className="flex items-center">

@@ -4,7 +4,7 @@ import {
     getDownloadURL,
     getStorage,
     ref,
-    uploadBytesResumable
+    uploadBytesResumable,
 } from "firebase/storage";
 import React, { Fragment, memo, useState } from "react";
 import { GetState } from "../../state/stateProvider";
@@ -23,62 +23,78 @@ const CreatPost = () => {
     };
 
     const uploadPost = async () => {
-        console.log({ imageState });
-        const storageRef = ref(
-            storage,
-            `posts/${uid}/${imageState!.name.replace(
-                imageState!.name,
-                Date.now().toString()
-            )}`
-        );
-        console.log({ storageRef });
-        const uploadTask = uploadBytesResumable(storageRef, imageState!);
-        console.log({ uploadTask });
+        console.log({ editorState });
+        if (imageState?.name) {
+            const storageRef = ref(
+                storage,
+                `posts/${uid}/${imageState!.name.replace(
+                    imageState!.name,
+                    Date.now().toString()
+                )}`
+            );
+            console.log({ storageRef });
+            const uploadTask = uploadBytesResumable(storageRef, imageState!);
+            console.log({ uploadTask });
 
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                const progress =
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
-                dispatch({ type: PROGRESS, payload: { progress } });
-                switch (snapshot.state) {
-                    case "paused":
-                        console.log("Upload is paused");
-                        break;
-                    case "running":
-                        console.log("Upload is running");
-                        break;
-                }
-            },
-            (error) => {
-                console.log("error", error);
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then(
-                    async (downloadURL) => {
-                        console.log("File available at", downloadURL, uid);
-                        try {
-                            const post = await axios.post(
-                                NODE_SERVER(`/post/${uid}`),
-                                {
-                                    postBody: editorState,
-                                    postImage: downloadURL,
-                                }
-                            );
-                            if (post.data.success) {
-                                console.log({ post });
-                                setEditorState("");
-                                setImageState(undefined);
-                                closeModal();
-                            }
-                        } catch (error) {
-                            alert(error);
-                        }
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    dispatch({ type: PROGRESS, payload: { progress } });
+                    switch (snapshot.state) {
+                        case "paused":
+                            console.log("Upload is paused");
+                            break;
+                        case "running":
+                            console.log("Upload is running");
+                            break;
                     }
-                );
+                },
+                (error) => {
+                    console.log("error", error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        async (downloadURL) => {
+                            console.log("File available at", downloadURL, uid);
+                            try {
+                                const post = await axios.post(
+                                    NODE_SERVER(`/post/${uid}`),
+                                    {
+                                        postBody: editorState,
+                                        postImage: downloadURL,
+                                    }
+                                );
+                                if (post.data.success) {
+                                    console.log({ post });
+                                    setEditorState("");
+                                    setImageState(undefined);
+                                    closeModal();
+                                }
+                            } catch (error) {
+                                alert(error);
+                            }
+                        }
+                    );
+                }
+            );
+        } else {
+            try {
+                const post = await axios.post(NODE_SERVER(`/post/${uid}`), {
+                    postBody: `${editorState}`,
+                });
+                if (post.data.success) {
+                    console.log({ post });
+                    setEditorState("");
+                    setImageState(undefined);
+                    closeModal();
+                }
+            } catch (error) {
+                alert(error);
             }
-        );
+        }
     };
 
     return (
