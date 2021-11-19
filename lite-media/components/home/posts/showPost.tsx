@@ -10,7 +10,7 @@ const ShowPost = ({ post }: { post: postInterface }) => {
         <div className="grid grid-cols-5 gap-x-4 h-full overflow-hidden">
             <div className="p-5 col-span-3 h-full w-full grid place-items-center">
                 <Image
-                // className="fixed top-0 left-0"
+                    // className="fixed top-0 left-0"
                     src={post.postImage}
                     alt="display Image"
                     height={900}

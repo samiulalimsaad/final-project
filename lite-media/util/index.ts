@@ -9,6 +9,11 @@ export const NODE_SERVER = (v: string) => {
     console.log("NODE_SERVER", a);
     return a;
 };
+export const PYTHON_SERVER = (v: string) => {
+    const a = publicRuntimeConfig.PYTHON_SERVER + v;
+    console.log("NODE_SERVER", a);
+    return a;
+};
 
 export function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(" ");

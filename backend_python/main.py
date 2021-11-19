@@ -1,16 +1,18 @@
 
-from flask import Flask
+from flask import Flask, request
+from flask_cors import CORS
 
 from assistant.main import Assistant, wishMe
 from Text_Summary.main import Text_Summary_Post
 from video_summary.main import Get_Video_Summary, Post_Video_Summary
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route('/')
 def get():
-    return {'messsage': wishMe()}
+    name:str = request.args.get("name") or ""
+    return {'messsage': wishMe(name)}
 
 @app.route('/textsum', methods=["POST"])
 def textsum():

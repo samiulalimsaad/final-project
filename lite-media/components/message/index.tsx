@@ -1,14 +1,38 @@
+import axios from "axios";
 import Image from "next/image";
-import React,{memo} from "react";
+import React, { memo, useEffect } from "react";
+import { GetState } from "../../state/stateProvider";
+import { PYTHON_SERVER } from "../../util";
+import MessageBody from "./messageBody";
 
-const Conversation = () => {
+interface conversationInterface {
+    conversationName: string;
+    conversationId: string;
+}
+
+const Conversation = ({
+    conversationName,
+    conversationId,
+}: conversationInterface) => {
+        const { displayName } = GetState();
+
+        useEffect(() => {
+            const getData = async () => {
+                const data = (await axios.get(
+                    PYTHON_SERVER(`/?name=${displayName}`)
+                )) as any;
+                console.log({ data: data });
+            };
+            displayName && getData();
+        }, [displayName]);
+        
     return (
         <div className="relative rounded h-full">
             <h4 className="bg-blue-500 text-white p-2 text-xl rounded">
-                {"Conversation Name"}
+                {conversationName}
             </h4>
             <div className="h-640 h-full bg-gray-100">
-                
+                <MessageBody/>
             </div>
 
             <div className="absolute left-0 right-0">

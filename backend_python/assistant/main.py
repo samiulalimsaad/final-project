@@ -28,14 +28,14 @@ def who_is(session, query):
 chat = Chat(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Example.template"))
 
 
-def wishMe():
+def wishMe(name):
     hour=datetime.datetime.now().hour
     if hour>=0 and hour<12:
-        return "Hello,Good Morning"
+        return f"Hello {name}, Good Morning"
     elif hour>=12 and hour<18:
-        return "Hello,Good Afternoon"
+        return f"Hello {name}, Good Afternoon"
     else:
-        return "Hello,Good Evening"
+        return f"Hello {name}, Good Evening"
 
 
 

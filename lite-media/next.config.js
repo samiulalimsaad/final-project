@@ -10,6 +10,7 @@ module.exports = {
         FIREBASE_appId: process.env.FIREBASE_appId,
         FIREBASE_measurementId: process.env.FIREBASE_measurementId,
         NODE_SERVER: process.env.NODE_SERVER,
+        PYTHON_SERVER: process.env.PYTHON_SERVER,
     },
     images: {
         domains: [
