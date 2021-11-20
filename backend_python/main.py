@@ -12,7 +12,7 @@ CORS(app)
 @app.route('/')
 def get():
     name:str = request.args.get("name") or ""
-    return {'messsage': wishMe(name)}
+    return {'message': wishMe(name)}
 
 @app.route('/textsum', methods=["POST"])
 def textsum():

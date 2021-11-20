@@ -1,10 +1,17 @@
 import axios from "axios";
 import Image from "next/image";
-import React, { memo, useEffect } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import { PYTHON_SERVER } from "../../util";
+import { NODE_SERVER, PYTHON_SERVER } from "../../util";
 import MessageBody from "./messageBody";
-
+import {
+    getDownloadURL,
+    getStorage,
+    ref,
+    uploadBytesResumable,
+} from "firebase/storage";
+import { getDatabase } from "firebase/database";
+import { PROGRESS } from "../../state/types";
 interface conversationInterface {
     conversationName: string;
     conversationId: string;
@@ -14,25 +21,85 @@ const Conversation = ({
     conversationName,
     conversationId,
 }: conversationInterface) => {
-        const { displayName } = GetState();
+    const { displayName, uid } = GetState();
+    const [message, setMessage] = useState("");
+    const [image, setImage] = useState<File>();
+    const db = getDatabase();
+    const storage = getStorage()
 
-        useEffect(() => {
-            const getData = async () => {
-                const data = (await axios.get(
-                    PYTHON_SERVER(`/?name=${displayName}`)
-                )) as any;
-                console.log({ data: data });
-            };
-            displayName && getData();
-        }, [displayName]);
-        
+    const sendMessage = useCallback(async () => {
+        console.log({ message });
+        if (image?.name) {
+            const storageRef = ref(
+                storage,
+                `message/${uid}-${conversationId}/${image!.name.replace(
+                    image!.name,
+                    Date.now().toString()
+                )}`
+            );
+            console.log({ storageRef });
+            const uploadTask = uploadBytesResumable(storageRef, image!);
+            console.log({ uploadTask });
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    switch (snapshot.state) {
+                        case "paused":
+                            console.log("Upload is paused");
+                            break;
+                        case "running":
+                            console.log("Upload is running");
+                            break;
+                    }
+                },
+                (error) => {
+                    console.log("error", error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then(
+                        async (downloadURL) => {
+                            console.log("File available at", downloadURL, uid);
+                            try {
+                                
+                            } catch (error) {
+                                alert(error);
+                            }
+                        }
+                    );
+                }
+            );
+        } else {
+            try {
+                
+            } catch (error) {
+                alert(error);
+            }
+        }
+    }, [conversationId, image, message, storage, uid]);
+
+    useEffect(() => {
+        const getData = async () => {
+            const { data } = (await axios.get(
+                PYTHON_SERVER(`/?name=${displayName}`)
+            )) as any;
+            uid && setMessage(data.message);
+        };
+
+        displayName && getData();
+        sendMessage();
+    }, [displayName, sendMessage, uid]);
+
     return (
         <div className="relative rounded h-full">
             <h4 className="bg-blue-500 text-white p-2 text-xl rounded">
                 {conversationName}
             </h4>
             <div className="h-640 h-full bg-gray-100">
-                <MessageBody/>
+                <MessageBody conversationId={conversationId} />
             </div>
 
             <div className="absolute left-0 right-0">

@@ -1,14 +1,15 @@
-import axios from "axios";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { GetState } from "../../state/stateProvider";
-import { PYTHON_SERVER } from "../../util";
 import Conversation from "../message/index";
 const Assistant = () => {
-
+    const { uid } = GetState();
 
     return (
         <div className="bg-white h-72 w-full mt-3 rounded-md shadow relative">
-            <Conversation conversationName={"Assistant"} conversationId={""} />
+            <Conversation
+                conversationName={"Assistant"}
+                conversationId={`${uid}assistant`}
+            />
         </div>
     );
 };
