@@ -1,12 +1,10 @@
 import axios from "axios";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import moment from "moment";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useState,memo } from "react";
-import { db } from "../../firebase";
+import React, { memo, useState } from "react";
 import { GetState } from "../../state/stateProvider";
 import { LOADING, LOGIN } from "../../state/types";
 import { NODE_SERVER } from "../../util";
@@ -50,8 +48,6 @@ const SignUpForm = () => {
                         created_at: moment().format(),
                     };
                     try {
-                        await addDoc(collection(db, "users"), userData);
-                        await addDoc(collection(db, userData._id), userData);
                         const { data } = (await axios.post(
                             NODE_SERVER("/user"),
                             userData

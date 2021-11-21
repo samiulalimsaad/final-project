@@ -1,17 +1,17 @@
 import axios from "axios";
-import Image from "next/image";
-import React, { memo, useCallback, useEffect, useState } from "react";
-import { GetState } from "../../state/stateProvider";
-import { NODE_SERVER, PYTHON_SERVER } from "../../util";
-import MessageBody from "./messageBody";
+import { addDoc, collection } from "firebase/firestore";
 import {
     getDownloadURL,
     getStorage,
     ref,
     uploadBytesResumable,
 } from "firebase/storage";
-import { getDatabase } from "firebase/database";
-import { PROGRESS } from "../../state/types";
+import Image from "next/image";
+import React, { memo, useCallback, useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { GetState } from "../../state/stateProvider";
+import { PYTHON_SERVER } from "../../util";
+import MessageBody from "./messageBody";
 interface conversationInterface {
     conversationName: string;
     conversationId: string;
@@ -24,15 +24,13 @@ const Conversation = ({
     const { displayName, uid } = GetState();
     const [message, setMessage] = useState("");
     const [image, setImage] = useState<File>();
-    const db = getDatabase();
-    const storage = getStorage()
+    const storage = getStorage();
 
     const sendMessage = useCallback(async () => {
-        console.log({ message });
         if (image?.name) {
             const storageRef = ref(
                 storage,
-                `message/${uid}-${conversationId}/${image!.name.replace(
+                `message/${uid}-${conversationId}-${image!.name.replace(
                     image!.name,
                     Date.now().toString()
                 )}`
@@ -59,12 +57,20 @@ const Conversation = ({
                 (error) => {
                     console.log("error", error);
                 },
-                () => {
+                async () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
                             console.log("File available at", downloadURL, uid);
                             try {
-                                
+                                await addDoc(
+                                    collection(db, `${uid}-${conversationId}`),
+                                    {
+                                        messageId: uid,
+                                        message,
+                                        image,
+                                    }
+                                );
+
                             } catch (error) {
                                 alert(error);
                             }
@@ -74,7 +80,10 @@ const Conversation = ({
             );
         } else {
             try {
-                
+                await addDoc(collection(db, `${uid}-${conversationId}`), {
+                    messageId: uid,
+                    message,
+                });
             } catch (error) {
                 alert(error);
             }
@@ -85,13 +94,12 @@ const Conversation = ({
         const getData = async () => {
             const { data } = (await axios.get(
                 PYTHON_SERVER(`/?name=${displayName}`)
-            )) as any;
-            uid && setMessage(data.message);
+            ));
+            uid && conversationId && setMessage(data.message);
         };
-
         displayName && getData();
-        sendMessage();
-    }, [displayName, sendMessage, uid]);
+        // uid && conversationId && (message || image) &&  sendMessage();
+    }, [conversationId, displayName, image, message, sendMessage, uid]);
 
     return (
         <div className="relative rounded h-full">
@@ -131,4 +139,5 @@ const Conversation = ({
     );
 };
 
-export default memo(Conversation);
+// export default memo(Conversation);
+export default Conversation

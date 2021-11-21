@@ -1,7 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo } from "react";
+import React, { memo,useCallback } from "react";
 import { GetState } from "../../../state/stateProvider";
 import { NODE_SERVER } from "../../../util";
 
@@ -19,7 +19,7 @@ interface itemInterface {
 const SuggestedUserBody = ({ item }: itemInterface) => {
     const { uid } = GetState();
     
-    const addFollow = async () => {
+    const addFollow = useCallback(async () => {
        try {
             const follower = await axios.post(NODE_SERVER(`/follower/${item._id}`), {
             following: uid,
@@ -32,7 +32,26 @@ const SuggestedUserBody = ({ item }: itemInterface) => {
        } catch (error) {
          alert(error)  
        }
-    };
+    },[])
+
+    const removeFollow = useCallback(async () => {
+        console.log("clicked")
+       try {
+            const follower = await axios.delete(NODE_SERVER(`/follower/${item._id}`), {
+            following: uid,
+        });
+        const following = await axios.delete(NODE_SERVER(`/following/${uid}`), {
+            follower: item._id,
+        });
+        if (follower.data.success && following.data.success) {
+            alert(follower.data.message)  
+        }
+       } catch (error) {
+         alert(error)  
+       }
+    },[])
+
+    console.log({item})
 
     return (
         <div className="flex items-center p-1 text-sm transition ease-in-out duration-500 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">
@@ -70,12 +89,17 @@ const SuggestedUserBody = ({ item }: itemInterface) => {
                     </div>
                 </div>
                 <div className="flex items-center mr-2">
-                    <button
+                    {item?.follower?.includes(uid)?(<button
+                        className="group w-full flex justify-center py-1 px-3 transition ease-in-out duration-500 border border-indigo-700 text-sm font-medium rounded-full text-indigo-500 hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        onClick={removeFollow}
+                    >
+                        Following
+                    </button>):(<button
                         className="group w-full flex justify-center py-1 px-3 transition ease-in-out duration-500 border border-indigo-700 text-sm font-medium rounded-full text-indigo-500 hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         onClick={addFollow}
                     >
                         Follow
-                    </button>
+                    </button>)}
                 </div>
             </div>
         </div>
