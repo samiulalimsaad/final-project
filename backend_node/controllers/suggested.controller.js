@@ -11,8 +11,8 @@ exports.getSuggestedUser = async (req, res) => {
                 .filter((v) => v._id !== req.params.id)
                 .map(
                     (su) =>
-                        users.map((us) =>
-                            us.following.map((u) => u._id !== su._id && su)
+                        users.filter((us) =>
+                            us.following.map((u) => u._id !== su._id)
                         )[0]
                 )[0]
         ),
@@ -20,6 +20,7 @@ exports.getSuggestedUser = async (req, res) => {
 
     return res.json({
         suggestedUser,
+        suggestedUserLength: suggestedUser.length,
         success: true,
         message: "Suggested Users",
     });

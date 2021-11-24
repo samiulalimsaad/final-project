@@ -9,6 +9,8 @@ import SuggestedUserBody from "./suggestedUserBody";
 const Suggested = () => {
     const auth = getAuth();
 
+    console.log("Suggested");
+
     const { data, error } = useSWR(
         NODE_SERVER(`/suggested-user/${auth?.currentUser?.uid}`),
         fetcher,
@@ -26,10 +28,10 @@ const Suggested = () => {
             <div className="h-72 relative overflow-y-scroll">
                 {error ? (
                     <div>failed to load</div>
-                ) : data?.suggestedUser ? (
-                    data?.suggestedUser.map((item: any) => (
-                        <div key={item._id}>
-                            <SuggestedUserBody item={item} />
+                ) : data?.suggestedUser.length ? (
+                    data?.suggestedUser.map((user: any) => (
+                        <div key={user._id}>
+                            <SuggestedUserBody user={user} />
                             <hr className="border-b border-indigo-300" />
                         </div>
                     ))

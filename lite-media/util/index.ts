@@ -11,7 +11,7 @@ export const NODE_SERVER = (v: string) => {
 };
 export const PYTHON_SERVER = (v: string) => {
     const a = publicRuntimeConfig.PYTHON_SERVER + v;
-    console.log("NODE_SERVER", a);
+    console.log("PYTHON_SERVER", a);
     return a;
 };
 

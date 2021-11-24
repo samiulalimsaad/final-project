@@ -12,11 +12,11 @@ const Index: NextPage = () => {
     const { uid } = GetState();
 
     console.log({ uid });
-    
+
     const { data, error } = useSWR(NODE_SERVER(`/follower/${uid}`), fetcher, {
         refreshInterval: REFRESH_INTERVAL,
     });
-        console.log({ data });
+    console.log({ data });
 
     return (
         <>
@@ -37,9 +37,9 @@ const Index: NextPage = () => {
                         {error ? (
                             <div>failed to load</div>
                         ) : data?.followers ? (
-                            data?.followers?.map((item: any) => (
-                                <div key={item._id}>
-                                    <SuggestedUserBody item={item} />
+                            data?.followers?.map((user: any) => (
+                                <div key={user._id}>
+                                    <SuggestedUserBody user={user} />
                                     <hr className="border-b border-indigo-300" />
                                 </div>
                             ))

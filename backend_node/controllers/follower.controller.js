@@ -21,9 +21,9 @@ const isFollower = (res) => {
 
 exports.addFollower = async (req, res) => {
     try {
-        if (!req.body.follower) isFollower(res);
+        if (!req.params.followerId) isFollower(res);
         const data = {
-            follower: [req.body.follower],
+            follower: [req.params.followerId],
         };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
@@ -46,9 +46,9 @@ exports.addFollower = async (req, res) => {
 
 exports.removeFollower = async (req, res) => {
     try {
-        if (!req.body.follower) isFollower(res);
+        if (!req.params.followerId) isFollower(res);
         const data = {
-            follower: [req.body.follower],
+            follower: [req.params.followerId],
         };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,

@@ -25,15 +25,28 @@ const MessageBody = ({ conversationId }: { conversationId: string }) => {
     return (
         <div className="space-y-3">
             {message.map((v: any) => {
-            console.log(`flex ${v.messageId===uid?"justify-end":"justify-start"}`,v.messageId);
- return               (<div className="px-2" key={v.messageId}>
-                    <p className={`flex ${v.messageId===uid?"justify-end":"justify-start"}`}>
-                        <span className="bg-blue-500 p-2 text-sm text-white">
-                        {v.message}
-                        </span>
+                console.log(
+                    `flex ${
+                        v.messageId === uid ? "justify-end" : "justify-start"
+                    }`,
+                    v.messageId
+                );
+                return (
+                    <div className="px-2" key={v.messageId}>
+                        <p
+                            className={`flex ${
+                                v.messageId === uid
+                                    ? "justify-end"
+                                    : "justify-start"
+                            }`}
+                        >
+                            <span className="bg-blue-500 p-2 text-sm text-white">
+                                {v.message}
+                            </span>
                         </p>
-                </div>)
-})}
+                    </div>
+                );
+            })}
         </div>
     );
 };

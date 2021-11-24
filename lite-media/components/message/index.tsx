@@ -90,16 +90,16 @@ const Conversation = ({
         }
     }, [conversationId, image, message, storage, uid]);
 
-    useEffect(() => {
-        const getData = async () => {
-            const { data } = (await axios.get(
-                PYTHON_SERVER(`/?name=${displayName}`)
-            ));
-            uid && conversationId && setMessage(data.message);
-        };
-        displayName && getData();
-        // uid && conversationId && (message || image) &&  sendMessage();
-    }, [conversationId, displayName, image, message, sendMessage, uid]);
+    // useEffect(() => {
+    //     const getData = async () => {
+    //         const { data } = (await axios.get(
+    //             PYTHON_SERVER(`/?name=${displayName}`)
+    //         ));
+    //         uid && conversationId && setMessage(data.message);
+    //     };
+    //     displayName && getData();
+    //     // uid && conversationId && (message || image) &&  sendMessage();
+    // }, [conversationId, displayName, image, message, sendMessage, uid]);
 
     return (
         <div className="relative rounded h-full">

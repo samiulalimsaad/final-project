@@ -10,8 +10,8 @@ const followingRoute = Router();
 
 followingRoute.get("/:id", findUserMiddleware, getAllFollowing);
 
-followingRoute.post("/:id", findUserMiddleware, addFollowing);
+followingRoute.post("/:id/:followingId", findUserMiddleware, addFollowing);
 
-followingRoute.delete("/:id", findUserMiddleware, removeFollowing);
+followingRoute.delete("/:id/:followingId", findUserMiddleware, removeFollowing);
 
 module.exports = followingRoute;

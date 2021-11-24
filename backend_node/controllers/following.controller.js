@@ -22,9 +22,9 @@ const isFollowing = (res) => {
 
 exports.addFollowing = async (req, res) => {
     try {
-        if (!req.body.following) isFollowing(res);
+        if (!req.params.followingId) isFollowing(res);
         const data = {
-            following: [req.body.following],
+            following: [req.params.followingId],
         };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
@@ -47,9 +47,9 @@ exports.addFollowing = async (req, res) => {
 
 exports.removeFollowing = async (req, res) => {
     try {
-        if (!req.body.following) isFollowing(res);
+        if (!req.params.followingId) isFollowing(res);
         const data = {
-            following: [req.body.following],
+            following: [req.params.followingId],
         };
         const user = await userModel.findByIdAndUpdate(
             req.params.id,
