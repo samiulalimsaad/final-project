@@ -2,12 +2,12 @@ const userModel = require("../models/user.model");
 const { sendError } = require("../utils/sendError");
 
 exports.getActiveUser = async (req, res) => {
-    const users = await userModel.find().select("_id active");
-    const suggestedUser = users.filter(
+    const users = await userModel.find().select("_id active profilePic name");
+    const activeUser = users.filter(
         (v) => v._id !== req.params.id && v.active
     );
     return res.json({
-        suggestedUser,
+        activeUser,
         success: true,
         message: "Suggested Users",
     });

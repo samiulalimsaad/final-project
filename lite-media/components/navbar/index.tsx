@@ -1,16 +1,32 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Disclosure } from "@headlessui/react";
 import { SearchIcon, XIcon } from "@heroicons/react/outline";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import { GetState } from "../../state/stateProvider";
+import { NODE_SERVER } from "../../util";
 import Progressbar from "../progress/progressbar";
 import MenuItems from "./menuItems";
 import Notification from "./notification";
 
 const Navbar = () => {
-    const { createPost } = GetState();
+    const { createPost, uid } = GetState();
+
+
+    useEffect(() => {
+        const setActive = async () => {
+            await axios.post(NODE_SERVER(`/active-user/${uid}`));
+        };
+        setActive();
+        const setDeactive = async () => {
+            await axios.delete(NODE_SERVER(`/active-user/${uid}`));
+        };
+        return () => {
+            setDeactive();
+        };
+    }, [uid]);
 
     return (
         <Disclosure as="nav" className="bg-gray-800">
@@ -67,7 +83,6 @@ const Navbar = () => {
     );
 };
 export default memo(Navbar);
-function dispatch(arg0: { type: string; payload: { displayName: any; }; }) {
+function dispatch(arg0: { type: string; payload: { displayName: any } }) {
     throw new Error("Function not implemented.");
 }
-

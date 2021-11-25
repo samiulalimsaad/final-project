@@ -67,20 +67,29 @@ exports.updatePost = async (req, res) => {
 
 exports.deletePost = async (req, res) => {
     try {
-        const post = await postModel.findOneAndDelete({
-            _id: req.body.postId,
-        });
-        if (post) {
-            return res.json({
-                post,
-                success: true,
-                message: "post Deleted Successfully",
+        const singlePost = await postModel
+            .findById(req.params.postId)
+            .populate("user");
+        if (singlePost.user._id === req.params.id) {
+            const post = await postModel.findOneAndDelete({
+                _id: req.params.postId,
             });
+            if (post) {
+                return res.json({
+                    post,
+                    success: true,
+                    message: "post Deleted Successfully",
+                });
+            } else {
+                return res.json({
+                    success: false,
+                    message: "post not found",
+                });
+            }
         } else {
             return res.json({
-                post,
-                success: true,
-                message: "post post not found",
+                success: false,
+                message: "unable to delete post",
             });
         }
     } catch (error) {

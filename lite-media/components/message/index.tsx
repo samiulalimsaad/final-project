@@ -1,4 +1,3 @@
-import axios from "axios";
 import { addDoc, collection } from "firebase/firestore";
 import {
     getDownloadURL,
@@ -7,10 +6,9 @@ import {
     uploadBytesResumable,
 } from "firebase/storage";
 import Image from "next/image";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { db } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
-import { PYTHON_SERVER } from "../../util";
 import MessageBody from "./messageBody";
 interface conversationInterface {
     conversationName: string;
@@ -70,7 +68,14 @@ const Conversation = ({
                                         image,
                                     }
                                 );
-
+                                await addDoc(
+                                    collection(db, `${conversationId}-${uid}`),
+                                    {
+                                        messageId: conversationId,
+                                        message,
+                                        image,
+                                    }
+                                );
                             } catch (error) {
                                 alert(error);
                             }
@@ -82,6 +87,10 @@ const Conversation = ({
             try {
                 await addDoc(collection(db, `${uid}-${conversationId}`), {
                     messageId: uid,
+                    message,
+                });
+                await addDoc(collection(db, `${conversationId}-${uid}`), {
+                    messageId: conversationId,
                     message,
                 });
             } catch (error) {
@@ -140,4 +149,4 @@ const Conversation = ({
 };
 
 // export default memo(Conversation);
-export default Conversation
+export default Conversation;

@@ -38,9 +38,9 @@ const Index: NextPage = () => {
                         {error ? (
                             <div>failed to load</div>
                         ) : data?.suggestedUser ? (
-                            data?.suggestedUser?.map((item: any) => (
-                                <div key={item._id}>
-                                    <SuggestedUserBody item={item} />
+                            data?.suggestedUser?.map((user: any) => (
+                                <div key={user._id}>
+                                    <SuggestedUserBody user={user} />
                                     <hr className="border-b border-indigo-300" />
                                 </div>
                             ))

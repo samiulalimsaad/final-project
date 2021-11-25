@@ -28,8 +28,8 @@ const Suggested = () => {
             <div className="h-72 relative overflow-y-scroll">
                 {error ? (
                     <div>failed to load</div>
-                ) : data?.suggestedUser.length ? (
-                    data?.suggestedUser.map((user: any) => (
+                ) : data?.suggestedUser?.length ? (
+                    data?.suggestedUser?.map((user: any) => (
                         <div key={user._id}>
                             <SuggestedUserBody user={user} />
                             <hr className="border-b border-indigo-300" />

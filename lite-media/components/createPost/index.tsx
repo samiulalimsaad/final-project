@@ -158,6 +158,7 @@ const CreatPost = () => {
                                             <input
                                                 type="file"
                                                 id="file"
+                                                accept="image/*,"
                                                 onChange={(e: any) =>
                                                     setImageState(
                                                         e!.target!.files[0]!

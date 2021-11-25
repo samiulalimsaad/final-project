@@ -26,7 +26,7 @@ postRoute.get("/all/:id", findUserMiddleware, getAllPost);
 postRoute.get("/:id/:postId", findUserMiddleware, getPostMiddleware, getSinglePost);
 postRoute.post("/:id", findUserMiddleware, createPost);
 postRoute.put("/:id", findUserMiddleware, getPostMiddleware, updatePost);
-postRoute.delete("/:id", findUserMiddleware, getPostMiddleware, deletePost);
+postRoute.delete("/:id/:postId", findUserMiddleware, getPostMiddleware, deletePost);
 
 postRoute.get("/:id/like", findUserMiddleware, getPostMiddleware, getAllLikes);
 postRoute.post("/:id/like", findUserMiddleware, getPostMiddleware, addLike);
