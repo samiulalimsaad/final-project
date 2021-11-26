@@ -24,14 +24,7 @@ const MessageBody = ({ conversationId }: { conversationId: string }) => {
     }, [conversationId, uid]);
     return (
         <div className="space-y-3">
-            {message.map((v: any) => {
-                console.log(
-                    `flex ${
-                        v.messageId === uid ? "justify-end" : "justify-start"
-                    }`,
-                    v.messageId
-                );
-                return (
+            {message?.map((v: any) => (
                     <div className="px-2" key={v.messageId}>
                         <p
                             className={`flex ${
@@ -45,8 +38,8 @@ const MessageBody = ({ conversationId }: { conversationId: string }) => {
                             </span>
                         </p>
                     </div>
-                );
-            })}
+                )
+            )}
         </div>
     );
 };
