@@ -66,6 +66,10 @@ const userSchema = new Schema(
         assistant: String,
         message: [String],
         unreadMessage: [String],
+        bio: {
+            type: String,
+            trim: true,
+        },
         profilePic: {
             type: String,
             trim: true,

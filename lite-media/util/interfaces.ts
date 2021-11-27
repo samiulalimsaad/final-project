@@ -18,7 +18,9 @@ export interface userInterface {
     follower: [string];
     story: string[];
     createdAt: string;
-    profilePic: string;
+    profilePic?: string;
+    coverPic?: string;
+    bio?: string;
     updatedAt: string;
 }
 

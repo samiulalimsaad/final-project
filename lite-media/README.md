@@ -36,7 +36,7 @@ def assistant():
 
 ```typescript
 {
-    userId: {
+    _id: {
         type: String,
         trim: true,
         required: true,

@@ -85,7 +85,7 @@ const Conversation = ({
                                             `${conversationId}-${uid}`
                                         ),
                                         {
-                                            messageId: conversationId,
+                                            messageId: uid,
                                             message,
                                             image,
                                         }
@@ -104,7 +104,7 @@ const Conversation = ({
                         message,
                     });
                     await addDoc(collection(db, `${conversationId}-${uid}`), {
-                        messageId: conversationId,
+                        messageId: uid,
                         message,
                     });
                 } catch (error) {

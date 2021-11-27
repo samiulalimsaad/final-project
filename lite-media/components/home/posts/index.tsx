@@ -1,15 +1,16 @@
 import { getAuth } from "firebase/auth";
 import React from "react";
 import useSWR from "swr";
+import { GetState } from "../../../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../../util";
 import { postInterface } from "../../../util/interfaces";
 import SinglePost from "./singlePost";
 
 const Posts = () => {
-    const auth = getAuth();
+    const {uid} = GetState();
 
     const { data, error } = useSWR(
-        NODE_SERVER(`/post/all/${auth?.currentUser?.uid}`),
+        NODE_SERVER(`/post/all/${uid}`),
         fetcher,
         { refreshInterval: REFRESH_INTERVAL }
     );

@@ -12,7 +12,7 @@ import LeftSide from "./left";
 import RightSide from "./right";
 
 const Home = ({ children }: { children: any }) => {
-    const { loading, dispatch, isAuth } = GetState();
+    const { loading, dispatch, isAuth, uid } = GetState();
     const route = useRouter();
 
     useEffect(() => {
@@ -52,7 +52,7 @@ const Home = ({ children }: { children: any }) => {
                 <div className="col-span-2">
                     <LeftSide />
                 </div>
-                <div className="col-span-4 h-[78%]">{children}</div>
+                <div className="col-span-4 h-[78%]">{uid && children}</div>
                 <div className="col-span-2">
                     <RightSide />
                 </div>
