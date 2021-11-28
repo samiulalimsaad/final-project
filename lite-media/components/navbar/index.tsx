@@ -38,7 +38,7 @@ const Navbar = () => {
                                 <a className="relative h-12 w-12">
                                     <Image
                                         className="cursor-pointer rounded-full"
-                                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                                        src="/logo.svg"
                                         alt="Workflow"
                                         layout="fill"
                                     />

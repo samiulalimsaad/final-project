@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
-import React,{memo} from "react";
+import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import Loading from "../progress/Loading";
 import SignUpForm from "./SignupForm";
 
-const SignUp = () =>{
-    const {loading}=GetState()
+const SignUp = () => {
+    const { loading } = GetState();
     return (
         <>
             <Head>
@@ -17,7 +17,7 @@ const SignUp = () =>{
                 />
                 <link
                     rel="icon"
-                    href="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                    href="/logo.svg"
                     sizes="any"
                     type="image/svg+xml"
                 />
@@ -27,7 +27,7 @@ const SignUp = () =>{
                     <div>
                         <span className="flex justify-center h-12 w-auto">
                             <Image
-                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                src="/logo.svg"
                                 alt="Workflow"
                                 width="100%"
                                 height="100%"
@@ -39,9 +39,9 @@ const SignUp = () =>{
                     </div>
                     <SignUpForm />
                 </div>
-                {loading && <Loading/>}
+                {loading && <Loading />}
             </div>
         </>
     );
-}
-export default memo(SignUp)
+};
+export default memo(SignUp);

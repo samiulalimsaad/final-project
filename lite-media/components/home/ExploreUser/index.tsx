@@ -1,4 +1,4 @@
-import { getAuth } from "firebase/auth";
+import { getAuth } from "@firebase/auth";
 import Link from "next/link";
 import React from "react";
 import useSWR from "swr";

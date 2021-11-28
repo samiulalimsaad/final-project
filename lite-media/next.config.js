@@ -9,6 +9,7 @@ module.exports = {
         FIREBASE_messagingSenderId: process.env.FIREBASE_messagingSenderId,
         FIREBASE_appId: process.env.FIREBASE_appId,
         FIREBASE_measurementId: process.env.FIREBASE_measurementId,
+        FIREBASE_databaseURL: process.env.FIREBASE_databaseURL,
         NODE_SERVER: process.env.NODE_SERVER,
         PYTHON_SERVER: process.env.PYTHON_SERVER,
     },

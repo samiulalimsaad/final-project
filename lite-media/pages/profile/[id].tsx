@@ -1,8 +1,10 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
+import React,{memo} from "react";
 import useSWR from "swr";
 import Home from "../../components/home/index";
 import Navbar from "../../components/navbar";
+import ProfileBody from "../../components/profile/profileBody";
 import Loading from "../../components/progress/Loading";
 import { GetState } from "../../state/stateProvider";
 import { NODE_SERVER, fetcher, REFRESH_INTERVAL } from "../../util";
@@ -23,6 +25,7 @@ const Index: NextPage = () => {
     
     if (uid === id) {
         router.push("/profile");
+        console.log(uid,id,uid === id)
         return <Loading />;
     }
     return (
@@ -38,12 +41,11 @@ const Index: NextPage = () => {
                         </h2>
                         <hr className="bg-gray-500 h-1 mt-2" />
                     </div>
-                    Profile - {id}
-                                        <p>{JSON.stringify(data,null,4)}</p>
+                    <ProfileBody id={id!}/>
                 </Home>
             </section>
         </>
     );
 };
 
-export default Index;
+export default memo(Index);

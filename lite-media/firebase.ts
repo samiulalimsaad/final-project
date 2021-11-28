@@ -12,6 +12,7 @@ const firebaseConfig = {
     messagingSenderId: publicRuntimeConfig.FIREBASE_messagingSenderId,
     appId: publicRuntimeConfig.FIREBASE_appId,
     measurementId: publicRuntimeConfig.FIREBASE_measurementId,
+    databaseURL: publicRuntimeConfig.FIREBASE_databaseURL,
 };
 
 const firebaseApp = initializeApp(firebaseConfig);

@@ -25,15 +25,13 @@ const Index: NextPage = () => {
             </header>
             <section className="max-w-7xl h-screen w-screen mx-auto px-2 sm:px-6 lg:px-8">
                 <Home>
-                    <div className="relative">
-                        <div className="absolute inset-0 p-2 bg-white">
-                            <h2 className="text-xl font-medium capitalize">
-                                Followers
-                            </h2>
-                            <hr className="bg-gray-500 h-1 mt-2" />
-                        </div>
+                    <div className="p-2 h-14 bg-indigo-700 text-white">
+                        <h2 className="text-2xl font-medium capitalize ">
+                            Followers
+                        </h2>
+                        <hr className="bg-gray-500 h-1 mt-2" />
                     </div>
-                    <div className="relative mt-12 h-screen overflow-y-scroll space-y-5">
+                    <div className="mt-2 h-screen overflow-y-scroll space-y-5">
                         {error ? (
                             <div>failed to load</div>
                         ) : data?.followers ? (

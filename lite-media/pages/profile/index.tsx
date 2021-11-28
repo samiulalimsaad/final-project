@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import React ,{memo} from "react";
 import useSWR from "swr";
 import Home from "../../components/home/index";
 import Navbar from "../../components/navbar";
@@ -30,4 +31,4 @@ const Index: NextPage = () => {
     );
 };
 
-export default Index;
+export default memo(Index);

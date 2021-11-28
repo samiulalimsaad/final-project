@@ -9,6 +9,7 @@ import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/solid";
 import axios from "axios";
 import moment from "moment";
 import Image from "next/image";
+import Link from "next/link";
 import React, { Fragment, useCallback, useState } from "react";
 import { GetState } from "../../../state/stateProvider";
 import { classNames, NODE_SERVER } from "../../../util";
@@ -18,6 +19,7 @@ const tt = `Artificial intelligence (AI) is intelligence demonstrated by machine
 interface postHeaderInterface {
     userName: string;
     id: string;
+    userId: string;
     bookmark: string[];
     createdAt: string;
     profilePic: string;
@@ -30,6 +32,7 @@ const PostHeader = ({
     profilePic,
     postBody,
     id,
+    userId,
     bookmark,
 }: postHeaderInterface) => {
     const { uid } = GetState();
@@ -89,7 +92,9 @@ const PostHeader = ({
     return (
         <div className="flex items-center justify-between px-1 w-full ">
             <div className="flex items-center">
-                <div className="relative h-12 w-12 rounded-full border-2 border-gray-500 overflow-hidden">
+                <Link href={`/profile/${userId}`} passHref>
+                    <a className="flex items-center">
+                        <div className="relative h-12 w-12 rounded-full border-2 border-gray-500 overflow-hidden">
                     <Image
                         className="object-center object-cover "
                         src={profilePic || "/userIcon.png"}
@@ -110,6 +115,8 @@ const PostHeader = ({
                         </time>
                     </div>
                 </div>
+                </a>
+                </Link>
             </div>
             <div className="flex items-center">
                 {postBody && (

@@ -17,7 +17,7 @@ const Login=() =>{
                 />
                 <link
                     rel="icon"
-                    href="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                    href="/logo.svg"
                     sizes="any"
                     type="image/svg+xml"
                 />
@@ -27,7 +27,7 @@ const Login=() =>{
                     <div>
                         <span className="flex justify-center h-12 w-auto">
                             <Image
-                                src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                src="/logo.svg"
                                 alt="Workflow"
                                 width="100%"
                                 height="100%"

@@ -15,6 +15,7 @@ const SinglePost = ({ post }: {post:postInterface}) => {
                 profilePic={post?.user?.profilePic || '/userIcon.png'}
                 createdAt={post?.createdAt}
                 userName={post?.user?.name?.fullName || displayName!}
+                userId={post?.user?._id}
                 bookmark={post?.user?.bookmark}
                 postBody={post?.postBody}
                 id={post?._id}

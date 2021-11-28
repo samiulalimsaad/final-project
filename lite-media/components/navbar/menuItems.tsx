@@ -7,11 +7,11 @@ import { GetState } from "../../state/stateProvider";
 import { classNames } from "../../util";
 
 const MenuItems = () => {
-    const { displayName,uid } = GetState();
-    const logOut=()=>{
-        signOut(getAuth())
-    }
-if(!uid) return null
+    const { displayName, uid } = GetState();
+    const logOut = () => {
+        signOut(getAuth());
+    };
+    if (!uid) return null;
     return (
         <Menu as="div" className="ml-3 relative">
             <div>
@@ -39,55 +39,46 @@ if(!uid) return null
                 <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     <Menu.Item>
                         {({ active }) => (
-                           <div>
+                            <div>
                                 <Link href={`/profile/${uid}`}>
-                                <a
-                                    className={classNames(
-                                        active ? "bg-gray-100" : "",
-                                        "block px-4 py-2 text-sm text-gray-700"
-                                    )}
-                                >
-
-                                    {displayName}
-                                    {/* Your Profile <span className="text-xs">{displayName}</span> */}
-                                </a>
-                            </Link>
-                           </div>
-                        )}
-                    </Menu.Item>
-                    <Menu.Item>
-                        {({ active }) => (
-                            <div  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                )}>
-
-                            <Link href="/settings">
-                            <a
-                                
-                               
-                            >
-                                Settings
-                            </a></Link>
+                                    <a
+                                        className={classNames(
+                                            active ? "bg-gray-100" : "",
+                                            "block px-4 py-2 text-sm text-gray-700"
+                                        )}
+                                    >
+                                        {displayName}
+                                        {/* Your Profile <span className="text-xs">{displayName}</span> */}
+                                    </a>
+                                </Link>
                             </div>
                         )}
                     </Menu.Item>
                     <Menu.Item>
                         {({ active }) => (
-                            <div className={classNames(
+                            <div
+                                className={classNames(
                                     active ? "bg-gray-100" : "",
                                     "block px-4 py-2 text-sm text-gray-700"
-                                )}>
-                                <Link
-                                href="/login"
-                                >
-                                <a
-                                    onClick={logOut}
-                                
-                                >
-                                Sign out
-                                </a>
-                            </Link>
+                                )}
+                            >
+                                <Link href="/settings">
+                                    <a>Settings</a>
+                                </Link>
+                            </div>
+                        )}
+                    </Menu.Item>
+                    <Menu.Item>
+                        {({ active }) => (
+                            <div
+                                className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                )}
+                            >
+                                <Link href="/login">
+                                    <a onClick={logOut}>Sign out</a>
+                                </Link>
                             </div>
                         )}
                     </Menu.Item>
