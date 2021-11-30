@@ -3,7 +3,7 @@ import {
     BookmarkIcon,
     DotsHorizontalIcon,
     StopIcon,
-    VolumeUpIcon,
+    VolumeUpIcon
 } from "@heroicons/react/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/solid";
 import axios from "axios";
@@ -102,21 +102,23 @@ const PostHeader = ({
                         layout="fill"
                     />
                 </div>
+                </a>
+                </Link>
                 <div className="ml-2 flex-col">
-                    <div className="flex items-center">
+                <Link href={`/profile/${userId}`} passHref>
+                    <a className="flex items-center">
                         <h3 className="font-medium">{userName}</h3>
                         <h4 className="text-xs font-light ml-3">
                             @{userName?.split(" ").join("_")}
                         </h4>
-                    </div>
+                    </a>
+                </Link>
                     <div>
                         <time className="text-xs font-light text-left">
                             {moment(createdAt).fromNow()}
                         </time>
                     </div>
                 </div>
-                </a>
-                </Link>
             </div>
             <div className="flex items-center">
                 {postBody && (

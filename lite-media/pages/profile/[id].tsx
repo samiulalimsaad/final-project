@@ -26,7 +26,7 @@ const Index: NextPage = () => {
     if (uid === id) {
         router.push("/profile");
         console.log(uid,id,uid === id)
-        return <Loading />;
+        // return <Loading />;
     }
     return (
         <>

@@ -1,7 +1,8 @@
 import { ChatAltIcon } from "@heroicons/react/outline";
+import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
 import { SHOW_IMAGE } from "../../state/types";
@@ -16,7 +17,40 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
     if (error) {
         alert(error);
     }
-    // data && const { coverPic, profilePic, name, data?.user?.follower, bio } = data?.user?. as userInterface;
+        const addFollow = useCallback(async () => {
+        try {
+            const follower = await axios.post(
+                NODE_SERVER(`/follower/${data?.user?._id}/${uid}`)
+            );
+            const following = await axios.post(
+                NODE_SERVER(`/following/${uid}/${data?.user?._id}`)
+            );
+            if (follower.data.success && following.data.success) {
+                alert('following added');
+            }
+        } catch (error) {
+            alert(error);
+        }
+    }, [uid, data?.user?._id]);
+
+    const removeFollow = useCallback(async () => {
+        console.log("clicked");
+        try {
+            const follower = await axios.delete(
+                NODE_SERVER(`/follower/${data?.user?._id}/${uid}`)
+            );
+            const following = await axios.delete(
+                NODE_SERVER(`/following/${uid}/${data?.user?._id}`)
+            );
+            if (follower.data.success && following.data.success) {
+                alert("following removed");
+            }
+        } catch (error) {
+            alert(error);
+        }
+    }, [uid, data?.user?._id]);
+
+
     return (
         <div>
             {/* Cover photo Start */}
@@ -73,17 +107,17 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
                                 />
                             </button>
                             <div className="flex items-center mr-2">
-                                {data?.user?.follower?.includes(uid!) ? (
+                                {data?.user?.following?.map(v=>v._id).includes(uid!) ? (
                                     <button
                                         className="group w-full text-xl flex justify-center py-1 px-3 transition ease-in-out duration-500 border border-indigo-700 font-medium rounded-full text-white bg-indigo-500 hover:text-indigo-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        // onClick={removeFollow}
+                                        onClick={removeFollow}
                                     >
                                         Following
                                     </button>
                                 ) : (
                                     <button
                                         className="group w-full text-xl flex justify-center py-1 px-3 transition ease-in-out duration-500 border border-indigo-700 font-medium rounded-full text-indigo-500 hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        // onClick={addFollow}
+                                        onClick={addFollow}
                                     >
                                         Follow
                                     </button>
@@ -182,7 +216,7 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
                     [...data?.user?.post]
                         .reverse()
                         .map((v: postInterface) => (
-                            <SinglePost post={v} key={v._id} />
+                            <SinglePost post={v} userId={data?.user?._id} userName={data?.user?.name?.fullName} key={v._id} />
                         ))}
             </div>
         </div>
