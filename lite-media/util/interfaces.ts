@@ -41,20 +41,7 @@ export interface bookmarkInterface {
     postImage: string;
     like: string[];
     share: string[];
-    user: {
-        _id: string;
-        name: {
-            firstName: string;
-            lastName: string;
-            nickName: string;
-            fullName: string;
-            _id: string;
-        };
-        bookmark: string[];
-        createdAt: string;
-        profilePic: string;
-        updatedAt: string;
-    };
+    user: userInterface;
     comments: string[];
     createdAt: string;
     updatedAt: string;

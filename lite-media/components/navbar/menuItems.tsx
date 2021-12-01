@@ -11,15 +11,17 @@ const MenuItems = () => {
     const logOut = () => {
         signOut(getAuth());
     };
+
     if (!uid) return null;
+    
     return (
         <Menu as="div" className="ml-3 relative">
             <div>
-                <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none ring-1 focus:ring-offset-2 focus:ring-offset-blue-800 focus:ring-blue-600 ring-white text-white">
+                <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none ring-1 focus:ring-offset-2 focus:ring-offset-blue-800 focus:ring-blue-600 ">
                     <span className="sr-only">Open user menu</span>
                     <div className="relative h-8 w-8">
                         <Image
-                            className="rounded-full"
+                            className="rounded-full bg-white overflow-hidden"
                             src={profilePic ||"/userIcon.png"}
                             alt=""
                             layout="fill"

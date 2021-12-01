@@ -7,10 +7,11 @@ import {
     uploadBytesResumable,
 } from "firebase/storage";
 import Image from "next/image";
-import React, { useCallback, useState } from "react";
+import React, {memo, useCallback, useState } from "react";
 import { db } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
 import MessageBody from "./messageBody";
+
 interface conversationInterface {
     conversationName: string;
     conversationId: string;
@@ -196,5 +197,4 @@ const Conversation = ({
     );
 };
 
-// export default memo(Conversation);
-export default Conversation;
+export default memo(Conversation);

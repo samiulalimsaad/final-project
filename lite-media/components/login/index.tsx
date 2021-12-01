@@ -1,11 +1,11 @@
 import Head from "next/head";
 import Image from "next/image";
-import React,{memo} from "react";
+import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import Loading from "../progress/Loading";
 import LoginForm from "./LoginForm";
 
-const Login=() =>{
+const Login = () => {
     const { loading } = GetState();
     return (
         <>
@@ -43,5 +43,5 @@ const Login=() =>{
             </div>
         </>
     );
-}
-export default memo(Login)
+};
+export default memo(Login);

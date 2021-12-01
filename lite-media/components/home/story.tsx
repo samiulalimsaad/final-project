@@ -3,6 +3,7 @@ import Image from "next/image";
 import { memo } from "react";
 import story from "../../util/story2.json";
 const temp = story[0];
+
 const Story = () => {
     return (
         <section className="flex bg-gray-200 space-x-1 px-2 overflow-x-scroll w-full">

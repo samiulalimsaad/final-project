@@ -107,7 +107,7 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
                                 />
                             </button>
                             <div className="flex items-center mr-2">
-                                {data?.user?.following?.map(v=>v._id).includes(uid!) ? (
+                                {data?.user?.following?.map((v: { _id: string; })=>v._id).includes(uid!) ? (
                                     <button
                                         className="group w-full text-xl flex justify-center py-1 px-3 transition ease-in-out duration-500 border border-indigo-700 font-medium rounded-full text-white bg-indigo-500 hover:text-indigo-700 hover:bg-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                         onClick={removeFollow}

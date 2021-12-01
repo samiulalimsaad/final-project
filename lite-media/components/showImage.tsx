@@ -1,6 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import Image from "next/image";
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import useSWR from "swr";
 import { GetState } from "../state/stateProvider";
 import { CLOSE_IMAGE } from "../state/types";
@@ -15,6 +14,7 @@ const ShowImage = () => {
         fetcher,
         { refreshInterval: REFRESH_INTERVAL }
     );
+    
     if (error) {
         alert(error);
     }
@@ -66,7 +66,7 @@ const ShowImage = () => {
                             <div className="w-[75vw] h-[75vh] overflow-hidden transition-all transform bg-black/95 shadow-xl rounded-2xl">
                                 <Dialog.Description as="div">
                                     {data?.success && (
-                                        <ShowPost post={data.post}/>
+                                        <ShowPost post={data.post} />
                                     )}
                                 </Dialog.Description>
                             </div>
@@ -77,4 +77,4 @@ const ShowImage = () => {
         </Transition>
     );
 };
-export default ShowImage;
+export default memo(ShowImage);

@@ -13,7 +13,7 @@ const BookmarkBody = ({ bookmark }: { bookmark: postInterface[] }) => {
     return (
         <section>
             {[...bookmark]?.reverse().map((v: postInterface) => (
-                <SinglePost post={v} key={v._id} />
+                <SinglePost post={v} key={v._id} userName={""} userId={""} />
             ))}
         </section>
     );

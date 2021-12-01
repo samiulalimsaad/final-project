@@ -13,6 +13,7 @@ const ActiveFriends = () => {
         fetcher,
         { refreshInterval: REFRESH_INTERVAL }
     );
+    if (error) alert(error)
 
     return (
         <section className="bg-gray-200 border border-gray-500 rounded overflow-hidden mt-3">

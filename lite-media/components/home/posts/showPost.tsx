@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { memo } from "react";
 import { postInterface } from "../../../util/interfaces";
 import PostBody from "./postBody";
 import PostFooter from "./postFooter";
@@ -20,13 +20,15 @@ const ShowPost = ({ post }: { post: postInterface }) => {
             </div>
             <div className="h-full p-4 col-span-2 space-y-10 bg-white ">
                 <PostHeader
-                    profilePic={post?.user?.profilePic}
+                    profilePic={post?.user?.profilePic || "/userIcon.png"}
                     createdAt={post?.createdAt}
                     userName={post?.user?.name.fullName}
                     postBody={post?.postBody}
                     bookmark={post?.user?.bookmark}
                     id={post?._id}
+                    userId={post?.user?._id}
                 />
+
                 <div className="h-2/3 overflow-y-scroll">
                     <PostBody id={post?._id} post={post?.postBody} />
                 </div>
@@ -43,4 +45,4 @@ const ShowPost = ({ post }: { post: postInterface }) => {
     );
 };
 
-export default ShowPost;
+export default memo(ShowPost);

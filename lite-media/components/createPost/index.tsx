@@ -6,7 +6,7 @@ import {
     ref,
     uploadBytesResumable,
 } from "firebase/storage";
-import React, { Fragment, memo, useState } from "react";
+import React, { Fragment, memo, useCallback, useState } from "react";
 import { GetState } from "../../state/stateProvider";
 import { CLOSE_MODAL, PROGRESS } from "../../state/types";
 import { NODE_SERVER } from "../../util";
@@ -18,11 +18,12 @@ const CreatPost = () => {
     const [imageState, setImageState] = useState<File>();
     const storage = getStorage();
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         dispatch({ type: CLOSE_MODAL });
-    };
+    },[dispatch]);
 
-    const uploadPost = async () => {
+    const uploadPost = useCallback(
+        async () => {
         console.log({ editorState });
         if (imageState?.name) {
             const storageRef = ref(
@@ -95,7 +96,9 @@ const CreatPost = () => {
                 alert(error);
             }
         }
-    };
+    },
+        [closeModal, dispatch, editorState, imageState, storage, uid],
+    )
 
     return (
         <Transition appear show={createPost} as={Fragment}>

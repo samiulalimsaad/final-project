@@ -1,5 +1,4 @@
-/* This example requires Tailwind CSS v2.0+ */
-import React, { memo } from "react";
+import React from "react";
 import { GetState } from "../../state/stateProvider";
 
 const Progressbar = () => {
@@ -17,4 +16,4 @@ const Progressbar = () => {
         );
 };
 
-export default memo(Progressbar);
+export default Progressbar;

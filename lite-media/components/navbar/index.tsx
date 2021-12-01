@@ -83,6 +83,4 @@ const Navbar = () => {
     );
 };
 export default memo(Navbar);
-function dispatch(arg0: { type: string; payload: { displayName: any } }) {
-    throw new Error("Function not implemented.");
-}
+
