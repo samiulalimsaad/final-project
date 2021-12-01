@@ -4,7 +4,6 @@ import Home from "../components/home/index";
 import Navbar from "../components/navbar";
 
 const Index: NextPage = () => {
-    const id = useRouter().query.id;
 
     return (
         <>

@@ -1,31 +1,28 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import React,{memo} from "react";
+import React, { memo } from "react";
 import useSWR from "swr";
 import Home from "../../components/home/index";
 import Navbar from "../../components/navbar";
 import ProfileBody from "../../components/profile/profileBody";
-import Loading from "../../components/progress/Loading";
 import { GetState } from "../../state/stateProvider";
-import { NODE_SERVER, fetcher, REFRESH_INTERVAL } from "../../util";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
 
 const Index: NextPage = () => {
     const router = useRouter();
     const { uid } = GetState();
     const id = router.query.id;
 
-    const { data, error } = useSWR(
-        NODE_SERVER(`/user/${id}`),
-        fetcher,
-        { refreshInterval: REFRESH_INTERVAL }
-    );
+    const { data, error } = useSWR(NODE_SERVER(`/user/${id}`), fetcher, {
+        refreshInterval: REFRESH_INTERVAL,
+    });
     if (error) {
-        alert(error)
+        alert(error);
     }
-    
+
     if (uid === id) {
         router.push("/profile");
-        console.log(uid,id,uid === id)
+        console.log(uid, id, uid === id);
         // return <Loading />;
     }
     return (
@@ -41,7 +38,7 @@ const Index: NextPage = () => {
                         </h2>
                         <hr className="bg-gray-500 h-1 mt-2" />
                     </div>
-                    <ProfileBody id={id!}/>
+                    <ProfileBody id={id!} />
                 </Home>
             </section>
         </>

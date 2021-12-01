@@ -1,9 +1,9 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import React from "react";
+import "../firebase.ts";
 import { StateProvider } from "../state/stateProvider";
 import "../styles/globals.css";
-import "../firebase.ts"
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="description" content="Light Media Social app" />
                 <link
                     rel="icon"
-                    href="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                    href="/logo.svg"
                     sizes="any"
                     type="image/svg+xml"
                 />

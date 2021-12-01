@@ -35,7 +35,7 @@ const MessageBody = ({ conversationId }: { conversationId: string }) => {
                                 : "justify-start"
                         }`}
                     >
-                        <span className="bg-blue-500 p-2 text-sm text-white">
+                        <span className="bg-blue-500 p-2 text-sm text-white rounded-full">
                             {v.message}
                         </span>
                     </p>

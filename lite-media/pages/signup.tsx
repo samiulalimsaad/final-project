@@ -1,11 +1,11 @@
+import { NextPage } from "next";
 import SignUp from "../components/signup/index";
-function signup() {
+const signup: NextPage = () => {
     return (
         <section>
             <SignUp />
-            po
         </section>
     );
-}
+};
 
 export default signup;

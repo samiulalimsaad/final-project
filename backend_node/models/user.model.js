@@ -12,23 +12,25 @@ const nameSchema = new Schema({
         required: true,
         default: "",
     },
-    nickName: {
+    fullName: {
         type: String,
         trim: true,
-        default: "",
+        required: true,
     },
-    fullName: String,
 });
 
 const addressSchema = new Schema({
     city: String,
     street: String,
-    houseNumber: String,
+    state: String,
+    country: String,
+    zip: String,
 });
 
 const contactSchema = new Schema({
-    tel: [String],
-    email: [String],
+    tel: String,
+    email: String,
+    website: String,
     address: addressSchema,
 });
 const storySchema = new Schema(

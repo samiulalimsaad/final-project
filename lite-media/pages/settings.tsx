@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import Home from "../components/home/index";
 import Navbar from "../components/navbar";
+import SettingBody from "../components/settings";
 import { GetState } from "../state/stateProvider";
 
 const Index: NextPage = () => {
@@ -36,7 +37,9 @@ const Index: NextPage = () => {
                         </h2>
                         <hr className="bg-gray-500 h-1 mt-2" />
                     </div>
-                    {/* <SettingsBody id={id!}/> */}
+                    <div className='h-screen overflow-y-scroll'>
+                    <SettingBody/>
+                    </div>
                 </Home>
             </section>
         </>

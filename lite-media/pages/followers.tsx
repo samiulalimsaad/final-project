@@ -11,12 +11,10 @@ import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
 const Index: NextPage = () => {
     const { uid } = GetState();
 
-    console.log({ uid });
 
     const { data, error } = useSWR(NODE_SERVER(`/follower/${uid}`), fetcher, {
         refreshInterval: REFRESH_INTERVAL,
     });
-    console.log({ data });
 
     return (
         <>

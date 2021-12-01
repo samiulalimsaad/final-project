@@ -1,14 +1,10 @@
 import type { NextPage } from "next";
-import React ,{memo} from "react";
-import useSWR from "swr";
+import React, { memo } from "react";
 import Home from "../../components/home/index";
 import Navbar from "../../components/navbar";
-import { GetState } from "../../state/stateProvider";
-import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
-import ProfileBody from '../../components/profile/profileBody';
+import ProfileBody from "../../components/profile/profileBody";
 
 const Index: NextPage = () => {
-
     return (
         <>
             <header>
@@ -23,7 +19,7 @@ const Index: NextPage = () => {
                         <hr className="bg-gray-500 h-1 mt-2" />
                     </div>
                     <div className="h-screen overflow-y-scroll">
-                        <ProfileBody/>
+                        <ProfileBody />
                     </div>
                 </Home>
             </section>

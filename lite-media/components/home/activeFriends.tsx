@@ -16,12 +16,12 @@ const ActiveFriends = () => {
     if (error) alert(error)
 
     return (
-        <section className="bg-gray-200 border border-gray-500 rounded overflow-hidden mt-3">
+        <section className="bg-gray-100 rounded overflow-hidden mt-3">
             <div>
-                <div className="px-2">
+                <div className="p-2 flex justify-center">
                     <h2 className="text-xl font-medium">Active Friends</h2>
                 </div>
-                <hr className="bg-gray-500 h-1" />
+                <hr className="bg-green-300 h-[.15rem]" />
             </div>
             <div className="h-[20rem] overflow-y-scroll">
                 {data?.activeUser?.map(
@@ -67,12 +67,10 @@ const ActiveFriends = () => {
                                             </Link>
                                         </div>
                                     </div>
-                                    <span className="mr-3 h-2 w-2 bg-green-500 rounded-full">
-                                        {/* <span className="h-11 w-11 bg-green-600 "></span> */}
-                                    </span>
+                                    <span className="mr-3 h-2 w-2 bg-green-500 rounded-full"/>
                                 </div>
                             </div>
-                            <hr className="border-b border-indigo-300" />
+                            <hr className="border-b border-gray-300" />
                         </div>
                     )
                 )}

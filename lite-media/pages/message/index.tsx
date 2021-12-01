@@ -6,7 +6,6 @@ import Conversation from "../../components/message";
 import Navbar from "../../components/navbar";
 
 const Index: NextPage = () => {
-    const id = useRouter().query.id;
 
     return (
         <>

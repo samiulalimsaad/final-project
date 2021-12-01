@@ -1,13 +1,12 @@
 import type { NextPage } from "next";
 import React, { memo } from "react";
 import useSWR from "swr";
+import BookmarkBody from "../components/BookmarkBody";
 import Home from "../components/home/index";
-import SinglePost from "../components/home/posts/singlePost";
 import Navbar from "../components/navbar";
 import Loading from "../components/progress/Loading";
 import { GetState } from "../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
-import BookmarkBody from '../components/BookmarkBody';
 
 const Index: NextPage = () => {
     const { uid } = GetState();
@@ -15,7 +14,6 @@ const Index: NextPage = () => {
     const { data, error } = useSWR(NODE_SERVER(`/bookmark/${uid}`), fetcher, {
         refreshInterval: REFRESH_INTERVAL,
     });
-    console.log({ data });
 
     return (
         <>

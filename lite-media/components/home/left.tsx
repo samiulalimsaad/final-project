@@ -51,7 +51,7 @@ const LeftSide = () => {
     const router = useRouter();
 
     return (
-        <section className="py-1 px-5 bg-gray-200 h-screen drop-shadow-md">
+        <section className="py-1 px-5 bg-gray-100 h-screen drop-shadow-md">
             {bar.map((item) => (
                 <Link href={item.link} passHref key={item.name}>
                     <div

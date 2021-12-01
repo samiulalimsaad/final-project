@@ -9,10 +9,10 @@ import { fetcher, NODE_SERVER } from "../../util";
 
 const Index: NextPage = () => {
     const id = useRouter().query.id;
-    
+
     const { data, error } = useSWR(NODE_SERVER(`/user/${id}`), fetcher);
-    
-    console.log({ id });
+
+    if (error) alert(error)
     return (
         <>
             <header>
