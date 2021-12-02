@@ -6,29 +6,28 @@ import {
     ref,
     uploadBytesResumable,
 } from "firebase/storage";
+import Image from "next/image";
 import React, { Fragment, memo, useCallback, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import { CLOSE_MODAL, PROGRESS } from "../../state/types";
+import { CLOSE_PROFILE_IMAGE, PROGRESS } from "../../state/types";
 import { NODE_SERVER } from "../../util";
-import MyEditor from "./TextEditor";
 
-const CreatePost = () => {
-    const { createPost, dispatch, uid } = GetState();
+const UploadProfilePic = () => {
+    const { uploadProfilePic, dispatch, uid } = GetState();
     const [editorState, setEditorState] = useState("");
     const [imageState, setImageState] = useState<File>();
     const storage = getStorage();
 
     const closeModal = useCallback(() => {
-        dispatch({ type: CLOSE_MODAL });
-    },[dispatch]);
+        dispatch({ type: CLOSE_PROFILE_IMAGE });
+    }, [dispatch]);
 
-    const uploadPost = useCallback(
-        async () => {
+    const uploadPost = useCallback(async () => {
         console.log({ editorState });
         if (imageState?.name) {
             const storageRef = ref(
                 storage,
-                `posts/${uid}/${imageState!.name.replace(
+                `profilePic/${uid}/${imageState!.name.replace(
                     imageState!.name,
                     Date.now().toString()
                 )}`
@@ -61,11 +60,10 @@ const CreatePost = () => {
                         async (downloadURL) => {
                             console.log("File available at", downloadURL, uid);
                             try {
-                                const post = await axios.post(
-                                    NODE_SERVER(`/post/${uid}`),
+                                const post = await axios.put(
+                                    NODE_SERVER(`/info/${uid}`),
                                     {
-                                        postBody: editorState,
-                                        postImage: downloadURL,
+                                        profilePic: downloadURL,
                                     }
                                 );
                                 if (post.data.success) {
@@ -81,30 +79,14 @@ const CreatePost = () => {
                     );
                 }
             );
-        } else {
-            try {
-                const post = await axios.post(NODE_SERVER(`/post/${uid}`), {
-                    postBody: `${editorState}`,
-                });
-                if (post.data.success) {
-                    console.log({ post });
-                    setEditorState("");
-                    setImageState(undefined);
-                    closeModal();
-                }
-            } catch (error) {
-                alert(error);
-            }
         }
-    },
-        [closeModal, dispatch, editorState, imageState, storage, uid],
-    )
+    }, [closeModal, dispatch, editorState, imageState, storage, uid]);
 
     return (
-        <Transition appear show={createPost} as={Fragment}>
+        <Transition appear show={uploadProfilePic.isShowing} as={Fragment}>
             <div
                 className={`absolute inset-0 backdrop-blur-[1px] bg-gray-900/50 z-50 overflow-y-auto h-screen w-screen ${
-                    !createPost && "hidden"
+                    !uploadProfilePic.isShowing && "hidden"
                 }`}
             >
                 <Dialog
@@ -182,10 +164,11 @@ const CreatePost = () => {
                                         {/* </div> */}
                                     </div>
                                 </div>
-                                <div className="mt-6 h-full w-full">
-                                    <MyEditor
-                                        editorState={editorState}
-                                        setEditorState={setEditorState}
+                                <div className="relative mt-6 h-full w-full">
+                                    <Image
+                                        src="/userIcon.png"
+                                        alt="profile image"
+                                        layout="fill"
                                     />
                                 </div>
                             </div>
@@ -196,4 +179,4 @@ const CreatePost = () => {
         </Transition>
     );
 };
-export default memo(CreatePost);
+export default memo(UploadProfilePic);

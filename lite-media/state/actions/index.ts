@@ -1,5 +1,6 @@
 import { initialState } from "..";
 import {
+    CLOSE_COVER_IMAGE,
     CLOSE_IMAGE,
     CLOSE_MODAL,
     CREATE_POST,
@@ -7,7 +8,9 @@ import {
     LOGIN,
     LOGOUT,
     PROGRESS,
-    SHOW_IMAGE
+    SHOW_COVER_IMAGE,
+    SHOW_IMAGE,
+    SHOW_PROFILE_IMAGE,
 } from "../types";
 
 export interface actionInterface {
@@ -45,6 +48,29 @@ export const rootReducer = (
             return {
                 ...state,
                 displayImage: { isShowing: false, imageSrc: "" },
+            };
+        case SHOW_PROFILE_IMAGE:
+            return {
+                ...state,
+                uploadProfilePic: {
+                    isShowing: true,
+                    imageSrc: payload.imageSrc,
+                },
+            };
+        case CLOSE_IMAGE:
+            return {
+                ...state,
+                uploadProfilePic: { isShowing: false, imageSrc: "" },
+            };
+        case SHOW_COVER_IMAGE:
+            return {
+                ...state,
+                uploadCoverPic: { isShowing: true, imageSrc: payload.imageSrc },
+            };
+        case CLOSE_COVER_IMAGE:
+            return {
+                ...state,
+                uploadCoverPic: { isShowing: false, imageSrc: "" },
             };
         case PROGRESS:
             return {

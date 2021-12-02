@@ -38,7 +38,9 @@ const Index: NextPage = () => {
                         </h2>
                         <hr className="bg-gray-500 h-1 mt-2" />
                     </div>
+                    <div className="h-screen overflow-y-scroll">
                     <ProfileBody id={id!} />
+                    </div>
                 </Home>
             </section>
         </>

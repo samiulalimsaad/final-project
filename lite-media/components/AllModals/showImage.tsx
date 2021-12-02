@@ -1,10 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, memo } from "react";
 import useSWR from "swr";
-import { GetState } from "../state/stateProvider";
-import { CLOSE_IMAGE } from "../state/types";
-import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
-import ShowPost from "./home/posts/showPost";
+import { GetState } from "../../state/stateProvider";
+import { CLOSE_IMAGE } from "../../state/types";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
+import ShowPost from "../home/posts/showPost";
 
 const ShowImage = () => {
     const { displayImage, dispatch, uid } = GetState();

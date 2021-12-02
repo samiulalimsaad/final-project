@@ -4,6 +4,7 @@ import { useState,useEffect } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NODE_SERVER } from "../../util";
 import Countries from "../../util/countries.json";
+import { settingValidationSchema } from "../../validator";
 
 const initialValue = {
     _id: "",
@@ -12,6 +13,7 @@ const initialValue = {
     name: {
         firstName: "",
         lastName: "",
+        fullName:"",
     },
     bio: "",
     contact: {
@@ -30,11 +32,11 @@ const initialValue = {
 const Information = () => {
     const { uid, dispatch } = GetState();
     const [error, setError] = useState("");
-    const [state, setState] = useState(initialValue);
+    const [state, setState] = useState<typeof initialValue>();
 
     useEffect(()=>{
         const getData=async()=>{
-            const { data } = await axios.get(NODE_SERVER("/user/" + uid));
+            const { data } = await axios.get(NODE_SERVER("/info/" + uid));
             setState(data?.user)
         }
         getData()
@@ -46,10 +48,15 @@ const Information = () => {
         { setSubmitting }: { setSubmitting: (arg0: boolean) => void }
     ) => {
         try {
-            const { data } = await axios.put(NODE_SERVER("/user/" + uid),value);
+            const {firstName,lastName} = value.name
+            value.name.fullName= `${firstName} ${lastName}`
+
+            console.log({value})
+            const { data } = await axios.put(NODE_SERVER("/info/" + uid),value);
             if (!data.success) {
                 setError(data.message);
             } else {
+                alert(data?.message)
                 console.log({data})
                 dispatch({});
             }
@@ -71,14 +78,14 @@ const Information = () => {
                 </div>
                 <div className="">
                     <div className="mt-5">
-                        <Formik
-                            initialValues={state?._id ? state : initialValue}
+                        {state?._id && <Formik
+                            initialValues={state!}
                             onSubmit={updateInfo}
                         >
                             {(isSubmitting) => {
                                 console.log('.....................form..............')
                                 console.log({isSubmitting})
-                                console.log(state?._id ? state : initialValue)
+                                console.log(state)
                                 return(
                                 <Form>
                                     <div className="shadow overflow-hidden sm:rounded-md">
@@ -173,7 +180,7 @@ const Information = () => {
                                                     </label>
                                                     <Field
                                                         type="text"
-                                                        name="tel"
+                                                        name="contact.tel"
                                                         id="tel"
                                                         autoComplete="tel"
                                                         className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -331,7 +338,7 @@ const Information = () => {
                                     </div>
                                 </Form>
                             )}}
-                        </Formik>
+                        </Formik>}
                     </div>
                 </div>
             </div>

@@ -13,10 +13,12 @@ const bookmarkRoute = require("./routes/bookmark.route");
 const suggestedUserRoute = require("./routes/suggested.route");
 const activeUserRoute = require("./routes/activeUser.route");
 const storyRoute = require("./routes/story.route");
+const infoRoute = require("./routes/info.route");
 
 const app = express();
 
-app.use(morgan("tiny"), express.json(), cors());
+app.use(morgan("tiny"), express.json(), cors({ origin: true }));
+app.options("*", cors());
 
 app.get("/", (_, res) => {
     res.send(
@@ -32,6 +34,7 @@ app.use("/bookmark", bookmarkRoute);
 app.use("/suggested-user", suggestedUserRoute);
 app.use("/active-user", activeUserRoute);
 app.use("/story", storyRoute);
+app.use("/info", infoRoute);
 
 app.get("*", (_, res) => {
     res.send(

@@ -12,6 +12,14 @@ export interface reducerInterface {
         imageSrc: string;
         isShowing: boolean;
     };
+    uploadProfilePic: {
+        imageSrc: string;
+        isShowing: boolean;
+    };
+    uploadCoverPic: {
+        imageSrc: string;
+        isShowing: boolean;
+    };
     dispatch: Dispatch<any>;
 }
 
@@ -21,10 +29,18 @@ export const initialState = {
         imageSrc: "",
         isShowing: false,
     },
+    uploadProfilePic: {
+        imageSrc: "",
+        isShowing: false,
+    },
+    uploadCoverPic: {
+        imageSrc: "",
+        isShowing: false,
+    },
     loading: false,
     displayName: null,
     profilePic: null,
-    progress:0,
+    progress: 0,
     isAuth: false,
     uid: null,
 };

@@ -52,21 +52,20 @@ const PostHeader = ({
     };
 
     const addBookmark = useCallback(async () => {
-        alert("addbookmark called");
         try {
             if (bookmark.includes(id!)) {
                 const { data } = await axios.delete(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
                 if (data.success) {
-                    console.log("bookmark removed");
+                   alert("bookmark removed");
                 }
             } else {
                 const { data } = await axios.post(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
                 if (data.success) {
-                    console.log("bookmark added");
+                   alert("bookmark added");
                 }
             }
         } catch (error) {

@@ -5,9 +5,10 @@ import React, { memo, useEffect } from "react";
 import { GetState } from "../../state/stateProvider";
 import { LOADING, LOGIN } from "../../state/types";
 import { NODE_SERVER } from "../../util";
+import AllModals from "../AllModals";
+import ShowImage from "../AllModals/showImage";
 import CreatPost from "../createPost";
 import Loading from "../progress/Loading";
-import ShowImage from "../showImage";
 import LeftSide from "./left";
 import RightSide from "./right";
 
@@ -73,10 +74,7 @@ const Home = ({ children }: { children: any }) => {
             <div className="col-span-2">
                 <RightSide />
             </div>
-            <div className="inset-0">
-                <CreatPost />
-                <ShowImage />
-            </div>
+            <AllModals />
         </section>
     );
 };
