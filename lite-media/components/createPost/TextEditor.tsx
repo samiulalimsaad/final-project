@@ -1,11 +1,11 @@
-import React, {memo, useEffect, useRef } from "react";
+import React, { memo, useEffect, useRef } from "react";
 
-interface myEditorInterface{
-    editorState:string;
-    setEditorState:any;
+interface myEditorInterface {
+    editorState: string;
+    setEditorState: any;
 }
 
-const MyEditor = ({editorState, setEditorState}:myEditorInterface) =>{
+const MyEditor = ({ editorState, setEditorState }: myEditorInterface) => {
     const ref = useRef<HTMLTextAreaElement>(null);
 
     useEffect(() => {
@@ -21,5 +21,6 @@ const MyEditor = ({editorState, setEditorState}:myEditorInterface) =>{
             className="h-full w-full resize-none border-4 rounded-md border-gray-900/20 drop-shadow-md focus:ring-0 focus:border-gray-900/20"
         />
     );
-}
-export default  memo(MyEditor)
+};
+
+export default memo(MyEditor);

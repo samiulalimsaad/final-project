@@ -3,6 +3,7 @@ import {
     CLOSE_COVER_IMAGE,
     CLOSE_IMAGE,
     CLOSE_MODAL,
+    CLOSE_PROFILE_IMAGE,
     CREATE_POST,
     LOADING,
     LOGIN,
@@ -57,7 +58,7 @@ export const rootReducer = (
                     imageSrc: payload.imageSrc,
                 },
             };
-        case CLOSE_IMAGE:
+        case CLOSE_PROFILE_IMAGE:
             return {
                 ...state,
                 uploadProfilePic: { isShowing: false, imageSrc: "" },

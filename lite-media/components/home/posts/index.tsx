@@ -16,7 +16,7 @@ const Posts = () => {
     }
     return (
         <>
-            {data?.posts.map((v: postInterface) => (
+            {data?.posts?.map((v: postInterface) => (
                 <SinglePost post={v} key={v._id} userName={""} userId={""} />
             ))}
         </>

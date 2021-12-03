@@ -26,7 +26,7 @@ interface userSelfInterface {
     createdAt: string;
 }
 
-const UserSelf = ({ bio, contact, createdAt, email }: userSelfInterface) => {
+const UserInfo = ({ bio, contact, createdAt, email }: userSelfInterface) => {
     return (
         <div>
             <div className="flex items-center space-x-2 py-4 px-2">
@@ -77,10 +77,15 @@ const UserSelf = ({ bio, contact, createdAt, email }: userSelfInterface) => {
                 contact?.address.state ||
                 contact?.address.country) && (
                 <div className="flex items-center space-x-1 px-2 ">
-                    <HomeIcon className="h-4 w-4 mr-2" aria-hidden="true" />
-                    <p className="capitalize">{contact?.address?.street}</p>,
+                    <HomeIcon
+                        className="h-4 w-4 ml-0 mr-2"
+                        aria-hidden="true"
+                    />
+                    <p className="capitalize ml-0">
+                        {contact?.address?.street}
+                    </p>
+                    ,<p className="capitalize">{contact?.address.zip}</p>,
                     <p className="capitalize">{contact?.address.city}</p>,
-                    <p className="capitalize">{contact?.address.zip}</p>,
                     <p className="capitalize">{contact?.address.state}</p>,
                     <p className="capitalize">{contact?.address.country}</p>
                 </div>
@@ -89,4 +94,4 @@ const UserSelf = ({ bio, contact, createdAt, email }: userSelfInterface) => {
     );
 };
 
-export default UserSelf;
+export default UserInfo;

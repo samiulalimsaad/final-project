@@ -20,10 +20,9 @@ const CreatePost = () => {
 
     const closeModal = useCallback(() => {
         dispatch({ type: CLOSE_MODAL });
-    },[dispatch]);
+    }, [dispatch]);
 
-    const uploadPost = useCallback(
-        async () => {
+    const uploadPost = useCallback(async () => {
         console.log({ editorState });
         if (imageState?.name) {
             const storageRef = ref(
@@ -96,9 +95,7 @@ const CreatePost = () => {
                 alert(error);
             }
         }
-    },
-        [closeModal, dispatch, editorState, imageState, storage, uid],
-    )
+    }, [closeModal, dispatch, editorState, imageState, storage, uid]);
 
     return (
         <Transition appear show={createPost} as={Fragment}>
@@ -142,35 +139,32 @@ const CreatePost = () => {
                             leaveTo="opacity-0 scale-0"
                         >
                             <div className="flex flex-col w-1/3 h-96 p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                {/* <div className="absolute inset-0 p-5"> */}
-                                <div className="flex items-center justify-between bg-white">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="text-xl font-medium leading-6 text-gray-900"
-                                    >
-                                        <>
-                                            <label
-                                                htmlFor="file"
-                                                className="flex items-center py-2 "
-                                            >
-                                                <span className="flex items-center py-2 px-4 transition ease-in-out duration-500 cursor-pointer rounded-full font-semibold hover:font-extrabold bg-gray-300 text-gray-900 hover:bg-indigo-900 active:bg-indigo-900 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
-                                                    Add a Photo
-                                                </span>
-                                                <span>{imageState?.name}</span>
-                                            </label>
-                                            <input
-                                                type="file"
-                                                id="file"
-                                                accept="image/*"
-                                                onChange={(e: any) =>
-                                                    setImageState(
-                                                        e!.target!.files[0]!
-                                                    )
-                                                }
-                                                hidden
-                                            />
-                                        </>
-                                    </Dialog.Title>
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-xl font-medium leading-6 text-gray-900 flex items-center justify-between bg-white"
+                                >
+                                    <div>
+                                        <label
+                                            htmlFor="file"
+                                            className="flex items-center py-2 "
+                                        >
+                                            <span className="flex items-center py-2 px-4 transition ease-in-out duration-500 cursor-pointer rounded-full font-semibold hover:font-extrabold bg-gray-300 text-gray-900 hover:bg-indigo-900 active:bg-indigo-900 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
+                                                Add a Photo
+                                            </span>
+                                            <span>{imageState?.name}</span>
+                                        </label>
+                                        <input
+                                            type="file"
+                                            id="file"
+                                            accept="image/*"
+                                            onChange={(e: any) =>
+                                                setImageState(
+                                                    e!.target!.files[0]!
+                                                )
+                                            }
+                                            hidden
+                                        />
+                                    </div>
                                     <div className="">
                                         <button
                                             type="button"
@@ -179,14 +173,15 @@ const CreatePost = () => {
                                         >
                                             Post
                                         </button>
-                                        {/* </div> */}
                                     </div>
-                                </div>
+                                </Dialog.Title>
                                 <div className="mt-6 h-full w-full">
-                                    <MyEditor
-                                        editorState={editorState}
-                                        setEditorState={setEditorState}
-                                    />
+                                    <Dialog.Description as={Fragment}>
+                                        <MyEditor
+                                            editorState={editorState}
+                                            setEditorState={setEditorState}
+                                        />
+                                    </Dialog.Description>
                                 </div>
                             </div>
                         </Transition.Child>

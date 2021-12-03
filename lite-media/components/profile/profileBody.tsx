@@ -8,7 +8,7 @@ import CoverImage from "./CoverImage";
 import DisplayName from "./DisplayName";
 import FollowUnfollow from "./FollowUnfollow";
 import ProfileImage from "./ProfileImage";
-import UserSelf from "./UserSelf";
+import UserSelf from "./UserInfo";
 
 const ProfileBody = ({ id }: { id?: string | string[] }) => {
     const { uid, dispatch } = GetState();
@@ -21,7 +21,8 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
     return (
         <div className="mb-32">
             <div className="relative mb-16">
-                <CoverImage image={data?.user?.coverPic || "/cover.jpg"} 
+                <CoverImage
+                    image={data?.user?.coverPic || "/cover.jpg"}
                     id={data?.user?._id}
                 />
                 <div className="absolute z-40 -bottom-12 px-2 w-full flex justify-between">
@@ -46,7 +47,7 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
                 />
             </div>
             <hr className="h-1 bg-gray-100" />
-            <div className='mb-4'>
+            <div className="mb-4">
                 <UserSelf
                     id={data?.user?._id}
                     contact={data?.user?.contact}

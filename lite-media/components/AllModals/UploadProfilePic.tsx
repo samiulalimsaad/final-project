@@ -81,12 +81,12 @@ const UploadProfilePic = () => {
             );
         }
     }, [closeModal, dispatch, editorState, imageState, storage, uid]);
-
+    console.log("...........object..............");
     return (
-        <Transition appear show={uploadProfilePic.isShowing} as={Fragment}>
+        <Transition appear show={uploadProfilePic?.isShowing} as={Fragment}>
             <div
-                className={`absolute inset-0 backdrop-blur-[1px] bg-gray-900/50 z-50 overflow-y-auto h-screen w-screen ${
-                    !uploadProfilePic.isShowing && "hidden"
+                className={`absolute inset-0 backdrop-blur-[1px] bg-gray-900/50 overflow-y-auto h-screen w-screen z-[51] ${
+                    !uploadProfilePic?.isShowing && "hidden"
                 }`}
             >
                 <Dialog
@@ -124,46 +124,42 @@ const UploadProfilePic = () => {
                             leaveTo="opacity-0 scale-0"
                         >
                             <div className="flex flex-col w-1/3 h-96 p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                {/* <div className="absolute inset-0 p-5"> */}
-                                <div className="flex items-center justify-between bg-white">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="text-xl font-medium leading-6 text-gray-900"
-                                    >
-                                        <>
-                                            <label
-                                                htmlFor="file"
-                                                className="flex items-center py-2 "
-                                            >
-                                                <span className="flex items-center py-2 px-4 transition ease-in-out duration-500 cursor-pointer rounded-full font-semibold hover:font-extrabold bg-gray-300 text-gray-900 hover:bg-indigo-900 active:bg-indigo-900 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
-                                                    Add a Photo
-                                                </span>
-                                                <span>{imageState?.name}</span>
-                                            </label>
-                                            <input
-                                                type="file"
-                                                id="file"
-                                                accept="image/*"
-                                                onChange={(e: any) =>
-                                                    setImageState(
-                                                        e!.target!.files[0]!
-                                                    )
-                                                }
-                                                hidden
-                                            />
-                                        </>
-                                    </Dialog.Title>
+                                <Dialog.Title
+                                    as="h3"
+                                    className="text-xl font-medium leading-6 text-gray-900 flex items-center justify-between bg-white"
+                                >
+                                    <>
+                                        <label
+                                            htmlFor="file"
+                                            className="flex items-center py-2 "
+                                        >
+                                            <span className="flex items-center py-2 px-4 transition ease-in-out duration-500 cursor-pointer rounded-full font-semibold hover:font-extrabold bg-gray-300 text-gray-900 hover:bg-indigo-900 active:bg-indigo-900 hover:text-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-3">
+                                                Add a Photo
+                                            </span>
+                                            <span>{imageState?.name}</span>
+                                        </label>
+                                        <input
+                                            type="file"
+                                            id="file"
+                                            accept="image/*"
+                                            onChange={(e: any) =>
+                                                setImageState(
+                                                    e!.target!.files[0]!
+                                                )
+                                            }
+                                            hidden
+                                        />
+                                    </>
                                     <div className="">
                                         <button
                                             type="button"
                                             className="inline-flex justify-center px-4 py-2 text-sm font-medium text-blue-900 bg-blue-100 border border-transparent rounded-md hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-                                            onClick={uploadPost}
+                                            // onClick={uploadPost}
                                         >
                                             Post
                                         </button>
-                                        {/* </div> */}
                                     </div>
-                                </div>
+                                </Dialog.Title>
                                 <div className="relative mt-6 h-full w-full">
                                     <Image
                                         src="/userIcon.png"
