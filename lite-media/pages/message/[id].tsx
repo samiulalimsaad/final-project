@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { memo } from "react";
 import useSWR from "swr";
 import Home from "../../components/home/index";
-import Conversation from "../../components/message";
+import Conversation from "../../components/messageCopy";
 import Navbar from "../../components/navbar";
 import { fetcher, NODE_SERVER } from "../../util";
 
@@ -12,7 +12,7 @@ const Index: NextPage = () => {
 
     const { data, error } = useSWR(NODE_SERVER(`/user/${id}`), fetcher);
 
-    if (error) alert(error)
+    if (error) alert(error);
     return (
         <>
             <header>

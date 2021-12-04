@@ -1,8 +1,8 @@
 import {
     AtSymbolIcon,
-    CursorClickIcon,
     HomeIcon,
     PhoneIcon,
+    PresentationChartBarIcon,
     SpeakerphoneIcon,
 } from "@heroicons/react/solid";
 import moment from "moment";
@@ -63,7 +63,7 @@ const UserInfo = ({ bio, contact, createdAt, email }: userSelfInterface) => {
                 )}
                 {createdAt && (
                     <p className="capitalize flex space-y-2 items-center">
-                        <CursorClickIcon
+                        <PresentationChartBarIcon
                             className="h-4 w-4 mr-2"
                             aria-hidden="true"
                         />

@@ -15,7 +15,7 @@ type Props = {
 
 export function StateProvider({ children }: Props) {
     const [state, dispatch] = useReducer(rootReducer, initialState);
-    console.log("Global State", state);
+    // console.log("Global State", state);
     return (
         <>
             <StateContext.Provider value={{ ...state, dispatch }}>
