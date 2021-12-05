@@ -18,11 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                     type="image/svg+xml"
                 />
             </Head>
-            <main className="overflow-hidden h-screen w-screen">
-                <StateProvider>
-                    <Component {...pageProps} />
-                </StateProvider>
-            </main>
+            <StateProvider>
+                <Component {...pageProps} />
+            </StateProvider>
         </div>
     );
 }

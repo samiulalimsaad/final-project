@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
-import { GetState } from "../../../state/stateProvider";
-import { SHOW_IMAGE } from "../../../state/types";
+import { GetState } from "../../state/stateProvider";
+import { SHOW_IMAGE } from "../../state/types";
 
 interface postBodyInterface {
     id: string;

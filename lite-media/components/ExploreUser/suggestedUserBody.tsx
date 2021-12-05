@@ -2,8 +2,8 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import React, { memo, useCallback } from "react";
-import { GetState } from "../../../state/stateProvider";
-import { NODE_SERVER } from "../../../util";
+import { GetState } from "../../state/stateProvider";
+import { NODE_SERVER } from "../../util";
 
 interface userInterface {
     user: {
@@ -27,7 +27,7 @@ const SuggestedUserBody = ({ user }: userInterface) => {
                 NODE_SERVER(`/following/${uid}/${user?._id}`)
             );
             if (follower.data.success && following.data.success) {
-                alert('following added');
+                alert("following added");
             }
         } catch (error) {
             alert(error);
@@ -50,7 +50,6 @@ const SuggestedUserBody = ({ user }: userInterface) => {
             alert(error);
         }
     }, [uid, user?._id]);
-
 
     return (
         <div className="flex items-center p-1 text-sm transition ease-in-out duration-500 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">

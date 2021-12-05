@@ -1,13 +1,13 @@
 import {
     AnnotationIcon,
     ShareIcon,
-    ThumbUpIcon
+    ThumbUpIcon,
 } from "@heroicons/react/outline";
 import { ThumbUpIcon as ThumbUpIconSolid } from "@heroicons/react/solid";
 import axios from "axios";
 import React from "react";
-import { GetState } from "../../../state/stateProvider";
-import { NODE_SERVER } from "../../../util";
+import { GetState } from "../../state/stateProvider";
+import { NODE_SERVER } from "../../util";
 
 interface postHeaderInterface {
     like: string[];
@@ -53,7 +53,7 @@ const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
                 className="p-3 transition ease-in-out duration-500 hover:bg-indigo-400/50 active:bg-indigo-700/50 flex flex-1 justify-center items-center"
                 onClick={addLike}
             >
-                {like?.length>0 && <span>{like?.length}</span>}
+                {like?.length > 0 && <span>{like?.length}</span>}
                 {like?.includes(uid!) ? (
                     <ThumbUpIconSolid
                         className="h-5 w-5 ml-3"

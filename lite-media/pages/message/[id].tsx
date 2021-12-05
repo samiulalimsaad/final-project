@@ -2,9 +2,8 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { memo } from "react";
 import useSWR from "swr";
-import Home from "../../components/home/index";
+import Layout from "../../components/Layout";
 import Conversation from "../../components/messageCopy";
-import Navbar from "../../components/navbar";
 import { fetcher, NODE_SERVER } from "../../util";
 
 const Index: NextPage = () => {
@@ -14,19 +13,12 @@ const Index: NextPage = () => {
 
     if (error) alert(error);
     return (
-        <>
-            <header>
-                <Navbar />
-            </header>
-            <section className="max-w-7xl h-screen w-screen mx-auto px-2 sm:px-6 lg:px-8">
-                <Home>
-                    <Conversation
-                        conversationName={data?.user?.name?.fullName}
-                        conversationId={`${id!}`}
-                    />
-                </Home>
-            </section>
-        </>
+        <Layout>
+            <Conversation
+                conversationName={data?.user?.name?.fullName}
+                conversationId={`${id!}`}
+            />
+        </Layout>
     );
 };
 

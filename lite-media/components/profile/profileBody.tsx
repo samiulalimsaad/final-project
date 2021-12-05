@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
 import { fetcher, NODE_SERVER } from "../../util";
 import { postInterface } from "../../util/interfaces";
-import SinglePost from "../home/posts/singlePost";
+import SinglePost from "../posts/singlePost";
 import CoverImage from "./CoverImage";
 import DisplayName from "./DisplayName";
 import FollowUnfollow from "./FollowUnfollow";

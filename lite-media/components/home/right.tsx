@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import React, { memo } from "react";
+import Suggested from "../ExploreUser";
 import ActiveFriends from "./activeFriends";
-import Suggested from "./ExploreUser";
 
 const RightSide: NextPage = () => {
     return (
@@ -15,8 +15,8 @@ const RightSide: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head> */}
             <section className="pt-1 h-screen drop-shadow-md">
-               <Suggested/>
-               <ActiveFriends/>
+                <Suggested />
+                <ActiveFriends />
             </section>
         </div>
     );

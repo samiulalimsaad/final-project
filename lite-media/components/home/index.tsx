@@ -50,7 +50,7 @@ const Home = ({ children }: { children: any }) => {
     if (!loading && isAuth)
         return (
             <section className="grid grid-cols-8 justify-center divide-x-8 divide-gray-50">
-                <div className="col-span-2">
+                <div className="col-span-2 fixed w-full">
                     <LeftSide />
                 </div>
                 <div className="col-span-4 h-[78%]">{uid && children}</div>

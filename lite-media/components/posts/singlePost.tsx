@@ -1,5 +1,5 @@
 import React from "react";
-import { postInterface } from "../../../util/interfaces";
+import { postInterface } from "../../util/interfaces";
 import PostBody from "./postBody";
 import PostFooter from "./postFooter";
 import PostHeader from "./postHeader";

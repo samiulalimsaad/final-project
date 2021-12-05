@@ -2,8 +2,8 @@ import { getAuth } from "@firebase/auth";
 import Link from "next/link";
 import React, { memo } from "react";
 import useSWR from "swr";
-import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../../util/index";
-import Loading from "../../progress/Loading";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util/index";
+import Loading from "../progress/Loading";
 import SuggestedUserBody from "./suggestedUserBody";
 
 const Suggested = () => {

@@ -14,7 +14,6 @@ import Notification from "./notification";
 const Navbar = () => {
     const { createPost, uid } = GetState();
 
-
     useEffect(() => {
         const setActive = async () => {
             await axios.post(NODE_SERVER(`/active-user/${uid}`));
@@ -29,7 +28,7 @@ const Navbar = () => {
     }, [uid]);
 
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure as="nav" className="bg-gray-800 fixed top-0 w-full">
             <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 ">
                 <div className="relative flex items-center justify-between h-16">
                     <div className="flex-1 flex items-center ">
@@ -83,4 +82,3 @@ const Navbar = () => {
     );
 };
 export default memo(Navbar);
-
