@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import React, { memo } from "react";
 import useSWR from "swr";
-import SuggestedUserBody from "../../components/home/ExploreUser/suggestedUserBody";
+import SuggestedUserBody from "../../components/ExploreUser/suggestedUserBody";
 import Home from "../../components/home/index";
 import Navbar from "../../components/navbar";
 import Loading from "../../components/progress/Loading";
@@ -9,9 +9,9 @@ import { GetState } from "../../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
 
 const Index: NextPage = () => {
-    const {uid} = GetState()
+    const { uid } = GetState();
 
-    console.log({uid})
+    console.log({ uid });
 
     const { data, error } = useSWR(
         NODE_SERVER(`/suggested-user/${uid}`),
@@ -26,7 +26,7 @@ const Index: NextPage = () => {
             </header>
             <section className="max-w-7xl h-screen w-screen mx-auto px-2 sm:px-6 lg:px-8">
                 <Home>
-                   <div className="p-2 h-14 bg-indigo-700 text-white">
+                    <div className="p-2 h-14 bg-indigo-700 text-white">
                         <h2 className="text-2xl font-medium capitalize ">
                             Explore Something New
                         </h2>

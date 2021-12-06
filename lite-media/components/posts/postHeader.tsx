@@ -3,7 +3,7 @@ import {
     BookmarkIcon,
     DotsHorizontalIcon,
     StopIcon,
-    VolumeUpIcon
+    VolumeUpIcon,
 } from "@heroicons/react/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/solid";
 import axios from "axios";
@@ -11,8 +11,8 @@ import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, useCallback, useState } from "react";
-import { GetState } from "../../../state/stateProvider";
-import { classNames, NODE_SERVER } from "../../../util";
+import { GetState } from "../../state/stateProvider";
+import { classNames, NODE_SERVER } from "../../util";
 
 const tt = `Artificial intelligence (AI) is intelligence demonstrated by machines, as opposed to the natural intelligence displayed by humans or animals. Leading AI textbooks define the field as the study of "intelligent agents": any system that perceives its environment and takes actions that maximize its chance of achieving its goals. Some popular accounts use the term "artificial intelligence" to describe machines that mimic "cognitive" functions that humans associate with the human mind, such as "learning" and "problem solving", however this definition is rejected by major AI researchers.AI applications include advanced web search engines (i.e. Google), recommendation systems (used by YouTube, Amazon and Netflix), understanding human speech (such as Siri or Alexa), self-driving cars (e.g. Tesla), and competing at the highest level in strategic game systems (such as chess and Go)`;
 
@@ -58,14 +58,14 @@ const PostHeader = ({
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
                 if (data.success) {
-                   alert("bookmark removed");
+                    alert("bookmark removed");
                 }
             } else {
                 const { data } = await axios.post(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
                 if (data.success) {
-                   alert("bookmark added");
+                    alert("bookmark added");
                 }
             }
         } catch (error) {
@@ -80,7 +80,7 @@ const PostHeader = ({
             );
             if (data.success) {
                 alert(data.message);
-            }else{
+            } else {
                 alert(data.message);
             }
         } catch (error) {
@@ -94,24 +94,24 @@ const PostHeader = ({
                 <Link href={`/profile/${userId}`} passHref>
                     <a className="flex items-center">
                         <div className="relative h-12 w-12 rounded-full border-2 border-gray-500 overflow-hidden">
-                    <Image
-                        className="object-center object-cover "
-                        src={profilePic || "/userIcon.png"}
-                        alt={userName}
-                        layout="fill"
-                    />
-                </div>
-                </a>
-                </Link>
-                <div className="ml-2 flex-col">
-                <Link href={`/profile/${userId}`} passHref>
-                    <a className="flex items-center">
-                        <h3 className="font-medium">{userName}</h3>
-                        <h4 className="text-xs font-light ml-3">
-                            @{userName?.split(" ").join("_")}
-                        </h4>
+                            <Image
+                                className="object-center object-cover "
+                                src={profilePic || "/userIcon.png"}
+                                alt={userName}
+                                layout="fill"
+                            />
+                        </div>
                     </a>
                 </Link>
+                <div className="ml-2 flex-col">
+                    <Link href={`/profile/${userId}`} passHref>
+                        <a className="flex items-center">
+                            <h3 className="font-medium">{userName}</h3>
+                            <h4 className="text-xs font-light ml-3">
+                                @{userName?.split(" ").join("_")}
+                            </h4>
+                        </a>
+                    </Link>
                     <div>
                         <time className="text-xs font-light text-left">
                             {moment(createdAt).fromNow()}

@@ -1,8 +1,8 @@
 import React, { memo } from "react";
 import useSWR from "swr";
-import { GetState } from "../../../state/stateProvider";
-import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../../util";
-import { postInterface } from "../../../util/interfaces";
+import { GetState } from "../../state/stateProvider";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
+import { postInterface } from "../../util/interfaces";
 import SinglePost from "./singlePost";
 
 const Posts = () => {

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import React, { memo } from "react";
 import useSWR from "swr";
-import SuggestedUserBody from "../components/home/ExploreUser/suggestedUserBody";
+import SuggestedUserBody from "../components/ExploreUser/suggestedUserBody";
 import Home from "../components/home/index";
 import Navbar from "../components/navbar";
 import Loading from "../components/progress/Loading";

@@ -1,6 +1,6 @@
 import React from "react";
 import { postInterface } from "../util/interfaces";
-import SinglePost from "./home/posts/singlePost";
+import SinglePost from "./posts/singlePost";
 
 const BookmarkBody = ({ bookmark }: { bookmark: postInterface[] }) => {
     if (!bookmark.length) {

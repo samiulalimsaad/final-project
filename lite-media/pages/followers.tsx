@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import React, { memo } from "react";
 import useSWR from "swr";
-import SuggestedUserBody from "../components/home/ExploreUser/suggestedUserBody";
+import SuggestedUserBody from "../components/ExploreUser/suggestedUserBody";
 import Home from "../components/home/index";
 import Navbar from "../components/navbar";
 import Loading from "../components/progress/Loading";
@@ -10,7 +10,6 @@ import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
 
 const Index: NextPage = () => {
     const { uid } = GetState();
-
 
     const { data, error } = useSWR(NODE_SERVER(`/follower/${uid}`), fetcher, {
         refreshInterval: REFRESH_INTERVAL,
