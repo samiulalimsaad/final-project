@@ -1,7 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo, useCallback } from "react";
+import React, { useCallback } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NODE_SERVER } from "../../util";
 
@@ -108,4 +108,4 @@ const SuggestedUserBody = ({ user }: userInterface) => {
     );
 };
 
-export default memo(SuggestedUserBody);
+export default SuggestedUserBody;

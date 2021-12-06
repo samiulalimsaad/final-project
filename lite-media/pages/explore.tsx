@@ -3,30 +3,33 @@ import React, { memo } from "react";
 import useSWR from "swr";
 import SuggestedUserBody from "../components/ExploreUser/suggestedUserBody";
 import Layout from "../components/Layout";
-import Loading from "../components/progress/Loading";
 import { GetState } from "../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
 
 const Index: NextPage = () => {
     const { uid } = GetState();
 
-    const { data, error } = useSWR(NODE_SERVER(`/follower/${uid}`), fetcher, {
-        refreshInterval: REFRESH_INTERVAL,
-    });
+    console.log({ uid });
+
+    const { data, error } = useSWR(
+        NODE_SERVER(`/suggested-user/${uid}`),
+        fetcher,
+        { refreshInterval: REFRESH_INTERVAL }
+    );
 
     return (
-        <Layout title="Followers">
+        <Layout title="Explore Something New">
             {error ? (
                 <div>failed to load</div>
-            ) : data?.followers ? (
-                data?.followers?.map((user: any) => (
+            ) : data?.suggestedUser ? (
+                data?.suggestedUser?.map((user: any) => (
                     <div key={user._id}>
                         <SuggestedUserBody user={user} />
                         <hr className="border-b border-indigo-300" />
                     </div>
                 ))
             ) : (
-                <Loading transparent />
+                "<Loading transparent />"
             )}
         </Layout>
     );
