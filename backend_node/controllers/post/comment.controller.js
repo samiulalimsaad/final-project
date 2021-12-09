@@ -2,9 +2,12 @@ const postModel = require("../../models/post.model");
 const { sendError } = require("../../utils/sendError");
 
 exports.getAllComments = async (req, res) => {
+    console.log("...........Get Comments.......");
+    console.log(req.body);
     const comments = await postModel
         .findById(req.body.postId || req.params.postId)
-        .select("comment").populate("comment");
+        .select("comments")
+        .populate("comments");
     return res.json({
         comments: comments.comment,
         success: true,
@@ -23,7 +26,7 @@ exports.addComment = async (req, res) => {
     try {
         if (!req.body.comment) isComment(res);
         const data = {
-            comment: [req.body.comment],
+            comments: [{ userId: req.params.id, body: req.body.comment }],
         };
         const user = await postModel.findByIdAndUpdate(
             req.body.postId,

@@ -13,7 +13,7 @@ const MenuItems = () => {
     };
 
     if (!uid) return null;
-    
+
     return (
         <Menu as="div" className="ml-3 relative">
             <div>
@@ -22,7 +22,7 @@ const MenuItems = () => {
                     <div className="relative h-8 w-8">
                         <Image
                             className="rounded-full bg-white overflow-hidden"
-                            src={profilePic ||"/userIcon.png"}
+                            src={profilePic || "/userIcon.png"}
                             alt=""
                             layout="fill"
                         />
@@ -42,7 +42,7 @@ const MenuItems = () => {
                     <Menu.Item>
                         {({ active }) => (
                             <div>
-                                <Link href={`/profile/${uid}`}>
+                                <Link href={`/profile`}>
                                     <a
                                         className={classNames(
                                             active ? "bg-gray-100" : "",
