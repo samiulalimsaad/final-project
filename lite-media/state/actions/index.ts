@@ -23,7 +23,7 @@ export const rootReducer = (
     state = initialState,
     { type, payload }: actionInterface
 ) => {
-    console.log({ globalState: state });
+    // console.log({ globalState: state });
     switch (type) {
         case LOADING:
             return { ...state, loading: !state.loading };

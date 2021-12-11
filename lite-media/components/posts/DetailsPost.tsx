@@ -1,39 +1,44 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
-import { NODE_SERVER } from "../../util";
-import { postInterface } from "../../util/interfaces";
+import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
 import AddComment from "./AddComment";
 import Comments from "./Comments";
 import SinglePost from "./singlePost";
 
 const DetailsPost = ({ postId }: any) => {
     const { uid } = GetState();
-    const [post, setPost] = useState<postInterface>();
-    useEffect(() => {
-        (async function () {
-            const { data } = await axios.get(
-                NODE_SERVER(`/post/${uid}/${postId}`)
-            );
-            console.log(data?.post);
-            setPost(data?.post);
-        })();
-    }, [postId, uid]);
+    const router = useRouter();
+
+    const { data, error } = useSWR(
+        NODE_SERVER(`/post/${uid}/${postId}`),
+        fetcher,
+        {
+            refreshInterval: REFRESH_INTERVAL,
+        }
+    );
+    console.log({ data });
+    if (error) {
+        alert(error);
+    }
+    if (!data?.post?._id) {
+        router.replace("/");
+    }
     return (
         <div className="h-screen relative">
-            {post?._id && (
-                <>
+            {data?.post?._id && (
+                <div>
                     <SinglePost
-                        post={post!}
-                        userName={post?.user?.name?.fullName!}
-                        userId={post?.user?._id!}
+                        post={data?.post!}
+                        userName={data?.post?.user?.name?.fullName!}
+                        userId={data?.post?.user?._id!}
                         noBorder
                     />
                     <div className="h-32">
-                        <Comments />
+                        <Comments comments={data?.post?.comments} />
                     </div>
-                    <AddComment postId={post?._id} />
-                </>
+                    <AddComment postId={data?.post?._id} />
+                </div>
             )}
         </div>
     );

@@ -92,7 +92,7 @@ const PostHeader = ({
         <div className="flex items-center justify-between px-1 w-full ">
             <div className="flex items-center">
                 <Link href={`/profile/${userId}`} passHref>
-                    <a className="flex items-center">
+                    <button className="flex items-center">
                         <div className="relative h-12 w-12 rounded-full border-2 border-gray-500 overflow-hidden">
                             <Image
                                 className="object-center object-cover "
@@ -101,16 +101,16 @@ const PostHeader = ({
                                 layout="fill"
                             />
                         </div>
-                    </a>
+                    </button>
                 </Link>
                 <div className="ml-2 flex-col">
                     <Link href={`/profile/${userId}`} passHref>
-                        <a className="flex items-center">
+                        <button className="flex items-center">
                             <h3 className="font-medium">{userName}</h3>
                             <h4 className="text-xs font-light ml-3">
                                 @{userName?.split(" ").join("_")}
                             </h4>
-                        </a>
+                        </button>
                     </Link>
                     <div>
                         <time className="text-xs font-light text-left">

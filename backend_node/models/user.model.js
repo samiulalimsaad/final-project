@@ -1,38 +1,47 @@
 const { Schema, model } = require("mongoose");
 
-const nameSchema = new Schema({
-    firstName: {
-        type: String,
-        trim: true,
-        required: true,
+const nameSchema = new Schema(
+    {
+        firstName: {
+            type: String,
+            trim: true,
+            required: true,
+        },
+        lastName: {
+            type: String,
+            trim: true,
+            required: true,
+            default: "",
+        },
+        fullName: {
+            type: String,
+            trim: true,
+            required: true,
+        },
     },
-    lastName: {
-        type: String,
-        trim: true,
-        required: true,
-        default: "",
-    },
-    fullName: {
-        type: String,
-        trim: true,
-        required: true,
-    },
-});
+    { timestamps: true }
+);
 
-const addressSchema = new Schema({
-    city: String,
-    street: String,
-    state: String,
-    country: String,
-    zip: String,
-});
+const addressSchema = new Schema(
+    {
+        city: String,
+        street: String,
+        state: String,
+        country: String,
+        zip: String,
+    },
+    { timestamps: true }
+);
 
-const contactSchema = new Schema({
-    tel: String,
-    email: String,
-    website: String,
-    address: addressSchema,
-});
+const contactSchema = new Schema(
+    {
+        tel: String,
+        email: String,
+        website: String,
+        address: addressSchema,
+    },
+    { timestamps: true }
+);
 const storySchema = new Schema(
     {
         image: {

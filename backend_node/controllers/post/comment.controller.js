@@ -7,9 +7,9 @@ exports.getAllComments = async (req, res) => {
     const comments = await postModel
         .findById(req.body.postId || req.params.postId)
         .select("comments")
-        .populate("comments");
+        .populate("comments comments.user");
     return res.json({
-        comments: comments.comment,
+        comments,
         success: true,
         message: "All comments",
     });
@@ -26,7 +26,7 @@ exports.addComment = async (req, res) => {
     try {
         if (!req.body.comment) isComment(res);
         const data = {
-            comments: [{ userId: req.params.id, body: req.body.comment }],
+            comments: [{ user: req.params.id, body: req.body.comment }],
         };
         const user = await postModel.findByIdAndUpdate(
             req.body.postId,

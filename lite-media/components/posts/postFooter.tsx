@@ -64,7 +64,7 @@ const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
                 )}
             </button>
             <button className="p-3 transition ease-in-out duration-500 hover:bg-indigo-400/50 active:bg-indigo-700/50 flex flex-1 justify-center items-center">
-                {comment && <span>{comment}</span>}
+                {comment?.length && <span>{comment.length}</span>}
                 <AnnotationIcon className="h-5 w-5 ml-3" aria-hidden="true" />
             </button>
             <button className="p-3 transition ease-in-out duration-500 hover:bg-indigo-400/50 active:bg-indigo-700/50 flex flex-1 justify-center items-center">

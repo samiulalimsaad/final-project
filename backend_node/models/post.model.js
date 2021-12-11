@@ -1,9 +1,12 @@
 const { Schema, model } = require("mongoose");
 
-const commentSchema = new Schema({
-    userId: { type: Schema.Types.String, ref: "User" },
-    body: String,
-});
+const commentSchema = new Schema(
+    {
+        user: { type: Schema.Types.String, ref: "User" },
+        body: String,
+    },
+    { timestamps: true }
+);
 
 const postSchema = new Schema(
     {
