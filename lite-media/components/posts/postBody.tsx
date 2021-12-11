@@ -10,7 +10,7 @@ interface postBodyInterface {
 const PostBody = ({ id, image, post }: postBodyInterface) => {
     const [lineClamp, setLineClamp] = useState(true);
     return (
-        <div className="py-4">
+        <div className="p-4 border-b border-b-gray-200">
             {post && (
                 <div
                     className={`"font-light text-justify " ${

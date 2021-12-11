@@ -1,14 +1,10 @@
 const { Router } = require("express");
 const {
-    getAllComments,
     addComment,
     removeComment,
+    getComments,
 } = require("../controllers/post/comment.controller");
-const {
-    getAllLikes,
-    addLike,
-    removeLike,
-} = require("../controllers/post/like.controller");
+const { addLike, removeLike } = require("../controllers/post/like.controller");
 const {
     getAllPost,
     getSinglePost,
@@ -38,30 +34,18 @@ postRoute.delete(
     deletePost
 );
 
-postRoute.get("/:id/like", findUserMiddleware, getPostMiddleware, getAllLikes);
-postRoute.post("/:id/like", findUserMiddleware, getPostMiddleware, addLike);
+postRoute.post("/like/:id", findUserMiddleware, getPostMiddleware, addLike);
 postRoute.delete(
-    "/:id/like/:postId",
+    "/like/:id/:postId",
     findUserMiddleware,
     getPostMiddleware,
     removeLike
 );
 
-postRoute.get(
-    "/:id/:postId/comment",
-    findUserMiddleware,
-    getPostMiddleware,
-    getAllComments
-);
-postRoute.post("/:id/comment", findUserMiddleware, addComment);
-postRoute.put(
-    "/:id/comment",
-    findUserMiddleware,
-    getPostMiddleware,
-    updatePost
-);
+postRoute.get("/comment/:id/:postId", findUserMiddleware, getComments);
+postRoute.post("/comment/:id/:postId", findUserMiddleware, addComment);
 postRoute.delete(
-    "/:id/comment/:postId",
+    "/comment/:id/:postId/:commentId",
     findUserMiddleware,
     getPostMiddleware,
     removeComment

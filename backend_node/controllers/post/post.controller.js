@@ -3,9 +3,7 @@ const userModel = require("../../models/user.model");
 const { sendError } = require("../../utils/sendError");
 
 exports.getPostMiddleware = async (req, res, next) => {
-    console.log("...........post Middleware.......");
     const post = await postModel.findById(req.body.postId || req.params.postId);
-    console.log("...........post found.......");
     if (post) next();
     else return res.json({ message: "post Not Found", success: false });
 };
@@ -18,8 +16,13 @@ exports.getAllPost = async (_req, res) => {
 exports.getSinglePost = async (req, res) => {
     const post = await postModel
         .findById(req.params.postId)
-        .populate("user comments.user");
-    return res.json({ post, success: true, message: "post Found" });
+        .populate("user comments comments.user")
+        .exec(async (error, v) => {
+            if (error) {
+                sendError(res, error);
+            }
+            return res.json({ post: v, success: true, message: "post Found" });
+        });
 };
 
 exports.createPost = async (req, res) => {

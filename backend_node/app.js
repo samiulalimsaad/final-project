@@ -36,6 +36,9 @@ app.use("/active-user", activeUserRoute);
 app.use("/story", storyRoute);
 app.use("/info", infoRoute);
 
+app.get("/test", (req, res) => {
+    res.json({ query: req.query });
+});
 app.get("*", (_, res) => {
     res.send(
         `<h1 style="display: grid;place-items: center; justify-items: center; height: 100vh;width: 100vw;">Route Not Found</h1>`

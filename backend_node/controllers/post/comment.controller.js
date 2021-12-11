@@ -1,46 +1,43 @@
+const commentModel = require("../../models/comment.model");
 const postModel = require("../../models/post.model");
 const { sendError } = require("../../utils/sendError");
 
-exports.getAllComments = async (req, res) => {
-    console.log("...........Get Comments.......");
-    console.log(req.body);
-    const comments = await postModel
-        .findById(req.body.postId || req.params.postId)
-        .select("comments")
-        .populate("comments comments.user");
-    return res.json({
-        comments,
-        success: true,
-        message: "All comments",
-    });
-};
+exports.getComments = async (req, res) => {
+    const postComments = await postModel
+        .findById(req.params.postId)
+        .select("comments");
 
-const isComment = (res) => {
+    const commentsIds = [...new Set(postComments.comments._id)];
+    const comment = await commentModel
+        .find({
+            _id: { $in: [commentsIds] },
+        })
+        .populate("user");
     return res.json({
-        success: false,
-        message: "Only comment Allow",
+        comment,
+        success: true,
+        message: "Comment Found",
     });
 };
 
 exports.addComment = async (req, res) => {
     try {
-        if (!req.body.comment) isComment(res);
-        const data = {
-            comments: [{ user: req.params.id, body: req.body.comment }],
-        };
-        const user = await postModel.findByIdAndUpdate(
-            req.body.postId,
-            {
-                $push: data,
-            },
-            {
-                new: true,
+        const data = req.body;
+        data.user = req.params.id;
+        const comment = new commentModel(data);
+        await comment.save(async (error, v) => {
+            if (error) {
+                sendError(res, error);
             }
-        );
-        return res.json({
-            user,
-            success: true,
-            message: "comment Added Successfully",
+            const commentPost = await postModel.findById(req.params.postId);
+            commentPost.comments.push(comment);
+            await commentPost.save();
+            return res.json({
+                comment: v,
+                commentPost,
+                success: true,
+                message: "Comment Created Successfully",
+            });
         });
     } catch (error) {
         sendError(res, error);
@@ -49,11 +46,13 @@ exports.addComment = async (req, res) => {
 
 exports.removeComment = async (req, res) => {
     try {
-        if (!req.params.id) isComment(res);
+        const comment = await commentModel.findByIdAndDelete(
+            req.params.commentId
+        );
         const data = {
-            comment: [req.params.id],
+            comments: [comment._id],
         };
-        const user = await postModel.findByIdAndUpdate(
+        await postModel.findByIdAndUpdate(
             req.params.postId,
             {
                 $pullAll: data,
@@ -63,9 +62,9 @@ exports.removeComment = async (req, res) => {
             }
         );
         return res.json({
-            user,
+            comment,
             success: true,
-            message: "comment Removed Successfully",
+            message: "Comment Deleted Successfully",
         });
     } catch (error) {
         sendError(res, error);

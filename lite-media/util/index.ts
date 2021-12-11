@@ -6,7 +6,7 @@ export const REFRESH_INTERVAL = 15000;
 const { publicRuntimeConfig } = getConfig();
 export const NODE_SERVER = (v: string) => {
     const a = publicRuntimeConfig.NODE_SERVER + v;
-    // console.log("NODE_SERVER", a);
+    console.log("NODE_SERVER", a);
     return a;
 };
 export const PYTHON_SERVER = (v: string) => {
