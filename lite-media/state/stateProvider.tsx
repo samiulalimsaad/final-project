@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useReducer } from "react";
+import {
+    createContext,
+    ReactNode,
+    useCallback,
+    useContext,
+    useMemo,
+    useReducer,
+} from "react";
 import { initialState, reducerInterface } from ".";
 import { rootReducer } from "./actions";
 
@@ -14,11 +21,13 @@ type Props = {
 };
 
 export function StateProvider({ children }: Props) {
-    const [state, dispatch] = useReducer(rootReducer, initialState);
+    const [state, dispatcher] = useReducer(rootReducer, initialState);
+    const store = useMemo(() => state, [state]);
+    const dispatch = useCallback(dispatcher, [dispatcher]);
     // console.log("Global State", state);
     return (
         <>
-            <StateContext.Provider value={{ ...state, dispatch }}>
+            <StateContext.Provider value={{ ...store, dispatch }}>
                 {children}
             </StateContext.Provider>
         </>

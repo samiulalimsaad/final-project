@@ -1,16 +1,16 @@
-import { getAuth } from "@firebase/auth";
 import Link from "next/link";
 import React, { memo } from "react";
 import useSWR from "swr";
+import { GetState } from "../../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util/index";
 import Loading from "../progress/Loading";
 import SuggestedUserBody from "./suggestedUserBody";
 
 const Suggested = () => {
-    const auth = getAuth();
+    const { uid } = GetState();
 
     const { data, error } = useSWR(
-        NODE_SERVER(`/suggested-user/${auth?.currentUser?.uid}`),
+        NODE_SERVER(`/suggested-user/${uid}`),
         fetcher,
         { refreshInterval: REFRESH_INTERVAL }
     );

@@ -43,7 +43,7 @@ const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
             alert(error);
         }
     };
-
+    console.log({ comment });
     return (
         <div className="flex items-center justify-between px-1 w-full divide-x divide-gray-500">
             <button

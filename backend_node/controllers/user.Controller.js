@@ -1,3 +1,4 @@
+const postModel = require("../models/post.model");
 const userModel = require("../models/user.model");
 const { sendError } = require("../utils/sendError");
 
@@ -23,6 +24,19 @@ exports.getSingleUser = async (req, res) => {
         .findById(req.params.id)
         .populate("post follower following");
     return res.json({ user, success: true, message: "user Found" });
+};
+
+exports.getSingleUserPosts = async (req, res) => {
+    const user = await userModel.findById(req.params.id).select("post");
+    const postIds = [...new Set(user.post.map((v) => v._id))];
+    const post = (
+        await postModel
+            .find({
+                _id: { $in: [...postIds] },
+            })
+            .populate("user")
+    ).reverse();
+    return res.json({ post, success: true, message: "Post Found" });
 };
 
 exports.createUser = async (req, res) => {

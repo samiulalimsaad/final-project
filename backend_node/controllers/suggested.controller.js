@@ -1,26 +1,21 @@
 const userModel = require("../models/user.model");
 
 exports.getSuggestedUser = async (req, res) => {
-    const users = await userModel
-        .find()
-        .select("_id")
-        .select("name profilePic following");
-    const suggestedUser = [
-        ...new Set(
-            users
-                .filter((v) => v._id !== req.params.id)
-                .map(
-                    (su) =>
-                        users.filter((us) =>
-                            us.following.map((u) => u._id !== su._id)
-                        )[0]
-                )[0]
-        ),
-    ];
+    const allUsers = await userModel.find().select("_id");
+    const user = await userModel.findById(req.params.id).select("following");
 
+    const temp = allUsers.map((v) => {
+        if (!user.following.includes(v._id)) return v._id;
+    });
+    const pullUsers = temp.filter((v) => v).filter((v) => v !== req.params.id);
+    const userIds = [...new Set(pullUsers)];
+    const suggestedUser = await userModel
+        .find({
+            _id: { $in: [...userIds] },
+        })
+        .select("name.fullName profilePic following");
     return res.json({
         suggestedUser,
-        suggestedUserLength: suggestedUser.length,
         success: true,
         message: "Suggested Users",
     });

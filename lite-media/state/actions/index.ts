@@ -37,6 +37,7 @@ export const rootReducer = (
                 isAuth: true,
                 uid: payload.uid,
                 displayName: payload.displayName,
+                profilePic: payload.profilePic,
             };
         case LOGOUT:
             return { ...state, isAuth: false, displayName: null };

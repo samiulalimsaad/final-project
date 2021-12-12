@@ -2,13 +2,12 @@ import React, { memo } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
 import { fetcher, NODE_SERVER } from "../../util";
-import { postInterface } from "../../util/interfaces";
-import SinglePost from "../posts/singlePost";
 import CoverImage from "./CoverImage";
 import DisplayName from "./DisplayName";
 import FollowUnfollow from "./FollowUnfollow";
 import ProfileImage from "./ProfileImage";
 import UserSelf from "./UserInfo";
+import UserPosts from "./UserPosts";
 
 const ProfileBody = ({ id }: { id?: string | string[] }) => {
     const { uid, dispatch } = GetState();
@@ -58,17 +57,7 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
             </div>
             <hr className="h-1 bg-gray-300" />
             <div className="pb-18 mt-4">
-                {data?.user?.post &&
-                    [...data?.user?.post]
-                        .reverse()
-                        .map((v: postInterface) => (
-                            <SinglePost
-                                post={v}
-                                userId={data?.user?._id}
-                                userName={data?.user?.name?.fullName}
-                                key={v._id}
-                            />
-                        ))}
+                <UserPosts id={id || uid!} />
             </div>
         </div>
     );

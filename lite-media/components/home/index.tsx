@@ -6,8 +6,6 @@ import { GetState } from "../../state/stateProvider";
 import { LOADING, LOGIN } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 import AllModals from "../AllModals";
-import ShowImage from "../AllModals/showImage";
-import CreatPost from "../createPost";
 import Loading from "../progress/Loading";
 import LeftSide from "./left";
 import RightSide from "./right";
@@ -29,18 +27,19 @@ const Home = ({ children }: { children: any }) => {
                 );
                 if (!data.success) {
                     // setError(data.message);
-                    console.error(data.message);
+                    // alert(data?.message);
                 } else {
                     dispatch({
                         type: LOGIN,
                         payload: {
-                            displayName: data.user.name.fullName,
+                            displayName: data?.user?.name?.fullName,
+                            profilePic: data?.user?.profilePic,
                             uid: auth?.currentUser?.uid,
                         },
                     });
                 }
             } catch (e) {
-                console.error("Error adding document: ", e);
+                // alert(`Error adding document: ${e}`);
             } finally {
                 dispatch({ type: LOADING });
             }
@@ -58,8 +57,7 @@ const Home = ({ children }: { children: any }) => {
                     <RightSide />
                 </div>
                 <div className="inset-0">
-                    <CreatPost />
-                    <ShowImage />
+                    <AllModals />
                 </div>
             </section>
         );

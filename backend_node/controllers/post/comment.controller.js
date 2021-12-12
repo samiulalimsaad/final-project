@@ -6,11 +6,10 @@ exports.getComments = async (req, res) => {
     const postComments = await postModel
         .findById(req.params.postId)
         .select("comments");
-
-    const commentsIds = [...new Set(postComments.comments._id)];
+    const commentsIds = [...new Set(postComments.comments.map((v) => v._id))];
     const comment = await commentModel
         .find({
-            _id: { $in: [commentsIds] },
+            _id: { $in: [...commentsIds] },
         })
         .populate("user");
     return res.json({

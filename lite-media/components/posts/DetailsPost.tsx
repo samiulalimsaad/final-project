@@ -29,12 +29,20 @@ const DetailsPost = ({ postId }: any) => {
                             userId={data?.post?.user?._id!}
                             noBorder
                         />
-                        <Comments
-                            comments={data?.post?.comments}
-                            postId={postId}
-                        />
+                        {data?.post?.comments?.length ? (
+                            <Comments
+                                comments={data?.post?.comments}
+                                postId={postId}
+                            />
+                        ) : (
+                            <div className="grid place-items-center h-1/2">
+                                <h1 className="text-2xl font-semibold">
+                                    No Comments
+                                </h1>
+                            </div>
+                        )}
                     </div>
-                    <div className="absolute left-0 right-0 bottom-[7rem] bg-blue-700">
+                    <div className="absolute left-0 right-0 bottom-[7rem]">
                         <AddComment postId={data?.post?._id} />
                     </div>
                 </div>

@@ -23,9 +23,9 @@ const DisplayName = ({
         <>
             <div>
                 <h1 className="flex space-x-2 font-semibold text-4xl">
-                    <h2 className="capitalize">{name?.firstName}</h2>
+                    <span className="capitalize">{name?.firstName}</span>
                     {/* {data?.user?.name?.midName && <h2 className='capitalize'>{data?.user?.name?.midName}</h2>} */}
-                    <h2 className="capitalize">{name?.lastName}</h2>
+                    <span className="capitalize">{name?.lastName}</span>
                 </h1>
                 <h3 className="text-xs text-gray-600">
                     @{name?.fullName?.split(" ").join("_")}

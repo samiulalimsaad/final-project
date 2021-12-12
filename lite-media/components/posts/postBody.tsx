@@ -10,10 +10,10 @@ interface postBodyInterface {
 const PostBody = ({ id, image, post }: postBodyInterface) => {
     const [lineClamp, setLineClamp] = useState(true);
     return (
-        <div className="p-4 border-b border-b-gray-200">
+        <div className="p-4 border-b border-b-gray-200 transition-all duration-1000">
             {post && (
                 <div
-                    className={`"font-light text-justify " ${
+                    className={`"font-light text-justify break-all" ${
                         lineClamp ? "line-clamp-6" : "line-clamp-none"
                     }`}
                     onClick={() => setLineClamp((p) => !p)}

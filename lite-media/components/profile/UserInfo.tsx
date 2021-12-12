@@ -1,11 +1,12 @@
 import {
-    AtSymbolIcon,
     CursorClickIcon,
     HomeIcon,
+    MailIcon,
     PhoneIcon,
     SpeakerphoneIcon,
 } from "@heroicons/react/solid";
 import moment from "moment";
+import Link from "next/link";
 import React from "react";
 
 interface userSelfInterface {
@@ -39,7 +40,9 @@ const UserInfo = ({ bio, contact, createdAt, email }: userSelfInterface) => {
                         <p className="capitalize">{bio}</p>
                     </>
                 ) : (
-                    <p className="capitalize">add bio</p>
+                    <Link href="/settings" passHref>
+                        <a className="capitalize">add bio</a>
+                    </Link>
                 )}
             </div>
             <div className="flex flex-col justify-between space-y-2 py-4 px-2">
@@ -54,10 +57,7 @@ const UserInfo = ({ bio, contact, createdAt, email }: userSelfInterface) => {
                 )}
                 {email && (
                     <p className="capitalize flex space-y-2 items-center">
-                        <AtSymbolIcon
-                            className="h-4 w-4 mr-2"
-                            aria-hidden="true"
-                        />
+                        <MailIcon className="h-4 w-4 mr-2" aria-hidden="true" />
                         {email}
                     </p>
                 )}

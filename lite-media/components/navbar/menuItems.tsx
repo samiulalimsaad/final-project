@@ -21,7 +21,7 @@ const MenuItems = () => {
                     <span className="sr-only">Open user menu</span>
                     <div className="relative h-8 w-8">
                         <Image
-                            className="rounded-full bg-white overflow-hidden"
+                            className="rounded-full bg-white overflow-hidden object-center object-cover"
                             src={profilePic || "/userIcon.png"}
                             alt=""
                             layout="fill"

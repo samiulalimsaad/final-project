@@ -13,7 +13,7 @@ const ActiveFriends = () => {
         fetcher,
         { refreshInterval: REFRESH_INTERVAL }
     );
-    if (error) alert(error)
+    if (error) alert(error);
 
     return (
         <section className="bg-gray-100 rounded overflow-hidden mt-3">
@@ -39,10 +39,15 @@ const ActiveFriends = () => {
                                                 href={`/message/${item?._id}`}
                                                 passHref
                                             >
-                                                <h4 className="font-semibold flex">
+                                                <h4 className="font-semibold flex items-center justify-center">
                                                     <div className="overflow-hidden rounded-full border border-gray-500">
                                                         <Link
-                                                            href={`/profile/${item?._id}`}
+                                                            href={`${
+                                                                item?._id ===
+                                                                uid
+                                                                    ? "/profile/"
+                                                                    : `/profile/${item?._id}`
+                                                            }`}
                                                             passHref
                                                         >
                                                             <div className="relative h-7 w-7">
@@ -67,7 +72,7 @@ const ActiveFriends = () => {
                                             </Link>
                                         </div>
                                     </div>
-                                    <span className="mr-3 h-2 w-2 bg-green-500 rounded-full"/>
+                                    <span className="mr-3 h-2 w-2 bg-green-500 rounded-full" />
                                 </div>
                             </div>
                             <hr className="border-b border-gray-300" />

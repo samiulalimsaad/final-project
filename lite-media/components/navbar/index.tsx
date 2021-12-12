@@ -12,8 +12,7 @@ import MenuItems from "./menuItems";
 import Notification from "./notification";
 
 const Navbar = () => {
-    const { createPost, uid } = GetState();
-
+    const { createPost, uploadCoverPic, uploadProfilePic, uid } = GetState();
 
     useEffect(() => {
         const setActive = async () => {
@@ -78,9 +77,10 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-            {createPost && <Progressbar />}
+            {(createPost ||
+                uploadProfilePic.isShowing ||
+                uploadCoverPic.imageSrc) && <Progressbar />}
         </Disclosure>
     );
 };
 export default memo(Navbar);
-

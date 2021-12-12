@@ -9,11 +9,11 @@ import {
 import Image from "next/image";
 import React, { Fragment, memo, useCallback, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import { CLOSE_PROFILE_IMAGE, PROGRESS } from "../../state/types";
+import { CLOSE_COVER_IMAGE, PROGRESS } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 
-const UploadProfilePic = () => {
-    const { uploadProfilePic, dispatch, uid } = GetState();
+const UploadCoverPic = () => {
+    const { uploadCoverPic, dispatch, uid } = GetState();
     const [imageState, setImageState] = useState<File>();
     const [tempImage, setTempImage] = useState("");
     const storage = getStorage();
@@ -24,14 +24,14 @@ const UploadProfilePic = () => {
     };
 
     const closeModal = useCallback(() => {
-        dispatch({ type: CLOSE_PROFILE_IMAGE });
+        dispatch({ type: CLOSE_COVER_IMAGE });
     }, [dispatch]);
 
     const uploadPost = useCallback(async () => {
         if (imageState?.name) {
             const storageRef = ref(
                 storage,
-                `profilePic/${uid}/${imageState!.name.replace(
+                `coverPic/${uid}/${imageState!.name.replace(
                     imageState!.name,
                     Date.now().toString()
                 )}`
@@ -61,7 +61,7 @@ const UploadProfilePic = () => {
                                 const post = await axios.put(
                                     NODE_SERVER(`/info/${uid}`),
                                     {
-                                        profilePic: downloadURL,
+                                        coverPic: downloadURL,
                                     }
                                 );
                                 if (post.data.success) {
@@ -81,7 +81,7 @@ const UploadProfilePic = () => {
     const removeImage = async () => {
         try {
             const post = await axios.put(NODE_SERVER(`/info/${uid}`), {
-                profilePic: null,
+                coverPic: null,
             });
             if (post.data.success) {
                 setImageState(undefined);
@@ -93,10 +93,10 @@ const UploadProfilePic = () => {
     };
 
     return (
-        <Transition appear show={uploadProfilePic?.isShowing} as={Fragment}>
+        <Transition appear show={uploadCoverPic?.isShowing} as={Fragment}>
             <div
                 className={`absolute inset-0 backdrop-blur-[1px] bg-gray-900/50 overflow-y-auto h-screen w-screen z-[51] ${
-                    !uploadProfilePic?.isShowing && "hidden"
+                    !uploadCoverPic?.isShowing && "hidden"
                 }`}
             >
                 <Dialog
@@ -180,7 +180,7 @@ const UploadProfilePic = () => {
                                         className="object-center object-cover "
                                         src={
                                             tempImage ||
-                                            uploadProfilePic?.imageSrc ||
+                                            uploadCoverPic?.imageSrc ||
                                             "/userIcon.png"
                                         }
                                         alt="profile image"
@@ -195,4 +195,4 @@ const UploadProfilePic = () => {
         </Transition>
     );
 };
-export default memo(UploadProfilePic);
+export default memo(UploadCoverPic);

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import { postInterface } from "../../util/interfaces";
 import PostBody from "./postBody";
@@ -18,25 +17,21 @@ const SinglePost = ({
     userId,
     noBorder,
 }: postLocalInterface) => {
+    console.log({ post });
     return (
         <div
             className={`my-2 px-2 py-3 space-y-3 bg-gray-50 h-auto rounded-md border-gray-400/80 shadow-md ${
                 !noBorder && "border-2"
             }`}
         >
-            <Link href={`/post/${post?._id}`} passHref>
-                <a>
-                    <PostHeader
-                        profilePic={post?.user?.profilePic || "/userIcon.png"}
-                        createdAt={post?.createdAt}
-                        userName={post?.user?.name?.fullName || userName}
-                        userId={post?.user?._id || userId}
-                        bookmark={post?.user?.bookmark}
-                        postBody={post?.postBody}
-                        id={post?._id}
-                    />
-                </a>
-            </Link>
+            <PostHeader
+                profilePic={post?.user?.profilePic || "/userIcon.png"}
+                createdAt={post?.createdAt}
+                userName={post?.user?.name?.fullName || userName}
+                userId={post?.user?._id || userId}
+                bookmark={post?.user?.bookmark}
+                id={post?._id}
+            />
             <PostBody
                 id={post?._id}
                 image={post?.postImage}

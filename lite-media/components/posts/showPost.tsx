@@ -23,7 +23,6 @@ const ShowPost = ({ post }: { post: postInterface }) => {
                     profilePic={post?.user?.profilePic || "/userIcon.png"}
                     createdAt={post?.createdAt}
                     userName={post?.user?.name.fullName}
-                    postBody={post?.postBody}
                     bookmark={post?.user?.bookmark}
                     id={post?._id}
                     userId={post?.user?._id}

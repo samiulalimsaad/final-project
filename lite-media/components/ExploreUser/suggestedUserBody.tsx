@@ -56,34 +56,38 @@ const SuggestedUserBody = ({ user }: userInterface) => {
             <div className="flex items-center justify-between w-full">
                 <div className="flex truncate">
                     <div className="pl-2 flex ">
-                        <Link href={`/profile/${user?._id}`} passHref>
-                            <h4 className="font-semibold flex">
-                                <div className="overflow-hidden rounded-full border border-gray-500">
-                                    <div className="relative h-8 w-8">
+                        <h4 className="font-semibold flex items-center justify-center">
+                            <div className="overflow-hidden rounded-full border border-gray-500">
+                                <Link
+                                    href={`${
+                                        user?._id === uid
+                                            ? "/profile/"
+                                            : `/profile/${user?._id}`
+                                    }`}
+                                    passHref
+                                >
+                                    <div className="relative h-7 w-7 flex items-center justify-center">
                                         <Image
                                             className="object-center object-cover "
                                             src={
                                                 user?.profilePic ||
                                                 "/userIcon.png"
                                             }
-                                            alt={user?.name?.fullName || "fake"}
+                                            alt={`${user?.name?.fullName!}`}
                                             layout="fill"
                                         />
                                     </div>
-                                </div>
-                                <div className="flex flex-col">
-                                    <a className="ml-3 capitalize text-sm">
-                                        {user?.name.fullName}
-                                    </a>
-                                    <a className="ml-3 lowercase text-xs font-light">
-                                        @
-                                        {user?.name.fullName
-                                            .split(" ")
-                                            .join("_")}
-                                    </a>
-                                </div>
-                            </h4>
-                        </Link>
+                                </Link>
+                            </div>
+                            <div className="flex flex-col">
+                                <a className="ml-3 capitalize text-sm">
+                                    {user?.name.fullName}
+                                </a>
+                                <a className="ml-3 lowercase text-xs font-light">
+                                    @{user?.name.fullName.split(" ").join("_")}
+                                </a>
+                            </div>
+                        </h4>
                     </div>
                 </div>
                 <div className="flex items-center mr-2">
