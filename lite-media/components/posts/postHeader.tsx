@@ -95,11 +95,11 @@ const PostHeader = ({
                         <button className="flex items-center">
                             <h3 className="font-medium">{userName}</h3>
                             <h4 className="text-xs font-light ml-3">
-                                @{userName?.split(" ").join("_")}
+                                {`about post type`}
                             </h4>
                         </button>
                     </Link>
-                    <div>
+                    <div className="flex">
                         <time className="text-xs font-light text-left">
                             {moment(createdAt).fromNow()}
                         </time>

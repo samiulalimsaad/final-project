@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import { CREATE_POST } from "../../state/types";
-import Assistant from "./assistant";
 
 const bar = [
     {
@@ -51,7 +50,7 @@ const LeftSide = () => {
     const router = useRouter();
 
     return (
-        <section className="py-1 px-5 bg-gray-100 h-screen drop-shadow-md">
+        <section className="py-1 px-5 bg-gray-100 h-full drop-shadow-md">
             {bar.map((item) => (
                 <Link href={item.link} passHref key={item.name}>
                     <div
@@ -74,7 +73,7 @@ const LeftSide = () => {
                     New Post
                 </button>
             </div>
-            <Assistant />
+            {/* <Assistant /> */}
         </section>
     );
 };

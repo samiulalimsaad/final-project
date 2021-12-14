@@ -1,5 +1,5 @@
 import { PhotographIcon } from "@heroicons/react/outline";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import {
     getDownloadURL,
     getStorage,
@@ -7,7 +7,7 @@ import {
     uploadBytesResumable,
 } from "firebase/storage";
 import Image from "next/image";
-import React, {memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { db } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
 import MessageBody from "./messageBody";
@@ -17,14 +17,16 @@ interface conversationInterface {
     conversationId: string;
 }
 
-const Conversation = ({
-    conversationName,
-    conversationId,
-}: conversationInterface) => {
-    const { displayName, uid } = GetState();
+const Conversation = ({ conversationId }: conversationInterface) => {
+    const { uid } = GetState();
     const [message, setMessage] = useState("");
     const [image, setImage] = useState<File>();
     const storage = getStorage();
+    const scrollRef = useRef<null | HTMLDivElement>();
+
+    useEffect(() => {
+        // scrollRef?.current?.scrollIntoView({behavior: "smooth",});
+    }, []);
 
     const sendMessage = useCallback(
         async (e) => {
@@ -47,10 +49,9 @@ const Conversation = ({
                         const progress =
                             (snapshot.bytesTransferred / snapshot.totalBytes) *
                             100;
-                        console.log("Upload is " + progress + "% done");
                         switch (snapshot.state) {
                             case "paused":
-                                console.log("Upload is paused");
+                                alert("Upload is paused");
                                 break;
                             case "running":
                                 console.log("Upload is running");
@@ -78,6 +79,7 @@ const Conversation = ({
                                             messageId: uid,
                                             message,
                                             image,
+                                            createdAt: serverTimestamp(),
                                         }
                                     );
                                     await addDoc(
@@ -89,30 +91,48 @@ const Conversation = ({
                                             messageId: uid,
                                             message,
                                             image,
+                                            createdAt: serverTimestamp(),
                                         }
                                     );
                                 } catch (error) {
                                     alert(error);
+                                } finally {
+                                    scrollRef?.current?.scrollIntoView({
+                                        behavior: "smooth",
+                                    });
                                 }
                             }
                         );
                     }
                 );
             } else {
-                try {
-                    await addDoc(collection(db, `${uid}-${conversationId}`), {
-                        messageId: uid,
-                        message,
-                    });
-                    await addDoc(collection(db, `${conversationId}-${uid}`), {
-                        messageId: uid,
-                        message,
-                    });
-                } catch (error) {
-                    alert(error);
-                } finally {
-                    setImage(undefined);
-                    setMessage("");
+                if (message !== "") {
+                    try {
+                        await addDoc(
+                            collection(db, `${uid}-${conversationId}`),
+                            {
+                                messageId: uid,
+                                message,
+                                createdAt: serverTimestamp(),
+                            }
+                        );
+                        await addDoc(
+                            collection(db, `${conversationId}-${uid}`),
+                            {
+                                messageId: uid,
+                                message,
+                                createdAt: serverTimestamp(),
+                            }
+                        );
+                    } catch (error) {
+                        alert(error);
+                    } finally {
+                        setImage(undefined);
+                        setMessage("");
+                        scrollRef?.current?.scrollIntoView({
+                            behavior: "smooth",
+                        });
+                    }
                 }
             }
         },
@@ -131,15 +151,15 @@ const Conversation = ({
     // }, [conversationId, displayName, image, message, sendMessage, uid]);
 
     return (
-        <div className="relative rounded h-full">
-            <h4 className="bg-blue-500 text-white p-2 text-xl rounded">
-                {conversationName}
-            </h4>
-            <div className="h-640 h-full bg-gray-100 overflow-y-scroll">
+        <div className="relative rounded">
+            <div className="h-[77vh] bg-gray-100 overflow-y-scroll">
                 <MessageBody conversationId={conversationId} />
+                {/* <div
+                    ref={scrollRef as RefObject<HTMLDivElement>}
+                    className="pt-16"
+                /> */}
             </div>
-
-            <div className="absolute left-0 right-0">
+            <div className="">
                 <form
                     className="flex items-center justify-between ml-auto mr-auto w-full"
                     onSubmit={sendMessage}
@@ -149,7 +169,7 @@ const Conversation = ({
                             name="search"
                             id="search"
                             value={message}
-                            onChange={(e)=>setMessage(e?.target?.value)}
+                            onChange={(e) => setMessage(e?.target?.value)}
                             className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pr-10 sm:text-sm border-gray-300 rounded-md resize-none"
                             placeholder="write a message"
                         />

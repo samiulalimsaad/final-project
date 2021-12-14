@@ -16,7 +16,7 @@ const ActiveFriends = () => {
     if (error) alert(error);
 
     return (
-        <section className="bg-gray-100 rounded overflow-hidden mt-3">
+        <section className="bg-gray-100 rounded h-1/2 overflow-hidden mt-3">
             <div>
                 <div className="p-2 flex justify-center">
                     <h2 className="text-xl font-medium">Active Friends</h2>

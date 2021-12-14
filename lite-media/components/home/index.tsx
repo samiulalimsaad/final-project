@@ -48,12 +48,12 @@ const Home = ({ children }: { children: any }) => {
 
     if (!loading && isAuth)
         return (
-            <section className="grid grid-cols-8 justify-center divide-x-8 divide-gray-50">
-                <div className="col-span-2">
+            <section className="grid grid-cols-8 justify-center h-[90vh] divide-x-8 divide-gray-50">
+                <div className="col-span-2 h-full">
                     <LeftSide />
                 </div>
-                <div className="col-span-4 h-[78%]">{uid && children}</div>
-                <div className="col-span-2">
+                <div className="col-span-4 h-full">{uid && children}</div>
+                <div className="col-span-2 h-full">
                     <RightSide />
                 </div>
                 <div className="inset-0">
@@ -62,14 +62,14 @@ const Home = ({ children }: { children: any }) => {
             </section>
         );
     return (
-        <section className="grid grid-cols-8 justify-center divide-x-8 divide-gray-50">
-            <div className="col-span-2">
+        <section className="grid grid-cols-8 justify-center h-[90vh] divide-x-8 divide-gray-50">
+            <div className="col-span-2 h-full">
                 <LeftSide />
             </div>
-            <div className="relative col-span-4 h-[78%]">
+            <div className="relative col-span-4 h-full">
                 <Loading />
             </div>
-            <div className="col-span-2">
+            <div className="col-span-2 h-full">
                 <RightSide />
             </div>
             <AllModals />

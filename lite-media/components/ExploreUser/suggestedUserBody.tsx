@@ -83,8 +83,8 @@ const SuggestedUserBody = ({ user }: userInterface) => {
                                 <a className="ml-3 capitalize text-sm">
                                     {user?.name.fullName}
                                 </a>
-                                <a className="ml-3 lowercase text-xs font-light">
-                                    @{user?.name.fullName.split(" ").join("_")}
+                                <a className="ml-3 lowercase text-xs font-light truncate w-20">
+                                    @{user._id}
                                 </a>
                             </div>
                         </h4>

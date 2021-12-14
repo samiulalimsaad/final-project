@@ -16,7 +16,7 @@ const Suggested = () => {
     );
 
     return (
-        <section className="min-h-[18rem] bg-gray-100 rounded overflow-hidden">
+        <section className=" h-1/2 bg-gray-100 rounded overflow-hidden">
             <div>
                 <div className="p-1 flex justify-center">
                     <h2 className="text-xl font-medium">Suggested</h2>

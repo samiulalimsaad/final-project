@@ -11,7 +11,7 @@ const Layout = ({ children, title }: { title: string; children: any }) => {
             <header>
                 <Navbar />
             </header>
-            <section className="max-w-7xl h-screen w-screen mx-auto px-2 sm:px-6 lg:px-8">
+            <section className="max-w-7xl w-screen mx-auto px-2 sm:px-6 lg:px-8">
                 <Home>
                     {title && (
                         <div className="h-14 bg-indigo-700 text-white flex items-center space-x-4">

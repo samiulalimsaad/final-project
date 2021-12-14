@@ -14,7 +14,7 @@ const RightSide: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head> */}
-            <section className="pt-1 h-screen drop-shadow-md">
+            <section className="pt-1 drop-shadow-md">
                 <Suggested />
                 <ActiveFriends />
             </section>
