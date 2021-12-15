@@ -8,6 +8,8 @@ import {
     LOADING,
     LOGIN,
     LOGOUT,
+    NOTIFICATION_ADD,
+    NOTIFICATION_REMOVE,
     PROGRESS,
     SHOW_COVER_IMAGE,
     SHOW_IMAGE,
@@ -79,6 +81,38 @@ export const rootReducer = (
                 ...state,
                 progress: payload.progress,
             };
+        case NOTIFICATION_ADD:
+            return {
+                ...state,
+                notification: [
+                    ...state.notification,
+                    {
+                        type: payload?.type,
+                        text: payload?.text,
+                        isShowing: payload?.isShowing,
+                    },
+                ],
+            };
+        case NOTIFICATION_REMOVE:
+            return state.notification.length <= 2
+                ? {
+                      ...state,
+                      notification: [
+                          ...state.notification.slice(
+                              1,
+                              state.notification.length - 1
+                          ),
+                      ],
+                  }
+                : {
+                      ...state,
+                      notification: [
+                          ...state.notification.slice(
+                              1,
+                              state.notification.length
+                          ),
+                      ],
+                  };
 
         default:
             return state;

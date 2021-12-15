@@ -20,6 +20,13 @@ export interface reducerInterface {
         imageSrc: string;
         isShowing: boolean;
     };
+    notification: [
+        {
+            type: string;
+            text: string;
+            isShowing: boolean;
+        }
+    ];
     dispatch: Dispatch<any>;
 }
 
@@ -37,10 +44,17 @@ export const initialState = {
         imageSrc: "",
         isShowing: false,
     },
+    notification: [
+        {
+            type: "success", // error, warning, success
+            text: "this is a test text",
+            isShowing: false,
+        },
+    ],
     loading: false,
     displayName: null,
     profilePic: null,
     progress: 0,
     isAuth: false,
     uid: null,
-};
+} as reducerInterface;

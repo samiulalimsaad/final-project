@@ -43,7 +43,6 @@ const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
             alert(error);
         }
     };
-    console.log({ comment });
     return (
         <div className="flex items-center justify-between px-1 w-full divide-x divide-gray-500">
             <button
@@ -62,7 +61,7 @@ const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
             </button>
             <Link href={`/post/${id}`} passHref>
                 <a className="p-3 transition ease-in-out duration-500 hover:bg-indigo-400/50 active:bg-indigo-700/50 flex flex-1 justify-center items-center">
-                    {comment?.length && <span>{comment.length}</span>}
+                    {comment?.length > 0 && <span>{comment.length}</span>}
                     <AnnotationIcon
                         className="h-5 w-5 ml-3"
                         aria-hidden="true"

@@ -43,6 +43,11 @@ const bar = [
         icon: <UserGroupIcon className="h-6 w-6" aria-hidden="true" />,
         link: "/followers",
     },
+    {
+        name: "Test",
+        icon: <UserGroupIcon className="h-6 w-6" aria-hidden="true" />,
+        link: "/test",
+    },
 ];
 
 const LeftSide = () => {
