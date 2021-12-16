@@ -5,21 +5,25 @@ import { NOTIFICATION_REMOVE } from "../../state/types";
 
 const NotificationBody = ({ notification }: any) => {
     const { dispatch } = GetState();
+    console.log({ notification });
 
     useEffect(() => {
-        setTimeout(() => {
+        const cleanup = setTimeout(() => {
             dispatch({
                 type: NOTIFICATION_REMOVE,
             });
-            console.log("cleanup");
         }, 5000);
+        return () => {
+            cleanup;
+            console.log("cleanup");
+        };
     }, [dispatch]);
     return (
         <div>
             <Transition
                 appear
-                show={true}
-                // show={notification.isShowing}
+                // show={true}
+                show={notification.isShowing}
                 enter="transition transform ease-out duration-300"
                 enterFrom="translate-x-4 opacity-0"
                 enterTo="translate-x-0 opacity-100"

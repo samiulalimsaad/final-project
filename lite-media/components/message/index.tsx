@@ -25,7 +25,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
     const scrollRef = useRef<null | HTMLDivElement>();
 
     useEffect(() => {
-        // scrollRef?.current?.scrollIntoView({behavior: "smooth",});
+        scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
     }, []);
 
     const sendMessage = useCallback(
@@ -152,7 +152,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
 
     return (
         <div className="relative rounded">
-            <div className="h-[77vh] bg-gray-100 overflow-y-scroll">
+            <div className="h-[77vh] px-2 bg-gray-100 overflow-y-scroll">
                 <MessageBody conversationId={conversationId} />
                 {/* <div
                     ref={scrollRef as RefObject<HTMLDivElement>}

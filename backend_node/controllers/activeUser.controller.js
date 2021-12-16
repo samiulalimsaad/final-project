@@ -3,9 +3,7 @@ const { sendError } = require("../utils/sendError");
 
 exports.getActiveUser = async (req, res) => {
     const users = await userModel.find().select("_id active profilePic name");
-    const activeUser = users.filter(
-        (v) => v._id !== req.params.id && v.active
-    );
+    const activeUser = users.filter((v) => v._id !== req.params.id && v.active);
     return res.json({
         activeUser,
         success: true,
@@ -29,7 +27,7 @@ exports.setActive = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "Follower Added Successfully",
+            message: "User set Online Successfully",
         });
     } catch (error) {
         sendError(res, error);
@@ -52,7 +50,7 @@ exports.setDeactive = async (req, res) => {
         return res.json({
             user,
             success: true,
-            message: "Follower Added Successfully",
+            message: "User set Offline Successfully",
         });
     } catch (error) {
         sendError(res, error);

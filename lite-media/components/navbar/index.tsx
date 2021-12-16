@@ -11,19 +11,21 @@ import Progressbar from "../progress/progressbar";
 import MenuItems from "./menuItems";
 import Notification from "./notification";
 
+const setActive = async (id: string) => {
+    await axios.post(NODE_SERVER(`/active-user/${id}`));
+};
+
+const setDeactive = async (id: string) => {
+    await axios.delete(NODE_SERVER(`/active-user/${id}`));
+};
+
 const Navbar = () => {
     const { createPost, uploadCoverPic, uploadProfilePic, uid } = GetState();
 
     useEffect(() => {
-        const setActive = async () => {
-            await axios.post(NODE_SERVER(`/active-user/${uid}`));
-        };
-        setActive();
-        const setDeactive = async () => {
-            await axios.delete(NODE_SERVER(`/active-user/${uid}`));
-        };
+        setActive(uid);
         return () => {
-            setDeactive();
+            setDeactive(uid);
         };
     }, [uid]);
 

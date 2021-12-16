@@ -1,13 +1,14 @@
 import { Dispatch } from "react";
+import { actionInterface } from "./actions";
 
-export interface reducerInterface {
+export interface initialStateInterface {
     createPost: boolean;
     loading: boolean;
-    displayName: string | null;
-    profilePic: string | null;
+    displayName: string;
+    profilePic: string;
     isAuth: boolean;
-    uid: string | null;
-    progress: number | null;
+    uid: string;
+    progress: number;
     displayImage: {
         imageSrc: string;
         isShowing: boolean;
@@ -20,14 +21,12 @@ export interface reducerInterface {
         imageSrc: string;
         isShowing: boolean;
     };
-    notification: [
-        {
-            type: string;
-            text: string;
-            isShowing: boolean;
-        }
-    ];
-    dispatch: Dispatch<any>;
+    notification: Array<{
+        type: string;
+        text: string;
+        isShowing: boolean;
+    }>;
+    dispatch: Dispatch<actionInterface>;
 }
 
 export const initialState = {
@@ -47,14 +46,14 @@ export const initialState = {
     notification: [
         {
             type: "success", // error, warning, success
-            text: "this is a test text",
-            isShowing: false,
+            text: "logged in",
+            isShowing: true,
         },
     ],
     loading: false,
-    displayName: null,
-    profilePic: null,
+    displayName: "",
+    profilePic: "",
     progress: 0,
     isAuth: false,
-    uid: null,
-} as reducerInterface;
+    uid: "",
+} as initialStateInterface;

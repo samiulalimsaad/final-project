@@ -16,7 +16,7 @@ const PostBody = ({ id, image, post }: postBodyInterface) => {
                     className={`"font-light text-justify break-all" ${
                         lineClamp ? "line-clamp-6" : "line-clamp-none"
                     }`}
-                    onClick={() => setLineClamp((p) => !p)}
+                    onDoubleClick={() => setLineClamp((p) => !p)}
                 >
                     {post}
                 </div>

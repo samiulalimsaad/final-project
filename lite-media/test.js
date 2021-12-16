@@ -19,3 +19,5 @@ if (a.length <= 2) {
 } else {
     console.log(a.slice(1, a.length));
 }
+
+console.log(new Date().getTime().toString());

@@ -6,10 +6,10 @@ import {
     useMemo,
     useReducer,
 } from "react";
-import { initialState, reducerInterface } from ".";
+import { initialState, initialStateInterface } from ".";
 import { rootReducer } from "./actions";
 
-const StateContext = createContext<reducerInterface>({
+const StateContext = createContext<initialStateInterface>({
     ...initialState,
     dispatch: () => null,
 });

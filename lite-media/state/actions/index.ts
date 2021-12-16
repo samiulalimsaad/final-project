@@ -1,4 +1,4 @@
-import { initialState } from "..";
+import { initialState, initialStateInterface } from "..";
 import {
     CLOSE_COVER_IMAGE,
     CLOSE_IMAGE,
@@ -24,7 +24,7 @@ export interface actionInterface {
 export const rootReducer = (
     state = initialState,
     { type, payload }: actionInterface
-) => {
+): initialStateInterface => {
     // console.log({ globalState: state });
     switch (type) {
         case LOADING:
@@ -42,7 +42,7 @@ export const rootReducer = (
                 profilePic: payload.profilePic,
             };
         case LOGOUT:
-            return { ...state, isAuth: false, displayName: null };
+            return { ...state, isAuth: false, displayName: "" };
         case SHOW_IMAGE:
             return {
                 ...state,
@@ -94,26 +94,27 @@ export const rootReducer = (
                 ],
             };
         case NOTIFICATION_REMOVE:
-            return state.notification.length <= 2
-                ? {
-                      ...state,
-                      notification: [
-                          ...state.notification.slice(
-                              1,
-                              state.notification.length - 1
-                          ),
-                      ],
-                  }
-                : {
-                      ...state,
-                      notification: [
-                          ...state.notification.slice(
-                              1,
-                              state.notification.length
-                          ),
-                      ],
-                  };
-
+            if (state.notification.length <= 2) {
+                return {
+                    ...state,
+                    notification: [
+                        ...state.notification.slice(
+                            1,
+                            state.notification.length - 1
+                        ),
+                    ],
+                };
+            } else {
+                return {
+                    ...state,
+                    notification: [
+                        ...state.notification.slice(
+                            1,
+                            state.notification.length
+                        ),
+                    ],
+                };
+            }
         default:
             return state;
     }
