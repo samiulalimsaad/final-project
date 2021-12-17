@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import useSWR from "swr";
 import SuggestedUserBody from "../components/ExploreUser/suggestedUserBody";
 import Layout from "../components/Layout";
-import Loading from "../components/progress/Loading";
+import UserLoadingSkeleton from "../components/progress/UserLoadingSkeleton";
 import { GetState } from "../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
 
@@ -17,15 +17,19 @@ const Index: NextPage = () => {
         <Layout title="Followings">
             {error ? (
                 <div>failed to load</div>
-            ) : data?.followings ? (
+            ) : data?.followings?.length > 0 ? (
                 data?.followings?.map((user: any) => (
                     <div key={user._id}>
                         <SuggestedUserBody user={user} />
                         <hr className="border-b border-indigo-300" />
                     </div>
                 ))
+            ) : data?.followings?.length === 0 ? (
+                <div className="grid place-items-center h-5/6 font-semibold text-lg">
+                    No Following
+                </div>
             ) : (
-                <Loading transparent />
+                <UserLoadingSkeleton />
             )}
         </Layout>
     );

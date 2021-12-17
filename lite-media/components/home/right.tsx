@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import React, { memo } from "react";
+import ActiveFriends from "../ActiveFriends";
 import Suggested from "../ExploreUser";
-import ActiveFriends from "./activeFriends";
 
 const RightSide: NextPage = () => {
     return (

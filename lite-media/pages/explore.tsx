@@ -3,6 +3,7 @@ import React, { memo } from "react";
 import useSWR from "swr";
 import SuggestedUserBody from "../components/ExploreUser/suggestedUserBody";
 import Layout from "../components/Layout";
+import UserLoadingSkeleton from "../components/progress/UserLoadingSkeleton";
 import { GetState } from "../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../util";
 
@@ -21,7 +22,7 @@ const Index: NextPage = () => {
         <Layout title="Explore Something New">
             {error ? (
                 <div>failed to load</div>
-            ) : data?.suggestedUser ? (
+            ) : data?.suggestedUser?.length > 0 ? (
                 data?.suggestedUser?.map((user: any) => (
                     <div key={user._id}>
                         <SuggestedUserBody user={user} />
@@ -29,7 +30,7 @@ const Index: NextPage = () => {
                     </div>
                 ))
             ) : (
-                "<Loading transparent />"
+                <UserLoadingSkeleton />
             )}
         </Layout>
     );

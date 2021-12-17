@@ -23,3 +23,9 @@ export function classNames(...classes: string[]) {
 }
 
 export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+const tempLoadingValue = [] as number[];
+tempLoadingValue.length = 100;
+tempLoadingValue.fill(1);
+
+export { tempLoadingValue };

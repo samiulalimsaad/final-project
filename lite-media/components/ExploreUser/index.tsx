@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util/index";
-import Loading from "../progress/Loading";
+import UserLoadingSkeleton from "../progress/UserLoadingSkeleton";
 import SuggestedUserBody from "./suggestedUserBody";
 
 const Suggested = () => {
@@ -26,7 +26,7 @@ const Suggested = () => {
             <div className="h-72 relative overflow-y-scroll">
                 {error ? (
                     <div>failed to load</div>
-                ) : data?.suggestedUser?.length ? (
+                ) : data?.suggestedUser?.length > 0 ? (
                     data?.suggestedUser?.map((user: any) => (
                         <div key={user._id}>
                             <SuggestedUserBody user={user} />
@@ -34,7 +34,7 @@ const Suggested = () => {
                         </div>
                     ))
                 ) : (
-                    <Loading transparent />
+                    <UserLoadingSkeleton />
                 )}
             </div>
             <div className="border-t border-blue-300 p-1">

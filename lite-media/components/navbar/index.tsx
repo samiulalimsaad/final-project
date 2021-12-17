@@ -23,9 +23,9 @@ const Navbar = () => {
     const { createPost, uploadCoverPic, uploadProfilePic, uid } = GetState();
 
     useEffect(() => {
-        setActive(uid);
+        uid && setActive(uid);
         return () => {
-            setDeactive(uid);
+            uid && setDeactive(uid);
         };
     }, [uid]);
 
