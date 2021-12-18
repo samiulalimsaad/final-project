@@ -3,7 +3,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/router";
 import React, { memo, useEffect } from "react";
 import { GetState } from "../../state/stateProvider";
-import { LOADING, LOGIN } from "../../state/types";
+import { LOADING, LOGIN, NOTIFICATION_ADD } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 import AllModals from "../AllModals";
 import LeftSide from "./left";
@@ -25,8 +25,10 @@ const Home = ({ children }: { children: any }) => {
                     NODE_SERVER("/user/" + auth?.currentUser?.uid)
                 );
                 if (!data.success) {
-                    // setError(data.message);
-                    // alert(data?.message);
+                    dispatch({
+                        type: NOTIFICATION_ADD,
+                        payload: { type: "error", text: data?.message },
+                    });
                 } else {
                     dispatch({
                         type: LOGIN,
@@ -37,8 +39,11 @@ const Home = ({ children }: { children: any }) => {
                         },
                     });
                 }
-            } catch (e) {
-                // alert(`Error adding document: ${e}`);
+            } catch (error) {
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "error", text: error },
+                });
             } finally {
                 dispatch({ type: LOADING });
             }

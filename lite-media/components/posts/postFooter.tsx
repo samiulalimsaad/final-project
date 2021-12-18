@@ -4,6 +4,7 @@ import axios from "axios";
 import Link from "next/link";
 import React from "react";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 
 interface postHeaderInterface {
@@ -14,7 +15,7 @@ interface postHeaderInterface {
 }
 
 const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
 
     const addLike = async () => {
         try {
@@ -40,7 +41,10 @@ const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
                 }
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
     };
     return (

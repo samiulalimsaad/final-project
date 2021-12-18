@@ -2,7 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, memo } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
-import { CLOSE_IMAGE } from "../../state/types";
+import { CLOSE_IMAGE, NOTIFICATION_ADD } from "../../state/types";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
 import ShowPost from "../posts/showPost";
 
@@ -16,7 +16,10 @@ const ShowImage = () => {
     );
 
     if (error) {
-        alert(error);
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "error", text: error },
+        });
     }
     const closeModal = () => {
         dispatch({ type: CLOSE_IMAGE });

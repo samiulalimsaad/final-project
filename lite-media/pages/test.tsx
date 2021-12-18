@@ -4,9 +4,17 @@ import NotificationBody from "../components/Notification";
 import { GetState } from "../state/stateProvider";
 import { NOTIFICATION_ADD } from "../state/types";
 const a = [
-    { type: "error", text: "aaa", isShowing: true },
-    { type: "warning", text: "bbb", isShowing: true },
-    { type: "success", text: "ccc", isShowing: true },
+    {
+        type: "error",
+        text: "aaa aaa aaa aaa aaaaaaaaaaaa aaa aaa",
+        isShowing: true,
+    },
+    {
+        type: "warning",
+        text: "bbb bbbbbb bbbbbbbbbbbbbbb bbb bbb bbb",
+        isShowing: true,
+    },
+    { type: "success", text: "ccccccccc ccc ccc ccc cccccc", isShowing: true },
     { type: "error", text: "ddd", isShowing: true },
     { type: "success", text: "eee", isShowing: true },
 ];
@@ -16,7 +24,7 @@ const Test = () => {
     const createNotification = useCallback(() => {
         dispatch({
             type: NOTIFICATION_ADD,
-            payload: a[Math.floor(Math.random() * 5)],
+            payload: { type: "success", text: "eee", isShowing: true },
         });
     }, [dispatch]);
     return (

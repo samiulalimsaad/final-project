@@ -9,7 +9,11 @@ import {
 import Image from "next/image";
 import React, { Fragment, memo, useCallback, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import { CLOSE_COVER_IMAGE, PROGRESS } from "../../state/types";
+import {
+    CLOSE_COVER_IMAGE,
+    NOTIFICATION_ADD,
+    PROGRESS,
+} from "../../state/types";
 import { NODE_SERVER } from "../../util";
 
 const UploadCoverPic = () => {
@@ -46,12 +50,21 @@ const UploadCoverPic = () => {
                     dispatch({ type: PROGRESS, payload: { progress } });
                     switch (snapshot.state) {
                         case "paused":
-                            alert("Upload is paused");
+                            dispatch({
+                                type: NOTIFICATION_ADD,
+                                payload: {
+                                    type: "warning",
+                                    text: "Upload is paused",
+                                },
+                            });
                             break;
                     }
                 },
                 (error) => {
-                    alert(error);
+                    dispatch({
+                        type: NOTIFICATION_ADD,
+                        payload: { type: "error", text: error },
+                    });
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
@@ -69,7 +82,13 @@ const UploadCoverPic = () => {
                                     closeModal();
                                 }
                             } catch (error) {
-                                alert(error);
+                                dispatch({
+                                    type: NOTIFICATION_ADD,
+                                    payload: {
+                                        type: "error",
+                                        text: error,
+                                    },
+                                });
                             }
                         }
                     );
@@ -88,7 +107,10 @@ const UploadCoverPic = () => {
                 closeModal();
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
     };
 

@@ -47,7 +47,7 @@ export const initialState = {
         {
             type: "success", // error, warning, success
             text: "logged in",
-            isShowing: true,
+            isShowing: false,
         },
     ],
     loading: false,

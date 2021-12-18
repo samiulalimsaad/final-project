@@ -2,6 +2,7 @@ import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { fetcher, NODE_SERVER } from "../../util";
 import Countries from "../../util/countries.json";
 
@@ -33,7 +34,10 @@ const Information = () => {
 
     const { data, error } = useSWR(NODE_SERVER(`/info/${uid}`), fetcher);
     if (error) {
-        alert(error);
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "error", text: error },
+        });
     }
 
     const updateInfo = async (
@@ -44,16 +48,20 @@ const Information = () => {
             const { firstName, lastName } = value.name;
             value.name.fullName = `${firstName} ${lastName}`;
 
-            console.log({ value });
             const { data } = await axios.put(
                 NODE_SERVER("/info/" + uid),
                 value
             );
             if (!data.success) {
-                alert(data.message);
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "warning", text: data.message },
+                });
             } else {
-                alert(data?.message);
-                dispatch({});
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "success", text: data.message },
+                });
             }
         } catch (e) {
             console.error("Error adding document: ", e);

@@ -1,8 +1,7 @@
 import { PlusCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import { memo } from "react";
-import story from "../../util/story2.json";
-const temp = story[0];
+const temp = [] as any;
 
 const Story = () => {
     return (
@@ -28,7 +27,7 @@ const Story = () => {
                     </div>
                 </div>
             </div>
-            {story.splice(0, 100).map((item) => (
+            {temp.splice(0, 100).map((item: any) => (
                 <div
                     className="h-32 w-24 bg-blue-500 rounded-md bg-gray-900/50"
                     key={item.userName}

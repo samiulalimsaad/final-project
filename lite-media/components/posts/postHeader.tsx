@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, useCallback } from "react";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { classNames, NODE_SERVER } from "../../util";
 
 interface postHeaderInterface {
@@ -26,7 +27,7 @@ const PostHeader = ({
     userId,
     bookmark,
 }: postHeaderInterface) => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
 
     const addBookmark = useCallback(async () => {
         try {
@@ -35,20 +36,29 @@ const PostHeader = ({
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
                 if (data.success) {
-                    alert("bookmark removed");
+                    dispatch({
+                        type: NOTIFICATION_ADD,
+                        payload: { type: "warning", text: data.message },
+                    });
                 }
             } else {
                 const { data } = await axios.post(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
                 if (data.success) {
-                    alert("bookmark added");
+                    dispatch({
+                        type: NOTIFICATION_ADD,
+                        payload: { type: "success", text: data.message },
+                    });
                 }
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
-    }, [bookmark, id, uid]);
+    }, [bookmark, dispatch, id, uid]);
 
     const deletePost = useCallback(async () => {
         try {
@@ -56,14 +66,23 @@ const PostHeader = ({
                 NODE_SERVER(`/post/${uid}/${id}`)
             );
             if (data.success) {
-                alert(data.message);
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "success", text: data.message },
+                });
             } else {
-                alert(data.message);
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "error", text: data.message },
+                });
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
-    }, [id, uid]);
+    }, [dispatch, id, uid]);
 
     return (
         <div className="flex items-center justify-between px-1 w-full ">
@@ -132,31 +151,33 @@ const PostHeader = ({
                             </div>
                         </Menu.Button>
                     </div>
-                    <Transition
-                        as={Fragment}
-                        enter="transition ease-out duration-100"
-                        enterFrom="transform opacity-0 scale-95"
-                        enterTo="transform opacity-100 scale-100"
-                        leave="transition ease-in duration-75"
-                        leaveFrom="transform opacity-100 scale-100"
-                        leaveTo="transform opacity-0 scale-95"
-                    >
-                        <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 z-50 ring-black ring-opacity-5 focus:outline-none">
-                            <Menu.Item>
-                                {({ active }) => (
-                                    <div
-                                        onClick={deletePost}
-                                        className={classNames(
-                                            active ? "bg-gray-100" : "",
-                                            "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
-                                        )}
-                                    >
-                                        Delete
-                                    </div>
-                                )}
-                            </Menu.Item>
-                        </Menu.Items>
-                    </Transition>
+                    {uid === userId && (
+                        <Transition
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                        >
+                            <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 z-50 ring-black ring-opacity-5 focus:outline-none">
+                                <Menu.Item>
+                                    {({ active }) => (
+                                        <div
+                                            onClick={deletePost}
+                                            className={classNames(
+                                                active ? "bg-gray-100" : "",
+                                                "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                                            )}
+                                        >
+                                            Delete
+                                        </div>
+                                    )}
+                                </Menu.Item>
+                            </Menu.Items>
+                        </Transition>
+                    )}
                 </Menu>
             </div>
         </div>

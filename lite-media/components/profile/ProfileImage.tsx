@@ -3,7 +3,11 @@ import axios from "axios";
 import Image from "next/image";
 import React, { memo, useCallback, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import { SHOW_IMAGE, SHOW_PROFILE_IMAGE } from "../../state/types";
+import {
+    NOTIFICATION_ADD,
+    SHOW_IMAGE,
+    SHOW_PROFILE_IMAGE,
+} from "../../state/types";
 import { NODE_SERVER } from "../../util";
 
 const ProfileImage = ({ image, id }: { image: string; id: string }) => {
@@ -17,12 +21,18 @@ const ProfileImage = ({ image, id }: { image: string; id: string }) => {
                 NODE_SERVER(`/following/${uid}}`)
             );
             if (following.data.success) {
-                alert("following removed");
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "warning", text: following.data.message },
+                });
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
-    }, [uid]);
+    }, [dispatch, uid]);
 
     return (
         <div className="relative inline-block h-28 w-28 rounded-full border-2 border-gray-500 bg-white overflow-hidden">

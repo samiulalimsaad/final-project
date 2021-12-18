@@ -8,7 +8,7 @@ import {
 } from "firebase/storage";
 import React, { Fragment, memo, useCallback, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import { CLOSE_MODAL, PROGRESS } from "../../state/types";
+import { CLOSE_MODAL, NOTIFICATION_ADD, PROGRESS } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 import MyEditor from "./TextEditor";
 
@@ -74,7 +74,10 @@ const CreatePost = () => {
                                     closeModal();
                                 }
                             } catch (error) {
-                                alert(error);
+                                dispatch({
+                                    type: NOTIFICATION_ADD,
+                                    payload: { type: "error", text: error },
+                                });
                             }
                         }
                     );
@@ -92,7 +95,10 @@ const CreatePost = () => {
                     closeModal();
                 }
             } catch (error) {
-                alert(error);
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "error", text: error },
+                });
             }
         }
     }, [closeModal, dispatch, editorState, imageState, storage, uid]);

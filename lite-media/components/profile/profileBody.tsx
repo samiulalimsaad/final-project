@@ -1,6 +1,7 @@
 import React, { memo } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { fetcher, NODE_SERVER } from "../../util";
 import CoverImage from "./CoverImage";
 import DisplayName from "./DisplayName";
@@ -14,7 +15,10 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
 
     const { data, error } = useSWR(NODE_SERVER(`/user/${id || uid}`), fetcher);
     if (error) {
-        alert(error);
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "error", text: error },
+        });
     }
 
     return (

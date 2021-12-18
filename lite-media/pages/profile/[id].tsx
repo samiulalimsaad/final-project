@@ -13,7 +13,6 @@ const Index: NextPage = () => {
 
     if (uid === id) {
         router.replace("/profile");
-        console.log(uid, id, uid === id);
         return <Loading />;
     }
     return (

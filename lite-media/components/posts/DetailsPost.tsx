@@ -1,12 +1,13 @@
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
 import AddComment from "./AddComment";
 import Comments from "./Comments";
 import SinglePost from "./singlePost";
 
 const DetailsPost = ({ postId }: any) => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
 
     const { data, error } = useSWR(
         NODE_SERVER(`/post/${uid}/${postId}`),
@@ -16,11 +17,14 @@ const DetailsPost = ({ postId }: any) => {
         }
     );
     if (error) {
-        alert(error);
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "error", text: error },
+        });
     }
     return (
         <div>
-            {!data?.post?._id ? (
+            {data?.post?._id ? (
                 <div className="relative pb-16 h-screen overflow-y-hidden">
                     <div className="h-full overflow-y-scroll pb-16">
                         <SinglePost

@@ -2,10 +2,11 @@ import axios from "axios";
 import Image from "next/image";
 import { useState } from "react";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 
 const AddComment = ({ postId }: { postId: string }) => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
     const [comment, setComment] = useState("");
     const addComment = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -17,11 +18,17 @@ const AddComment = ({ postId }: { postId: string }) => {
                 }
             );
             if (data.success) {
-                alert("comment added");
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "success", text: data.message },
+                });
                 setComment("");
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
     };
     return (

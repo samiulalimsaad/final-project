@@ -82,6 +82,7 @@ export const rootReducer = (
                 progress: payload.progress,
             };
         case NOTIFICATION_ADD:
+            console.log("notification added");
             return {
                 ...state,
                 notification: [
@@ -89,7 +90,7 @@ export const rootReducer = (
                     {
                         type: payload?.type,
                         text: payload?.text,
-                        isShowing: payload?.isShowing,
+                        isShowing: true,
                     },
                 ],
             };

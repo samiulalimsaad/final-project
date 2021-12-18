@@ -1,8 +1,9 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 
 interface userInterface {
@@ -17,7 +18,13 @@ interface userInterface {
 }
 
 const SuggestedUserBody = ({ user }: userInterface) => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
+    useEffect(() => {
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "success", text: "eee", isShowing: true },
+        });
+    }, [dispatch]);
     const addFollow = useCallback(async () => {
         try {
             const follower = await axios.post(
@@ -26,16 +33,26 @@ const SuggestedUserBody = ({ user }: userInterface) => {
             const following = await axios.post(
                 NODE_SERVER(`/following/${uid}/${user?._id}`)
             );
+            console.log(
+                "-----------------------",
+                following?.data,
+                follower.data
+            );
             if (follower.data.success && following.data.success) {
-                alert("following added");
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "success", text: follower?.data?.message },
+                });
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
-    }, [uid, user?._id]);
+    }, [dispatch, uid, user?._id]);
 
     const removeFollow = useCallback(async () => {
-        console.log("clicked");
         try {
             const follower = await axios.delete(
                 NODE_SERVER(`/follower/${user?._id}/${uid}`)
@@ -43,13 +60,23 @@ const SuggestedUserBody = ({ user }: userInterface) => {
             const following = await axios.delete(
                 NODE_SERVER(`/following/${uid}/${user?._id}`)
             );
+            console.log("....................", follower.data, following.data);
             if (follower.data.success && following.data.success) {
-                alert("following removed");
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: {
+                        type: "warning",
+                        text: following?.data?.message,
+                    },
+                });
             }
         } catch (error) {
-            alert(error);
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: error },
+            });
         }
-    }, [uid, user?._id]);
+    }, [dispatch, uid, user?._id]);
 
     return (
         <div className="flex items-center p-1 text-sm transition ease-in-out duration-500 cursor-pointer rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ">

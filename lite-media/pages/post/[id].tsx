@@ -6,7 +6,9 @@ import DetailsPost from "../../components/posts/DetailsPost";
 
 const Index: NextPage = () => {
     const router = useRouter();
+
     const id = router.query.id;
+
     return (
         <Layout title="Post">
             <DetailsPost postId={id} />

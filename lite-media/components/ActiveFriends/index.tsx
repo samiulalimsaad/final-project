@@ -1,20 +1,26 @@
 import React from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
 import { userInterface } from "../../util/interfaces";
 import ActiveFriendsBodySkeleton from "../progress/activeFriendsBodySkeleton";
 import ActiveFriendsBody from "./activeFriendsBody";
 
 const ActiveFriends = () => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
 
     const { data, error } = useSWR(
         NODE_SERVER(`/active-user/${uid}`),
         fetcher,
         { refreshInterval: REFRESH_INTERVAL }
     );
-    if (error) alert(error);
+    if (error) {
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "error", text: error },
+        });
+    }
 
     return (
         <section className="bg-gray-100 rounded h-1/2 overflow-hidden mt-3">

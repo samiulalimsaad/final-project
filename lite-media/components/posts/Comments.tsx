@@ -7,6 +7,7 @@ import Link from "next/link";
 import React, { Fragment, useCallback } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import { classNames, fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
 import { userInterface } from "../../util/interfaces";
 interface commentInterface {
@@ -17,7 +18,7 @@ interface commentInterface {
 }
 
 const Comments = ({ postId }: any) => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
 
     const { data, error } = useSWR(
         NODE_SERVER(`/post/comment/${uid}/${postId}`),
@@ -27,7 +28,10 @@ const Comments = ({ postId }: any) => {
         }
     );
     if (error) {
-        alert(error);
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "error", text: error },
+        });
     }
     console.log({ data });
     const deleteComment = useCallback(
@@ -37,15 +41,24 @@ const Comments = ({ postId }: any) => {
                     NODE_SERVER(`/post/comment/${uid}/${postId}/${id}`)
                 );
                 if (data.success) {
-                    alert(data.message);
+                    dispatch({
+                        type: NOTIFICATION_ADD,
+                        payload: { type: "success", text: data.message },
+                    });
                 } else {
-                    alert(data.message);
+                    dispatch({
+                        type: NOTIFICATION_ADD,
+                        payload: { type: "error", text: data.message },
+                    });
                 }
             } catch (error) {
-                alert(error);
+                dispatch({
+                    type: NOTIFICATION_ADD,
+                    payload: { type: "error", text: error },
+                });
             }
         },
-        [postId, uid]
+        [dispatch, postId, uid]
     );
     return (
         <div className="pb-10">

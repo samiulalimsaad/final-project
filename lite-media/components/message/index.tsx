@@ -10,6 +10,7 @@ import Image from "next/image";
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { db } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_ADD } from "../../state/types";
 import MessageBody from "./messageBody";
 
 interface conversationInterface {
@@ -18,7 +19,7 @@ interface conversationInterface {
 }
 
 const Conversation = ({ conversationId }: conversationInterface) => {
-    const { uid } = GetState();
+    const { uid, dispatch } = GetState();
     const [message, setMessage] = useState("");
     const [image, setImage] = useState<File>();
     const storage = getStorage();
@@ -51,15 +52,30 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                             100;
                         switch (snapshot.state) {
                             case "paused":
-                                alert("Upload is paused");
+                                dispatch({
+                                    type: NOTIFICATION_ADD,
+                                    payload: {
+                                        type: "warning",
+                                        text: "Upload is paused",
+                                    },
+                                });
                                 break;
                             case "running":
-                                console.log("Upload is running");
+                                dispatch({
+                                    type: NOTIFICATION_ADD,
+                                    payload: {
+                                        type: "success",
+                                        text: "Upload is running",
+                                    },
+                                });
                                 break;
                         }
                     },
                     (error) => {
-                        console.log("error", error);
+                        dispatch({
+                            type: NOTIFICATION_ADD,
+                            payload: { type: "error", text: error },
+                        });
                     },
                     async () => {
                         getDownloadURL(uploadTask.snapshot.ref).then(
@@ -95,7 +111,13 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                                         }
                                     );
                                 } catch (error) {
-                                    alert(error);
+                                    dispatch({
+                                        type: NOTIFICATION_ADD,
+                                        payload: {
+                                            type: "error",
+                                            text: error,
+                                        },
+                                    });
                                 } finally {
                                     scrollRef?.current?.scrollIntoView({
                                         behavior: "smooth",
@@ -125,7 +147,10 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                             }
                         );
                     } catch (error) {
-                        alert(error);
+                        dispatch({
+                            type: NOTIFICATION_ADD,
+                            payload: { type: "error", text: error },
+                        });
                     } finally {
                         setImage(undefined);
                         setMessage("");
@@ -136,7 +161,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                 }
             }
         },
-        [conversationId, image, message, storage, uid]
+        [conversationId, dispatch, image, message, storage, uid]
     );
 
     // useEffect(() => {
@@ -151,7 +176,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
     // }, [conversationId, displayName, image, message, sendMessage, uid]);
 
     return (
-        <div className="relative rounded">
+        <div className="relative rounded h-full overflow-y-scroll">
             <div className="h-[77vh] px-2 bg-gray-100 overflow-y-scroll">
                 <MessageBody conversationId={conversationId} />
                 {/* <div
