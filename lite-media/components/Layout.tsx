@@ -29,7 +29,7 @@ const Layout = ({ children, title }: { title: string; children: any }) => {
                             </h2>
                         </div>
                     )}
-                    <div className="h-[96vh] overflow-y-scroll">{children}</div>
+                    <div className="h-[96vh] overflow-y-hidden">{children}</div>
                 </Home>
             </section>
         </>

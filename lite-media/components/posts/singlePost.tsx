@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { postInterface } from "../../util/interfaces";
 import PostBody from "./postBody";
@@ -31,11 +32,15 @@ const SinglePost = ({
                 bookmark={post?.user?.bookmark}
                 id={post?._id}
             />
-            <PostBody
-                id={post?._id}
-                image={post?.postImage}
-                post={post?.postBody}
-            />
+            <Link href={`/post/${post?._id}`} passHref>
+                <a>
+                    <PostBody
+                        id={post?._id}
+                        image={post?.postImage}
+                        post={post?.postBody}
+                    />
+                </a>
+            </Link>
             <PostFooter
                 id={post?._id}
                 like={post?.like}

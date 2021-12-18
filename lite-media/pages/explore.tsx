@@ -18,11 +18,13 @@ const Index: NextPage = () => {
         { refreshInterval: REFRESH_INTERVAL }
     );
 
+    if (error) {
+        alert(error);
+    }
+
     return (
         <Layout title="Explore Something New">
-            {error ? (
-                <div>failed to load</div>
-            ) : data?.suggestedUser?.length > 0 ? (
+            {data?.suggestedUser?.length > 0 ? (
                 data?.suggestedUser?.map((user: any) => (
                     <div key={user._id}>
                         <SuggestedUserBody user={user} />

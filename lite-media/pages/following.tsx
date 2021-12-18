@@ -13,10 +13,14 @@ const Index: NextPage = () => {
         refreshInterval: REFRESH_INTERVAL,
     });
 
+    if (error) {
+        alert(error);
+    }
+
     return (
         <Layout title="Followings">
-            {error ? (
-                <div>failed to load</div>
+            {!data ? (
+                <UserLoadingSkeleton />
             ) : data?.followings?.length > 0 ? (
                 data?.followings?.map((user: any) => (
                     <div key={user._id}>
@@ -24,12 +28,10 @@ const Index: NextPage = () => {
                         <hr className="border-b border-indigo-300" />
                     </div>
                 ))
-            ) : data?.followings?.length === 0 ? (
+            ) : (
                 <div className="grid place-items-center h-5/6 font-semibold text-lg">
                     No Following
                 </div>
-            ) : (
-                <UserLoadingSkeleton />
             )}
         </Layout>
     );

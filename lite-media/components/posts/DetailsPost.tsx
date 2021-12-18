@@ -20,9 +20,9 @@ const DetailsPost = ({ postId }: any) => {
     }
     return (
         <div>
-            {data?.post?._id ? (
-                <div className="h-screen relative pb-16">
-                    <div className="h-[96%] overflow-y-scroll pb-16">
+            {!data?.post?._id ? (
+                <div className="relative pb-16 h-screen overflow-y-hidden">
+                    <div className="h-full overflow-y-scroll pb-16">
                         <SinglePost
                             post={data?.post!}
                             userName={data?.post?.user?.name?.fullName!}
@@ -35,8 +35,8 @@ const DetailsPost = ({ postId }: any) => {
                                 postId={postId}
                             />
                         ) : (
-                            <div className="grid place-items-center h-1/2">
-                                <h1 className="text-2xl font-semibold">
+                            <div className="grid place-items-center h-1/3">
+                                <h1 className="text-2xl font-semibold text-gray-400">
                                     No Comments
                                 </h1>
                             </div>
@@ -47,8 +47,10 @@ const DetailsPost = ({ postId }: any) => {
                     </div>
                 </div>
             ) : (
-                <div className="grid place-items-center h-full">
-                    <h1 className="text-2xl font-semibold">No post here</h1>
+                <div className="h-screen overflow-y-hidden">
+                    <h1 className="text-2xl font-semibold grid place-items-center h-4/5 text-gray-400">
+                        No post here
+                    </h1>
                 </div>
             )}
         </div>

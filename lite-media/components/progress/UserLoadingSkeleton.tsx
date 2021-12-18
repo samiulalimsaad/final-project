@@ -22,7 +22,7 @@ const UserLoadingSkeleton = () => {
                                 </div>
                             </div>
                             <div className="flex items-center mr-2">
-                                <button className="group w-12 flex py-1 px-3 h-6 bg-gray-300 rounded-md" />
+                                <button className="group w-12 flex py-1 px-3 h-6 bg-gray-300 rounded-2xl" />
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@ const PostBody = ({ id, image, post }: postBodyInterface) => {
             {image && (
                 <div className="relative h-48 w-full mt-3">
                     <Image
-                        className="object-center object-cover "
+                        className="object-center object-cover rounded-md"
                         src={image}
                         alt="post image"
                         layout="fill"

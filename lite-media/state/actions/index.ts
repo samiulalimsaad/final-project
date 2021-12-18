@@ -94,27 +94,13 @@ export const rootReducer = (
                 ],
             };
         case NOTIFICATION_REMOVE:
-            if (state.notification.length <= 2) {
-                return {
-                    ...state,
-                    notification: [
-                        ...state.notification.slice(
-                            1,
-                            state.notification.length - 1
-                        ),
-                    ],
-                };
-            } else {
-                return {
-                    ...state,
-                    notification: [
-                        ...state.notification.slice(
-                            1,
-                            state.notification.length
-                        ),
-                    ],
-                };
-            }
+            return {
+                ...state,
+                notification: state.notification.slice(
+                    1,
+                    state.notification.length
+                ),
+            };
         default:
             return state;
     }

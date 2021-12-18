@@ -6,7 +6,6 @@ import { GetState } from "../../state/stateProvider";
 import { LOADING, LOGIN } from "../../state/types";
 import { NODE_SERVER } from "../../util";
 import AllModals from "../AllModals";
-import Loading from "../progress/Loading";
 import LeftSide from "./left";
 import RightSide from "./right";
 
@@ -46,33 +45,18 @@ const Home = ({ children }: { children: any }) => {
         });
     }, [dispatch, isAuth, route]);
 
-    if (!loading && isAuth)
-        return (
-            <section className="grid grid-cols-8 justify-center h-[90vh] divide-x-8 divide-gray-50">
-                <div className="col-span-2 h-full">
-                    <LeftSide />
-                </div>
-                <div className="col-span-4 h-full">{uid && children}</div>
-                <div className="col-span-2 h-full">
-                    <RightSide />
-                </div>
-                <div className="inset-0">
-                    <AllModals />
-                </div>
-            </section>
-        );
     return (
         <section className="grid grid-cols-8 justify-center h-[90vh] divide-x-8 divide-gray-50">
             <div className="col-span-2 h-full">
                 <LeftSide />
             </div>
-            <div className="relative col-span-4 h-full">
-                <Loading />
-            </div>
+            <div className="col-span-4 h-full">{uid && children}</div>
             <div className="col-span-2 h-full">
                 <RightSide />
             </div>
-            <AllModals />
+            <div className="inset-0">
+                <AllModals />
+            </div>
         </section>
     );
 };

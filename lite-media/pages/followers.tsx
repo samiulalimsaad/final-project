@@ -14,23 +14,25 @@ const Index: NextPage = () => {
         refreshInterval: REFRESH_INTERVAL,
     });
 
+    if (error) {
+        alert(error);
+    }
+
     return (
         <Layout title="Followers">
-            {error ? (
-                <div>failed to load</div>
-            ) : data?.followers.length > 0 ? (
+            {!data ? (
+                <UserLoadingSkeleton />
+            ) : data?.followers?.length > 0 ? (
                 data?.followers?.map((user: any) => (
                     <div key={user._id}>
                         <SuggestedUserBody user={user} />
                         <hr className="border-b border-indigo-300" />
                     </div>
                 ))
-            ) : data?.followers?.length === 0 ? (
+            ) : (
                 <div className="grid place-items-center h-5/6 font-semibold text-lg">
                     No Followers
                 </div>
-            ) : (
-                <UserLoadingSkeleton />
             )}
         </Layout>
     );

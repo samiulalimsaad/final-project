@@ -1,6 +1,6 @@
-import { cloneDeep } from "lodash";
 import { useCallback } from "react";
 import Layout from "../components/Layout";
+import NotificationBody from "../components/Notification";
 import { GetState } from "../state/stateProvider";
 import { NOTIFICATION_ADD } from "../state/types";
 const a = [
@@ -13,7 +13,6 @@ const a = [
 
 const Test = () => {
     const { notification, dispatch } = GetState();
-    console.log({ notification });
     const createNotification = useCallback(() => {
         dispatch({
             type: NOTIFICATION_ADD,
@@ -31,21 +30,21 @@ const Test = () => {
                     >
                         Click Me
                     </button>
-                    <pre>{typeof notification}</pre>
+                    {/* <pre>{typeof notification}</pre>
                     <pre>{notification.length}</pre>
                     <div>
                         {cloneDeep(
                             JSON.parse(JSON.stringify(notification, null, 4))
-                        )?.map((v, i) => {
+                        )?.map((_v: any, i: Key | null | undefined) => {
                             // <NotificationBody key={i} notification={v} />;
                             <pre key={i}>
                                 {JSON.stringify(notification, null, 4)}
                             </pre>;
                         })}
-                    </div>
-                    {/* {notification[0] && (
+                    </div> */}
+                    {notification[0] && (
                         <NotificationBody notification={notification[0]} />
-                    )} */}
+                    )}
                     {/* {notification[1] && (
                         <NotificationBody notification={notification[1]} />
                     )}

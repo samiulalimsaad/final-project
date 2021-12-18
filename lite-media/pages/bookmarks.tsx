@@ -14,18 +14,20 @@ const Index: NextPage = () => {
         refreshInterval: REFRESH_INTERVAL,
     });
 
+    if (error) {
+        alert(error);
+    }
+
     return (
         <Layout title="bookmarks">
-            {error ? (
-                <div>failed to load</div>
+            {!data ? (
+                <PostSkeleton />
             ) : data?.bookmarks?.length > 0 ? (
                 <BookmarkBody bookmark={data?.bookmarks.bookmark} />
-            ) : data?.followings?.length === 0 ? (
-                <div className="grid place-items-center h-5/6 font-semibold text-lg">
+            ) : (
+                <div className="grid place-items-center h-5/6 font-semibold text-lg text-gray-400">
                     No Bookmarks
                 </div>
-            ) : (
-                <PostSkeleton />
             )}
         </Layout>
     );
