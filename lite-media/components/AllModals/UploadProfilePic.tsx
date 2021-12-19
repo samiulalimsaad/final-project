@@ -86,7 +86,7 @@ const UploadProfilePic = () => {
                                     type: NOTIFICATION_ADD,
                                     payload: {
                                         type: "error",
-                                        text: error,
+                                        text: (error as Error).message,
                                     },
                                 });
                             }

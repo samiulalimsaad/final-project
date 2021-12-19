@@ -115,7 +115,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                                         type: NOTIFICATION_ADD,
                                         payload: {
                                             type: "error",
-                                            text: error,
+                                            text: (error as Error).message,
                                         },
                                     });
                                 } finally {
@@ -149,7 +149,10 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                     } catch (error) {
                         dispatch({
                             type: NOTIFICATION_ADD,
-                            payload: { type: "error", text: error },
+                            payload: {
+                                type: "error",
+                                text: (error as Error).message,
+                            },
                         });
                     } finally {
                         setImage(undefined);

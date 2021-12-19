@@ -42,7 +42,7 @@ const Home = ({ children }: { children: any }) => {
             } catch (error) {
                 dispatch({
                     type: NOTIFICATION_ADD,
-                    payload: { type: "error", text: error },
+                    payload: { type: "error", text: (error as Error).message },
                 });
             } finally {
                 dispatch({ type: LOADING });

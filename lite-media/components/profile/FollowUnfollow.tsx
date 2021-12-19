@@ -32,7 +32,7 @@ const FollowUnfollow = ({ id, following }: followUnfollowInterface) => {
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     }, [id, uid, dispatch]);
@@ -54,7 +54,7 @@ const FollowUnfollow = ({ id, following }: followUnfollowInterface) => {
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     }, [id, uid, dispatch]);

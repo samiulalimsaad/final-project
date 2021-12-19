@@ -29,7 +29,7 @@ const ProfileImage = ({ image, id }: { image: string; id: string }) => {
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     }, [dispatch, uid]);

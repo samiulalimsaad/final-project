@@ -1,9 +1,27 @@
 import { Menu, Transition } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/outline";
-import React, { Fragment,memo } from "react";
-import { classNames } from "../../util";
+import { child, get, ref } from "firebase/database";
+import React, { Fragment, memo, useEffect, useState } from "react";
+import { database } from "../../firebase";
+import { GetState } from "../../state/stateProvider";
 
 const Notification = () => {
+    const { uid, dispatch } = GetState();
+    const [state, setState] = useState([]);
+
+    useEffect(() => {
+        uid &&
+            get(child(ref(database), `users/${uid}/notifications`))
+                .then((snapshot) => {
+                    const data = snapshot.val();
+                    setState(data);
+                    console.log({ data });
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+    }, [uid]);
+
     return (
         <Menu as="div" className="ml-3 relative">
             <div>
@@ -21,8 +39,8 @@ const Notification = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-64 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    {"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-64 h-96 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    {/* {"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                         .split(" ")
                         .map((v) => (
                             <Menu.Item key={v}>
@@ -35,11 +53,14 @@ const Notification = () => {
                                         )}
                                     >
                                         <span>{v}</span>
-                                        <span className="text-xs">10 min ago</span>
+                                        <span className="text-xs">
+                                            10 min ago
+                                        </span>
                                     </a>
                                 )}
                             </Menu.Item>
-                        ))}
+                        ))} */}
+                    <pre>{JSON.stringify(state, null, 4)}</pre>
                 </Menu.Items>
             </Transition>
         </Menu>

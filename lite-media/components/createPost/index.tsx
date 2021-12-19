@@ -76,7 +76,10 @@ const CreatePost = () => {
                             } catch (error) {
                                 dispatch({
                                     type: NOTIFICATION_ADD,
-                                    payload: { type: "error", text: error },
+                                    payload: {
+                                        type: "error",
+                                        text: (error as Error).message,
+                                    },
                                 });
                             }
                         }
@@ -97,7 +100,7 @@ const CreatePost = () => {
             } catch (error) {
                 dispatch({
                     type: NOTIFICATION_ADD,
-                    payload: { type: "error", text: error },
+                    payload: { type: "error", text: (error as Error).message },
                 });
             }
         }

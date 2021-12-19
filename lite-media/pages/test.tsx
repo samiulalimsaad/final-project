@@ -1,6 +1,6 @@
-import { useCallback } from "react";
+import { push, ref, serverTimestamp } from "firebase/database";
 import Layout from "../components/Layout";
-import NotificationBody from "../components/Notification";
+import { database } from "../firebase";
 import { GetState } from "../state/stateProvider";
 import { NOTIFICATION_ADD } from "../state/types";
 const a = [
@@ -19,14 +19,31 @@ const a = [
     { type: "success", text: "eee", isShowing: true },
 ];
 
-const Test = () => {
-    const { notification, dispatch } = GetState();
-    const createNotification = useCallback(() => {
+const createNotification = async (
+    id: any,
+    dispatch: (arg0: {
+        type: string;
+        payload: { type: string; text: string };
+    }) => void
+) => {
+    try {
+        await push(ref(database, `users/${id}/notifications`), {
+            type: "success",
+            text: "test",
+            createdAt: serverTimestamp(),
+        });
+        console.log("[Done]");
+    } catch (error) {
         dispatch({
             type: NOTIFICATION_ADD,
-            payload: { type: "success", text: "eee", isShowing: true },
+            payload: { type: "error", text: (error as Error).message },
         });
-    }, [dispatch]);
+    }
+};
+
+const Test = () => {
+    const { notification, uid, dispatch } = GetState();
+
     return (
         <Layout title="test">
             <div className="grid place-items-center h-screen overflow-y-scroll pb-96">
@@ -34,34 +51,12 @@ const Test = () => {
                     <pre>{JSON.stringify(notification, null, 4)}</pre>
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                        onClick={createNotification}
+                        onClick={() => {
+                            createNotification(uid, dispatch);
+                        }}
                     >
                         Click Me
                     </button>
-                    {/* <pre>{typeof notification}</pre>
-                    <pre>{notification.length}</pre>
-                    <div>
-                        {cloneDeep(
-                            JSON.parse(JSON.stringify(notification, null, 4))
-                        )?.map((_v: any, i: Key | null | undefined) => {
-                            // <NotificationBody key={i} notification={v} />;
-                            <pre key={i}>
-                                {JSON.stringify(notification, null, 4)}
-                            </pre>;
-                        })}
-                    </div> */}
-                    {notification[0] && (
-                        <NotificationBody notification={notification[0]} />
-                    )}
-                    {/* {notification[1] && (
-                        <NotificationBody notification={notification[1]} />
-                    )}
-                    {notification[2] && (
-                        <NotificationBody notification={notification[2]} />
-                    )}
-                    {notification[3] && (
-                        <NotificationBody notification={notification[3]} />
-                    )} */}
                 </div>
             </div>
         </Layout>

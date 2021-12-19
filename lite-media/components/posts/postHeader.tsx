@@ -55,7 +55,7 @@ const PostHeader = ({
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     }, [bookmark, dispatch, id, uid]);
@@ -79,7 +79,7 @@ const PostHeader = ({
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     }, [dispatch, id, uid]);

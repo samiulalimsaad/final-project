@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import SignUp from "../components/signup/index";
-const signup: NextPage = () => {
+const index: NextPage = () => {
     return (
         <section>
             <SignUp />
@@ -8,4 +8,4 @@ const signup: NextPage = () => {
     );
 };
 
-export default signup;
+export default index;

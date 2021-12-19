@@ -1,7 +1,7 @@
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
 import { NODE_SERVER } from "../../util";
@@ -19,12 +19,6 @@ interface userInterface {
 
 const SuggestedUserBody = ({ user }: userInterface) => {
     const { uid, dispatch } = GetState();
-    useEffect(() => {
-        dispatch({
-            type: NOTIFICATION_ADD,
-            payload: { type: "success", text: "eee", isShowing: true },
-        });
-    }, [dispatch]);
     const addFollow = useCallback(async () => {
         try {
             const follower = await axios.post(
@@ -33,21 +27,19 @@ const SuggestedUserBody = ({ user }: userInterface) => {
             const following = await axios.post(
                 NODE_SERVER(`/following/${uid}/${user?._id}`)
             );
-            console.log(
-                "-----------------------",
-                following?.data,
-                follower.data
-            );
             if (follower.data.success && following.data.success) {
                 dispatch({
                     type: NOTIFICATION_ADD,
-                    payload: { type: "success", text: follower?.data?.message },
+                    payload: {
+                        type: "success",
+                        text: following?.data?.message,
+                    },
                 });
             }
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     }, [dispatch, uid, user?._id]);
@@ -60,7 +52,6 @@ const SuggestedUserBody = ({ user }: userInterface) => {
             const following = await axios.delete(
                 NODE_SERVER(`/following/${uid}/${user?._id}`)
             );
-            console.log("....................", follower.data, following.data);
             if (follower.data.success && following.data.success) {
                 dispatch({
                     type: NOTIFICATION_ADD,
@@ -73,7 +64,7 @@ const SuggestedUserBody = ({ user }: userInterface) => {
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     }, [dispatch, uid, user?._id]);

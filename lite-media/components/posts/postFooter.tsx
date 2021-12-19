@@ -43,7 +43,7 @@ const PostFooter = ({ like, comment, share, id }: postHeaderInterface) => {
         } catch (error) {
             dispatch({
                 type: NOTIFICATION_ADD,
-                payload: { type: "error", text: error },
+                payload: { type: "error", text: (error as Error).message },
             });
         }
     };

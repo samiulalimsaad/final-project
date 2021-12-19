@@ -63,8 +63,11 @@ const Information = () => {
                     payload: { type: "success", text: data.message },
                 });
             }
-        } catch (e) {
-            console.error("Error adding document: ", e);
+        } catch (error) {
+            dispatch({
+                type: NOTIFICATION_ADD,
+                payload: { type: "error", text: (error as Error).message },
+            });
         }
     };
 

@@ -20,7 +20,7 @@ const SinglePost = ({
 }: postLocalInterface) => {
     return (
         <div
-            className={`my-2 px-2 py-3 space-y-3 bg-gray-50 h-auto rounded-md border-gray-400/80 shadow-md ${
+            className={`my-2 px-2 py-3 space-y-1 bg-gray-50 h-auto rounded-md border-gray-400/80 shadow-md ${
                 !noBorder && "border-2"
             }`}
         >

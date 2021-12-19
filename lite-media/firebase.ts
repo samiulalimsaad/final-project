@@ -1,5 +1,6 @@
 import { initializeApp } from "@firebase/app";
 import { getFirestore } from "@firebase/firestore";
+import { getDatabase } from "firebase/database";
 import getConfig from "next/config";
 
 const { publicRuntimeConfig } = getConfig();
@@ -17,5 +18,6 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 export const db = getFirestore();
+export const database = getDatabase();
 
 export default firebaseApp;
