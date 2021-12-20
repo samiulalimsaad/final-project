@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
 import { SHOW_COVER_IMAGE, SHOW_IMAGE } from "../../state/types";
+import { blurBase64 } from "../../util";
 
 const CoverImage = ({ image, id }: { image: string; id: string }) => {
     const { uid, dispatch } = GetState();
@@ -26,6 +27,8 @@ const CoverImage = ({ image, id }: { image: string; id: string }) => {
                         src={image!}
                         alt="post image"
                         layout="fill"
+                        placeholder="blur"
+                        blurDataURL={blurBase64}
                     />
                 </div>
                 {id === uid && (

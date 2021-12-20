@@ -1,6 +1,7 @@
 import { PlusCircleIcon } from "@heroicons/react/outline";
 import Image from "next/image";
 import { memo } from "react";
+import { blurBase64 } from "../../util";
 const temp = [] as any;
 
 const Story = () => {
@@ -14,6 +15,8 @@ const Story = () => {
                             src={temp.image}
                             alt={temp.userName}
                             layout="fill"
+                            placeholder="blur"
+                            blurDataURL={blurBase64}
                         />
                     </div>
                     <div className="absolute flex justify-center text-blue-700 -mt-3 w-full ">
@@ -39,6 +42,8 @@ const Story = () => {
                                 src={item.profilePic}
                                 alt={item.userName}
                                 layout="fill"
+                                placeholder="blur"
+                                blurDataURL={blurBase64}
                             />
                         </div>
                         <Image
@@ -46,6 +51,8 @@ const Story = () => {
                             src={item.image}
                             alt={item.userName}
                             layout="fill"
+                            placeholder="blur"
+                            blurDataURL={blurBase64}
                         />
                         <div className="absolute inline-block left-0 bottom-0 w-12 h-12 z-10 px-2 ">
                             <h4 className="text-xs text-white font-medium">

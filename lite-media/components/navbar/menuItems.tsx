@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, memo } from "react";
 import { GetState } from "../../state/stateProvider";
-import { classNames } from "../../util";
+import { blurBase64, classNames } from "../../util";
 
 const MenuItems = () => {
     const { displayName, uid, profilePic } = GetState();
@@ -19,12 +19,14 @@ const MenuItems = () => {
             <div>
                 <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none ring-1 focus:ring-offset-2 focus:ring-offset-blue-800 focus:ring-blue-600 ">
                     <span className="sr-only">Open user menu</span>
-                    <div className="relative h-8 w-8">
+                    <div className="relative h-8 w-8 overflow-hidden">
                         <Image
                             className="rounded-full bg-white overflow-hidden object-center object-cover"
                             src={profilePic || "/userIcon.png"}
                             alt=""
                             layout="fill"
+                            // placeholder="blur"
+                            blurDataURL={blurBase64}
                         />
                     </div>
                 </Menu.Button>

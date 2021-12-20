@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useCallback } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
-import { NODE_SERVER } from "../../util";
+import { blurBase64, NODE_SERVER } from "../../util";
 
 interface userInterface {
     user: {
@@ -93,6 +93,8 @@ const SuggestedUserBody = ({ user }: userInterface) => {
                                             }
                                             alt={`${user?.name?.fullName!}`}
                                             layout="fill"
+                                            placeholder="blur"
+                                            blurDataURL={blurBase64}
                                         />
                                     </div>
                                 </Link>

@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { memo, useEffect } from "react";
 import { GetState } from "../../state/stateProvider";
-import { NODE_SERVER } from "../../util";
+import { blurBase64, NODE_SERVER } from "../../util";
 import Progressbar from "../progress/progressbar";
 import MenuItems from "./menuItems";
 import Notification from "./notification";
@@ -42,6 +42,8 @@ const Navbar = () => {
                                         src="/logo.svg"
                                         alt="Workflow"
                                         layout="fill"
+                                        placeholder="blur"
+                                        blurDataURL={blurBase64}
                                     />
                                 </a>
                             </Link>
@@ -73,7 +75,7 @@ const Navbar = () => {
                             </div>
                         </form>
                     </div>
-                    <div className="mr-4 absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-10">
+                    <div className="mr-4 absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 z-[777]">
                         <Notification />
                         <MenuItems />
                     </div>

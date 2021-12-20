@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useState } from "react";
+import { blurBase64 } from "../../util";
 
 interface postBodyInterface {
     id: string;
@@ -26,6 +27,8 @@ const PostBody = ({ id, image, post }: postBodyInterface) => {
                     <Image
                         className="object-center object-cover rounded-md"
                         src={image}
+                        placeholder="blur"
+                        blurDataURL={blurBase64}
                         alt="post image"
                         layout="fill"
                     />

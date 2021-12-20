@@ -1,6 +1,5 @@
 import axios from "axios";
 import { push, ref } from "firebase/database";
-import { serverTimestamp } from "firebase/firestore";
 import getConfig from "next/config";
 import { database } from "../firebase";
 import { NOTIFICATION_ADD } from "../state/types";
@@ -31,6 +30,9 @@ export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 export const addLikeNotification = async (
     id: string,
     name: string,
+    postLink: string,
+    profilePic: string,
+    createdAt: string,
     dispatch: (arg0: {
         type: string;
         payload: { type: string; text: string };
@@ -40,7 +42,9 @@ export const addLikeNotification = async (
         await push(ref(database, `users/${id}/notifications`), {
             type: "success",
             text: `${name} liked your post`,
-            createdAt: serverTimestamp(),
+            postLink,
+            profilePic,
+            createdAt,
         });
         console.log("[Done]");
     } catch (error) {
@@ -54,6 +58,9 @@ export const addLikeNotification = async (
 export const addCommentNotification = async (
     id: string,
     name: string,
+    postLink: string,
+    profilePic: string,
+    createdAt: string,
     dispatch: (arg0: {
         type: string;
         payload: { type: string; text: string };
@@ -63,7 +70,9 @@ export const addCommentNotification = async (
         await push(ref(database, `users/${id}/notifications`), {
             type: "success",
             text: `${name} added a comment on your post`,
-            createdAt: serverTimestamp(),
+            postLink,
+            profilePic,
+            createdAt,
         });
         console.log("[Done]");
     } catch (error) {
@@ -77,6 +86,9 @@ export const addCommentNotification = async (
 export const addFollowingNotification = async (
     id: string,
     name: string,
+    postLink: string,
+    profilePic: string,
+    createdAt: string,
     dispatch: (arg0: {
         type: string;
         payload: { type: string; text: string };
@@ -86,7 +98,9 @@ export const addFollowingNotification = async (
         await push(ref(database, `users/${id}/notifications`), {
             type: "success",
             text: `${name} started following you`,
-            createdAt: serverTimestamp(),
+            postLink,
+            profilePic,
+            createdAt,
         });
         console.log("[Done]");
     } catch (error) {
@@ -96,6 +110,9 @@ export const addFollowingNotification = async (
         });
     }
 };
+
+export const blurBase64 =
+    "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPM9wEAATAAvWue51sAAAAASUVORK5CYII=";
 
 const tempLoadingValue = [] as number[];
 tempLoadingValue.length = 30;

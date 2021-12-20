@@ -2,20 +2,20 @@ import { Menu, Transition } from "@headlessui/react";
 import { BookmarkIcon, DotsHorizontalIcon } from "@heroicons/react/outline";
 import { BookmarkIcon as BookmarkIconSolid } from "@heroicons/react/solid";
 import axios from "axios";
-import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, useCallback } from "react";
+import Moment from "react-moment";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
-import { classNames, NODE_SERVER } from "../../util";
+import { blurBase64, classNames, NODE_SERVER } from "../../util";
 
 interface postHeaderInterface {
     userName: string;
     id: string;
     userId: string;
     bookmark: string[];
-    createdAt: string;
+    createdAt: Date;
     profilePic: string;
 }
 
@@ -100,6 +100,8 @@ const PostHeader = ({
                                 src={profilePic}
                                 alt={userName}
                                 layout="fill"
+                                placeholder="blur"
+                                blurDataURL={blurBase64}
                             />
                         </div>
                     </button>
@@ -120,7 +122,7 @@ const PostHeader = ({
                     </Link>
                     <div className="flex">
                         <time className="text-xs font-light text-left">
-                            {moment(createdAt).fromNow()}
+                            <Moment fromNow>{createdAt}</Moment>
                         </time>
                     </div>
                 </div>

@@ -22,7 +22,7 @@ const ProfileBody = ({ id }: { id?: string | string[] }) => {
     }
 
     return (
-        <div className="mb-32">
+        <div className="pb-24 h-full overflow-y-scroll">
             <div className="relative mb-16">
                 <CoverImage
                     image={data?.user?.coverPic || "/cover.jpg"}

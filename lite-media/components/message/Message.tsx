@@ -17,9 +17,9 @@ const Message = ({ msg, user1 }: any) => {
                 {msg.media ? <img src={msg.media} alt={msg.text} /> : null}
                 {msg.text}
                 <br />
-                <small>
+                <time>
                     <Moment fromNow>{msg.createdAt.toDate()}</Moment>
-                </small>
+                </time>
             </p>
         </div>
     );

@@ -11,6 +11,7 @@ import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import { db } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
+import { blurBase64 } from "../../util";
 import MessageBody from "./messageBody";
 
 interface conversationInterface {
@@ -235,6 +236,8 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                                     aria-hidden="true"
                                     height={33}
                                     width={33}
+                                    placeholder="blur"
+                                    blurDataURL={blurBase64}
                                 />
                             </button>
                         </div>

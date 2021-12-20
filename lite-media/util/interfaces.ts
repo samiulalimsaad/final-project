@@ -26,7 +26,7 @@ export interface userInterface {
 
 export interface postInterface {
     comments: string[];
-    createdAt: string;
+    createdAt: Date;
     updatedAt: string;
     like: string[];
     share: string[];

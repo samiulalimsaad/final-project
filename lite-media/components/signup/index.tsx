@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
+import { blurBase64 } from "../../util";
 import Loading from "../progress/Loading";
 import SignUpForm from "./SignupForm";
 
@@ -31,6 +32,8 @@ const SignUp = () => {
                                 alt="Workflow"
                                 width="100%"
                                 height="100%"
+                                placeholder="blur"
+                                blurDataURL={blurBase64}
                             />
                         </span>
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">

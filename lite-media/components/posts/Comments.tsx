@@ -8,7 +8,13 @@ import React, { Fragment, useCallback } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
-import { classNames, fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
+import {
+    blurBase64,
+    classNames,
+    fetcher,
+    NODE_SERVER,
+    REFRESH_INTERVAL,
+} from "../../util";
 import { userInterface } from "../../util/interfaces";
 interface commentInterface {
     body: string;
@@ -80,6 +86,8 @@ const Comments = ({ postId }: any) => {
                                         }
                                         alt={v?.user?.name?.fullName}
                                         layout="fill"
+                                        placeholder="blur"
+                                        blurDataURL={blurBase64}
                                     />
                                 </div>
                             </button>

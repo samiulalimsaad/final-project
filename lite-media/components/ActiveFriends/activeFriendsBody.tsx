@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { GetState } from "../../state/stateProvider";
+import { blurBase64 } from "../../util";
 import { userInterface } from "../../util/interfaces";
 
 const ActiveFriendsBody = ({ item }: { item: userInterface }) => {
@@ -33,6 +34,8 @@ const ActiveFriendsBody = ({ item }: { item: userInterface }) => {
                                                     alt={`${item?.name
                                                         ?.fullName!}`}
                                                     layout="fill"
+                                                    placeholder="blur"
+                                                    blurDataURL={blurBase64}
                                                 />
                                             </div>
                                         </Link>

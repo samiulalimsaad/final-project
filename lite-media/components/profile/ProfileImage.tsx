@@ -8,7 +8,7 @@ import {
     SHOW_IMAGE,
     SHOW_PROFILE_IMAGE,
 } from "../../state/types";
-import { NODE_SERVER } from "../../util";
+import { blurBase64, NODE_SERVER } from "../../util";
 
 const ProfileImage = ({ image, id }: { image: string; id: string }) => {
     const { uid, dispatch } = GetState();
@@ -52,6 +52,8 @@ const ProfileImage = ({ image, id }: { image: string; id: string }) => {
                     src={image}
                     alt="post image"
                     layout="fill"
+                    placeholder="blur"
+                    blurDataURL={blurBase64}
                 />
             </div>
             {uid === id && (

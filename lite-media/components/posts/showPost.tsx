@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { memo } from "react";
+import { blurBase64 } from "../../util";
 import { postInterface } from "../../util/interfaces";
 import PostBody from "./postBody";
 import PostFooter from "./postFooter";
@@ -16,6 +17,8 @@ const ShowPost = ({ post }: { post: postInterface }) => {
                     height={900}
                     width={1200}
                     objectFit="contain"
+                    placeholder="blur"
+                    blurDataURL={blurBase64}
                 />
             </div>
             <div className="h-full p-4 col-span-2 space-y-10 bg-white ">

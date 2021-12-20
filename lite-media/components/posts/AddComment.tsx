@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
-import { NODE_SERVER } from "../../util";
+import { blurBase64, NODE_SERVER } from "../../util";
 
 const AddComment = ({ postId }: { postId: string }) => {
     const { uid, dispatch } = GetState();
@@ -58,6 +58,8 @@ const AddComment = ({ postId }: { postId: string }) => {
                             aria-hidden="true"
                             height={33}
                             width={33}
+                            placeholder="blur"
+                            blurDataURL={blurBase64}
                         />
                     </button>
                 </div>

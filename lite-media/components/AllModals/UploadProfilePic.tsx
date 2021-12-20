@@ -14,7 +14,7 @@ import {
     NOTIFICATION_ADD,
     PROGRESS,
 } from "../../state/types";
-import { NODE_SERVER } from "../../util";
+import { blurBase64, NODE_SERVER } from "../../util";
 
 const UploadProfilePic = () => {
     const { uploadProfilePic, dispatch, uid } = GetState();
@@ -207,6 +207,8 @@ const UploadProfilePic = () => {
                                         }
                                         alt="profile image"
                                         layout="fill"
+                                        placeholder="blur"
+                                        blurDataURL={blurBase64}
                                     />
                                 </div>
                             </div>

@@ -1,8 +1,6 @@
-import { push, ref, serverTimestamp } from "firebase/database";
 import Layout from "../components/Layout";
-import { database } from "../firebase";
 import { GetState } from "../state/stateProvider";
-import { NOTIFICATION_ADD } from "../state/types";
+import { addLikeNotification } from "../util";
 const a = [
     {
         type: "error",
@@ -19,28 +17,6 @@ const a = [
     { type: "success", text: "eee", isShowing: true },
 ];
 
-const createNotification = async (
-    id: any,
-    dispatch: (arg0: {
-        type: string;
-        payload: { type: string; text: string };
-    }) => void
-) => {
-    try {
-        await push(ref(database, `users/${id}/notifications`), {
-            type: "success",
-            text: "test",
-            createdAt: serverTimestamp(),
-        });
-        console.log("[Done]");
-    } catch (error) {
-        dispatch({
-            type: NOTIFICATION_ADD,
-            payload: { type: "error", text: (error as Error).message },
-        });
-    }
-};
-
 const Test = () => {
     const { notification, uid, dispatch } = GetState();
 
@@ -52,7 +28,7 @@ const Test = () => {
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded-md"
                         onClick={() => {
-                            createNotification(uid, dispatch);
+                            addLikeNotification(uid, "saad", "/", "", dispatch);
                         }}
                     >
                         Click Me
