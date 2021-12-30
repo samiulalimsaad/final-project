@@ -1,3 +1,7 @@
+import { serverTimestamp } from "firebase/database";
+import React from "react";
+// minified version is also included
+import "react-toastify/dist/ReactToastify.min.css";
 import Layout from "../components/Layout";
 import { GetState } from "../state/stateProvider";
 import { addLikeNotification } from "../util";
@@ -18,7 +22,7 @@ const a = [
 ];
 
 const Test = () => {
-    const { notification, uid, dispatch } = GetState();
+    const { notification, profilePic, uid, dispatch } = GetState();
 
     return (
         <Layout title="test">
@@ -28,7 +32,14 @@ const Test = () => {
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded-md"
                         onClick={() => {
-                            addLikeNotification(uid, "saad", "/", "", dispatch);
+                            addLikeNotification(
+                                uid,
+                                "saad",
+                                "/",
+                                profilePic,
+                                serverTimestamp(),
+                                dispatch
+                            );
                         }}
                     >
                         Click Me

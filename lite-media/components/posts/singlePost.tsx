@@ -46,6 +46,7 @@ const SinglePost = ({
                 like={post?.like}
                 comment={post?.comments}
                 share={post?.share}
+                userId={post?.user?._id || userId}
             />
         </div>
     );

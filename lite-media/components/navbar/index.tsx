@@ -5,7 +5,10 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import React, { memo, useEffect } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 import { GetState } from "../../state/stateProvider";
+import { NOTIFICATION_REMOVE } from "../../state/types";
 import { blurBase64, NODE_SERVER } from "../../util";
 import Progressbar from "../progress/progressbar";
 import MenuItems from "./menuItems";
@@ -20,7 +23,23 @@ const setDeactive = async (id: string) => {
 };
 
 const Navbar = () => {
-    const { createPost, uploadCoverPic, uploadProfilePic, uid } = GetState();
+    const {
+        createPost,
+        uploadCoverPic,
+        uploadProfilePic,
+        uid,
+        notification,
+        dispatch,
+    } = GetState();
+
+    useEffect(() => {
+        notification.map((v) => {
+            toast(v?.text, { type: v?.type! });
+            dispatch({
+                type: NOTIFICATION_REMOVE,
+            });
+        });
+    }, [dispatch, notification]);
 
     useEffect(() => {
         uid && setActive(uid);
@@ -84,6 +103,7 @@ const Navbar = () => {
             {(createPost ||
                 uploadProfilePic.isShowing ||
                 uploadCoverPic.imageSrc) && <Progressbar />}
+            <ToastContainer theme="dark" autoClose={8000} />
         </Disclosure>
     );
 };

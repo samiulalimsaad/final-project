@@ -34,7 +34,8 @@ const Home = ({ children }: { children: any }) => {
                         type: LOGIN,
                         payload: {
                             displayName: data?.user?.name?.fullName,
-                            profilePic: data?.user?.profilePic,
+                            profilePic:
+                                data?.user?.profilePic || "/userIcon.png",
                             uid: auth?.currentUser?.uid,
                         },
                     });

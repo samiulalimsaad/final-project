@@ -32,12 +32,13 @@ export const addLikeNotification = async (
     name: string,
     postLink: string,
     profilePic: string,
-    createdAt: string,
+    createdAt: object,
     dispatch: (arg0: {
         type: string;
         payload: { type: string; text: string };
     }) => void
 ) => {
+    console.log({ id });
     try {
         await push(ref(database, `users/${id}/notifications`), {
             type: "success",
