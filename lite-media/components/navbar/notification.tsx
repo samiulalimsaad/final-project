@@ -6,8 +6,14 @@ import Link from "next/link";
 import React, { Fragment, memo, useCallback, useEffect, useState } from "react";
 import Moment from "react-moment";
 import { database } from "../../firebase";
+import { notificationTypes } from "../../state";
 import { GetState } from "../../state/stateProvider";
 import { blurBase64 } from "../../util";
+
+interface notificationInterface {
+    text: string;
+    type: notificationTypes;
+}
 
 const Notification = () => {
     const { uid, dispatch } = GetState();

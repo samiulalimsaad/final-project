@@ -1,6 +1,13 @@
 import { Dispatch } from "react";
 import { actionInterface } from "./actions";
 
+export type notificationTypes =
+    | "info"
+    | "success"
+    | "warning"
+    | "error"
+    | "default";
+
 export interface initialStateInterface {
     createPost: boolean;
     loading: boolean;
@@ -22,9 +29,8 @@ export interface initialStateInterface {
         isShowing: boolean;
     };
     notification: Array<{
-        type: string;
+        type: notificationTypes;
         text: string;
-        isShowing: boolean;
     }>;
     dispatch: Dispatch<actionInterface>;
 }
@@ -47,7 +53,6 @@ export const initialState = {
         {
             type: "success", // error, warning, success
             text: "logged in",
-            isShowing: false,
         },
     ],
     loading: false,
