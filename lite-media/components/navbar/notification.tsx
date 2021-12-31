@@ -1,13 +1,12 @@
 import { Menu, Transition } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/outline";
-import { onValue, ref, update } from "firebase/database";
+import { onValue, ref, remove } from "firebase/database";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, memo, useCallback, useEffect, useState } from "react";
 import Moment from "react-moment";
 import { database } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
-import { NOTIFICATION_ADD } from "../../state/types";
 import { blurBase64 } from "../../util";
 
 const Notification = () => {
@@ -19,28 +18,14 @@ const Notification = () => {
             onValue(ref(database, `users/${uid}/notifications`), (snapshot) => {
                 const data = snapshot.val();
                 setState(data);
-                console.log({ data });
-                dispatch({
-                    type: NOTIFICATION_ADD,
-                    payload: Object?.values(data)[0],
-                });
             });
     }, [dispatch, uid]);
-    const read = useCallback(() => {
-        uid &&
-            update(
-                ref(database, `users/${uid}/notifications`),
-                (snapshot: { val: () => any }) => {
-                    const data = snapshot.val();
-                    setState(data);
-                    console.log({ data });
-                    dispatch({
-                        type: NOTIFICATION_ADD,
-                        payload: Object?.values(data)[0],
-                    });
-                }
-            );
-    }, [dispatch, uid]);
+    const read = useCallback(
+        (v) => {
+            uid && remove(ref(database, `users/${uid}/notifications/${v}`));
+        },
+        [uid]
+    );
 
     return (
         <Menu as="div" className="ml-3 relative">
@@ -49,6 +34,11 @@ const Notification = () => {
                     <span className="sr-only">View notifications</span>
                     <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </Menu.Button>
+                {state && Object?.keys(state) && (
+                    <sub className="absolute animate-bounce right-0 top-0 bg-pink-500 text-gray-100 h-4 w-4 rounded-full flex items-center justify-center">
+                        {Object?.keys(state)?.length}
+                    </sub>
+                )}
             </div>
             <Transition
                 as={Fragment}
@@ -59,17 +49,21 @@ const Notification = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
             >
-                <Menu.Items className="origin-top-right absolute right-0 mt-2 w-64 max-h-96 overflow-y-scroll rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="origin-top-right absolute right-0 mt-2 min-w-max w-auto max-h-96 overflow-y-scroll rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                     {state ? (
-                        Object?.values(state) &&
-                        Object?.values(state)
+                        Object?.keys(state) &&
+                        Object?.keys(state)
                             ?.reverse()
-                            ?.map((v: any, i) => (
-                                <Menu.Item key={i}>
+                            ?.map((v: string) => (
+                                <Menu.Item key={v}>
                                     {({ active }) => (
                                         <div>
-                                            <Link href={v?.postLink} passHref>
+                                            <Link
+                                                href={state[v]?.postLink}
+                                                passHref
+                                            >
                                                 <a
+                                                    onClick={() => read(v)}
                                                     className={`
                                             ${active ? "bg-gray-100" : ""}
                                             p-2 text-sm text-gray-700 flex items-center justify-between
@@ -83,10 +77,13 @@ const Notification = () => {
                                                                         <Image
                                                                             className="object-center object-cover "
                                                                             src={
-                                                                                v?.profilePic ||
+                                                                                state[
+                                                                                    v
+                                                                                ]
+                                                                                    ?.profilePic ||
                                                                                 "/userIcon.png"
                                                                             }
-                                                                            alt={`${v?.text}`}
+                                                                            alt={`${state[v]?.text}`}
                                                                             layout="fill"
                                                                             placeholder="blur"
                                                                             blurDataURL={
@@ -95,10 +92,13 @@ const Notification = () => {
                                                                         />
                                                                     </div>
                                                                 </div>
-                                                                <div className="flex flex-col">
+                                                                <div className="flex flex-col wrap">
                                                                     <span>
                                                                         {
-                                                                            v?.text
+                                                                            state[
+                                                                                v
+                                                                            ]
+                                                                                ?.text
                                                                         }
                                                                     </span>
                                                                     <time className="text-xs font-light">
@@ -106,7 +106,10 @@ const Notification = () => {
                                                                             fromNow
                                                                         >
                                                                             {
-                                                                                v?.createdAt
+                                                                                state[
+                                                                                    v
+                                                                                ]
+                                                                                    ?.createdAt
                                                                             }
                                                                         </Moment>
                                                                     </time>
@@ -122,7 +125,7 @@ const Notification = () => {
                             ))
                     ) : (
                         <p className="font-semibold text-sm text-gray-500 flex items-center justify-center p-8">
-                            Your notifications will be shown here...
+                            No Notifications
                         </p>
                     )}
                 </Menu.Items>

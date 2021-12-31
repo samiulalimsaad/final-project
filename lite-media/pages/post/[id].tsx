@@ -11,7 +11,7 @@ const Index: NextPage = () => {
 
     return (
         <Layout title="Post">
-            <DetailsPost postId={id} />
+            <DetailsPost postId={id!} />
         </Layout>
     );
 };

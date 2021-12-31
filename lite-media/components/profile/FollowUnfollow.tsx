@@ -1,10 +1,11 @@
 import { ChatAltIcon } from "@heroicons/react/outline";
 import axios from "axios";
+import { serverTimestamp } from "firebase/database";
 import Link from "next/link";
 import React, { useCallback } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
-import { NODE_SERVER } from "../../util";
+import { addFollowingNotification, NODE_SERVER } from "../../util";
 import { userInterface } from "../../util/interfaces";
 
 interface followUnfollowInterface {
@@ -13,7 +14,7 @@ interface followUnfollowInterface {
 }
 
 const FollowUnfollow = ({ id, following }: followUnfollowInterface) => {
-    const { uid, dispatch } = GetState();
+    const { uid, displayName, profilePic, dispatch } = GetState();
 
     const addFollow = useCallback(async () => {
         try {
@@ -28,6 +29,15 @@ const FollowUnfollow = ({ id, following }: followUnfollowInterface) => {
                     type: NOTIFICATION_ADD,
                     payload: { type: "success", text: following.data.message },
                 });
+                id !== uid &&
+                    addFollowingNotification(
+                        id,
+                        displayName,
+                        `/profile/${uid}`,
+                        profilePic,
+                        serverTimestamp(),
+                        dispatch
+                    );
             }
         } catch (error) {
             dispatch({
@@ -35,7 +45,7 @@ const FollowUnfollow = ({ id, following }: followUnfollowInterface) => {
                 payload: { type: "error", text: (error as Error).message },
             });
         }
-    }, [id, uid, dispatch]);
+    }, [id, uid, dispatch, displayName, profilePic]);
 
     const removeFollow = useCallback(async () => {
         try {

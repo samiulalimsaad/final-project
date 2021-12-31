@@ -61,7 +61,7 @@ export const addCommentNotification = async (
     name: string,
     postLink: string,
     profilePic: string,
-    createdAt: string,
+    createdAt: object,
     dispatch: (arg0: {
         type: string;
         payload: { type: string; text: string };
@@ -89,7 +89,7 @@ export const addFollowingNotification = async (
     name: string,
     postLink: string,
     profilePic: string,
-    createdAt: string,
+    createdAt: object,
     dispatch: (arg0: {
         type: string;
         payload: { type: string; text: string };

@@ -1,12 +1,13 @@
 import axios from "axios";
+import { serverTimestamp } from "firebase/database";
 import Image from "next/image";
 import { useState } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
-import { NODE_SERVER } from "../../util";
+import { addCommentNotification, NODE_SERVER } from "../../util";
 
-const AddComment = ({ postId }: { postId: string }) => {
-    const { uid, dispatch } = GetState();
+const AddComment = ({ postId, userId }: { postId: string; userId: string }) => {
+    const { uid, displayName, profilePic, dispatch } = GetState();
     const [comment, setComment] = useState("");
     const addComment = async (e: { preventDefault: () => void }) => {
         e.preventDefault();
@@ -23,6 +24,15 @@ const AddComment = ({ postId }: { postId: string }) => {
                     payload: { type: "success", text: data.message },
                 });
                 setComment("");
+                userId !== uid &&
+                    addCommentNotification(
+                        userId,
+                        displayName,
+                        `/post/${postId}`,
+                        profilePic,
+                        serverTimestamp(),
+                        dispatch
+                    );
             }
         } catch (error) {
             dispatch({

@@ -6,7 +6,7 @@ import AddComment from "./AddComment";
 import Comments from "./Comments";
 import SinglePost from "./singlePost";
 
-const DetailsPost = ({ postId }: any) => {
+const DetailsPost = ({ postId }: { postId: string | string[] }) => {
     const { uid, dispatch } = GetState();
 
     const { data, error } = useSWR(
@@ -22,11 +22,12 @@ const DetailsPost = ({ postId }: any) => {
             payload: { type: "error", text: error },
         });
     }
+    console.log({ data });
     return (
         <div>
             {data?.post?._id ? (
                 <div className="relative pb-16 h-screen overflow-y-hidden">
-                    <div className="h-full overflow-y-scroll pb-16">
+                    <div className="h-full overflow-y-scroll pb-24">
                         <SinglePost
                             post={data?.post!}
                             userName={data?.post?.user?.name?.fullName!}
@@ -47,7 +48,10 @@ const DetailsPost = ({ postId }: any) => {
                         )}
                     </div>
                     <div className="absolute left-0 right-0 bottom-[7rem]">
-                        <AddComment postId={data?.post?._id} />
+                        <AddComment
+                            postId={data?.post?._id}
+                            userId={data?.post?.user?._id}
+                        />
                     </div>
                 </div>
             ) : (

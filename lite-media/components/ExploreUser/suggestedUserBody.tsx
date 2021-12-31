@@ -1,10 +1,11 @@
 import axios from "axios";
+import { serverTimestamp } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useCallback } from "react";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
-import { blurBase64, NODE_SERVER } from "../../util";
+import { addFollowingNotification, blurBase64, NODE_SERVER } from "../../util";
 
 interface userInterface {
     user: {
@@ -18,7 +19,7 @@ interface userInterface {
 }
 
 const SuggestedUserBody = ({ user }: userInterface) => {
-    const { uid, dispatch } = GetState();
+    const { uid, displayName, profilePic, dispatch } = GetState();
     const addFollow = useCallback(async () => {
         try {
             const follower = await axios.post(
@@ -32,9 +33,18 @@ const SuggestedUserBody = ({ user }: userInterface) => {
                     type: NOTIFICATION_ADD,
                     payload: {
                         type: "success",
-                        text: following?.data?.message,
+                        text: follower?.data?.message,
                     },
                 });
+                user._id !== uid &&
+                    addFollowingNotification(
+                        user._id,
+                        displayName,
+                        `/profile/${uid}`,
+                        profilePic,
+                        serverTimestamp(),
+                        dispatch
+                    );
             }
         } catch (error) {
             dispatch({
@@ -42,7 +52,7 @@ const SuggestedUserBody = ({ user }: userInterface) => {
                 payload: { type: "error", text: (error as Error).message },
             });
         }
-    }, [dispatch, uid, user?._id]);
+    }, [dispatch, displayName, profilePic, uid, user._id]);
 
     const removeFollow = useCallback(async () => {
         try {
