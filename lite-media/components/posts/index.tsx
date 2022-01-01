@@ -23,7 +23,7 @@ const Posts = () => {
         <div>
             {!data ? (
                 <PostSkeleton />
-            ) : (
+            ) : data?.posts.length > 0 ? (
                 data?.posts?.map((v: postInterface) => (
                     <SinglePost
                         post={v}
@@ -32,6 +32,8 @@ const Posts = () => {
                         userId={""}
                     />
                 ))
+            ) : (
+                <PostSkeleton />
             )}
         </div>
     );

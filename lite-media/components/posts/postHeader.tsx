@@ -29,12 +29,15 @@ const PostHeader = ({
 }: postHeaderInterface) => {
     const { uid, dispatch } = GetState();
 
+    console.log({ bookmark, id, uid, userId });
+
     const addBookmark = useCallback(async () => {
         try {
             if (bookmark.includes(id!)) {
                 const { data } = await axios.delete(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
+                console.log({ data });
                 if (data.success) {
                     dispatch({
                         type: NOTIFICATION_ADD,
@@ -45,6 +48,7 @@ const PostHeader = ({
                 const { data } = await axios.post(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
+                console.log({ data });
                 if (data.success) {
                     dispatch({
                         type: NOTIFICATION_ADD,
@@ -68,7 +72,7 @@ const PostHeader = ({
             if (data.success) {
                 dispatch({
                     type: NOTIFICATION_ADD,
-                    payload: { type: "success", text: data.message },
+                    payload: { type: "warning", text: data.message },
                 });
             } else {
                 dispatch({
@@ -132,7 +136,7 @@ const PostHeader = ({
                     className="p-3 transition ease-in-out duration-500 hover:bg-indigo-400/50 active:bg-indigo-700/50 rounded-full"
                     onClick={addBookmark}
                 >
-                    {bookmark?.includes(id!) ? (
+                    {userId === uid && bookmark?.includes(id!) ? (
                         <BookmarkIconSolid
                             className="h-6 w-6"
                             aria-hidden="true"
