@@ -90,7 +90,6 @@ export const rootReducer = (
                     {
                         type: payload?.type,
                         text: payload?.text,
-                        isShowing: true,
                     },
                 ],
             };

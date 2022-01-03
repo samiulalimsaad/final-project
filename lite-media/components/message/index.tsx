@@ -7,10 +7,11 @@ import {
     uploadBytesResumable,
 } from "firebase/storage";
 import Image from "next/image";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useCallback, useRef, useState } from "react";
 import { db } from "../../firebase";
 import { GetState } from "../../state/stateProvider";
 import { NOTIFICATION_ADD } from "../../state/types";
+import { addMessageNotification } from "../../util";
 import MessageBody from "./messageBody";
 
 interface conversationInterface {
@@ -19,15 +20,11 @@ interface conversationInterface {
 }
 
 const Conversation = ({ conversationId }: conversationInterface) => {
-    const { uid, dispatch } = GetState();
+    const { uid, displayName, profilePic, dispatch } = GetState();
     const [message, setMessage] = useState("");
     const [image, setImage] = useState<File>();
     const storage = getStorage();
     const scrollRef = useRef<null | HTMLDivElement>();
-
-    useEffect(() => {
-        scrollRef?.current?.scrollIntoView({ behavior: "smooth" });
-    }, []);
 
     const sendMessage = useCallback(
         async (e) => {
@@ -95,6 +92,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                                             messageId: uid,
                                             message,
                                             image,
+                                            unread: true,
                                             createdAt: serverTimestamp(),
                                         }
                                     );
@@ -107,6 +105,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                                             messageId: uid,
                                             message,
                                             image,
+                                            unread: true,
                                             createdAt: serverTimestamp(),
                                         }
                                     );
@@ -119,9 +118,15 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                                         },
                                     });
                                 } finally {
-                                    scrollRef?.current?.scrollIntoView({
-                                        behavior: "smooth",
-                                    });
+                                    conversationId !== uid &&
+                                        addMessageNotification(
+                                            conversationId,
+                                            displayName,
+                                            `/message/${conversationId}`,
+                                            profilePic,
+                                            serverTimestamp(),
+                                            dispatch
+                                        );
                                 }
                             }
                         );
@@ -135,6 +140,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                             {
                                 messageId: uid,
                                 message,
+                                unread: true,
                                 createdAt: serverTimestamp(),
                             }
                         );
@@ -143,6 +149,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                             {
                                 messageId: uid,
                                 message,
+                                unread: true,
                                 createdAt: serverTimestamp(),
                             }
                         );
@@ -157,35 +164,35 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                     } finally {
                         setImage(undefined);
                         setMessage("");
-                        scrollRef?.current?.scrollIntoView({
-                            behavior: "smooth",
-                        });
+                        conversationId !== uid &&
+                            addMessageNotification(
+                                conversationId,
+                                displayName,
+                                `/message/${uid}`,
+                                profilePic,
+                                serverTimestamp(),
+                                dispatch
+                            );
                     }
                 }
             }
         },
-        [conversationId, dispatch, image, message, storage, uid]
+        [
+            conversationId,
+            dispatch,
+            displayName,
+            image,
+            message,
+            profilePic,
+            storage,
+            uid,
+        ]
     );
-
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const { data } = (await axios.get(
-    //             PYTHON_SERVER(`/?name=${displayName}`)
-    //         ));
-    //         uid && conversationId && setMessage(data.message);
-    //     };
-    //     displayName && getData();
-    //     // uid && conversationId && (message || image) &&  sendMessage();
-    // }, [conversationId, displayName, image, message, sendMessage, uid]);
 
     return (
         <div className="relative rounded h-full overflow-y-scroll">
-            <div className="h-[77vh] px-2 bg-gray-100 overflow-y-scroll">
+            <div className="h-[77vh] p-2 bg-gray-100 overflow-y-scroll">
                 <MessageBody conversationId={conversationId} />
-                {/* <div
-                    ref={scrollRef as RefObject<HTMLDivElement>}
-                    className="pt-16"
-                /> */}
             </div>
             <div className="">
                 <form

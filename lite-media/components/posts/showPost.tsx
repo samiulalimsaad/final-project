@@ -40,6 +40,7 @@ const ShowPost = ({ post }: { post: postInterface }) => {
                     like={post?.like}
                     comment={post?.comments}
                     share={post?.share}
+                    userId={post?.user?._id}
                 />
                 <div>Post Comments</div>
             </div>

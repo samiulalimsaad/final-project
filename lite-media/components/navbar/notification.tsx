@@ -17,7 +17,7 @@ interface notificationInterface {
 
 const Notification = () => {
     const { uid, dispatch } = GetState();
-    const [state, setState] = useState([]);
+    const [state, setState] = useState<any[]>([]);
 
     useEffect(() => {
         uid &&
@@ -60,7 +60,7 @@ const Notification = () => {
                         Object?.keys(state) &&
                         Object?.keys(state)
                             ?.reverse()
-                            ?.map((v: string) => (
+                            ?.map((v: any) => (
                                 <Menu.Item key={v}>
                                     {({ active }) => (
                                         <div>

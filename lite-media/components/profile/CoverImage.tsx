@@ -2,7 +2,7 @@ import { PencilIcon } from "@heroicons/react/solid";
 import Image from "next/image";
 import React, { memo } from "react";
 import { GetState } from "../../state/stateProvider";
-import { SHOW_COVER_IMAGE, SHOW_IMAGE } from "../../state/types";
+import { SHOW_COVER_IMAGE } from "../../state/types";
 import { blurBase64 } from "../../util";
 
 const CoverImage = ({ image, id }: { image: string; id: string }) => {
@@ -11,17 +11,7 @@ const CoverImage = ({ image, id }: { image: string; id: string }) => {
     return (
         <div className="relative mb-16 z-48">
             <div>
-                <div
-                    className="relative h-48 w-full bg-gray-500/50 "
-                    onClick={() =>
-                        dispatch({
-                            type: SHOW_IMAGE,
-                            payload: {
-                                imageSrc: image,
-                            },
-                        })
-                    }
-                >
+                <div className="relative h-48 w-full bg-gray-500/50 ">
                     <Image
                         className="object-center object-cover "
                         src={image!}

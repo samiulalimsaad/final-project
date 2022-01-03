@@ -4,15 +4,16 @@ import {
     HashtagIcon,
     HomeIcon,
     UserAddIcon,
+    UserCircleIcon,
     UserGroupIcon,
 } from "@heroicons/react/outline";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { memo } from "react";
+import React from "react";
 import { GetState } from "../../state/stateProvider";
 import { CREATE_POST } from "../../state/types";
 
-const bar = [
+export const bar = [
     {
         name: "Home",
         icon: <HomeIcon className="h-6 w-6" aria-hidden="true" />,
@@ -42,6 +43,11 @@ const bar = [
         name: "Followers",
         icon: <UserGroupIcon className="h-6 w-6" aria-hidden="true" />,
         link: "/followers",
+    },
+    {
+        name: "Active Friends",
+        icon: <UserCircleIcon className="h-6 w-6" aria-hidden="true" />,
+        link: "/active",
     },
     {
         name: "Test",
@@ -83,4 +89,4 @@ const LeftSide = () => {
     );
 };
 
-export default memo(LeftSide);
+export default LeftSide;

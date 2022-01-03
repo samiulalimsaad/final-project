@@ -1,11 +1,52 @@
 import { ArrowLeftIcon } from "@heroicons/react/outline";
-import { useRouter } from "next/router";
-import React from "react";
+import axios from "axios";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import router, { useRouter } from "next/router";
+import React, { useEffect } from "react";
 import Home from "../components/home/index";
 import Navbar from "../components/navbar";
+import { GetState } from "../state/stateProvider";
+import { LOADING, LOGIN } from "../state/types";
+import { NODE_SERVER } from "../util";
+import Loading from "./progress/Loading";
 
 const Layout = ({ children, title }: { title: string; children: any }) => {
-    const router = useRouter();
+    const { loading, dispatch, isAuth, uid } = GetState();
+    const route = useRouter();
+
+    useEffect(() => {
+        dispatch({ type: LOADING });
+        const auth = getAuth();
+
+        onAuthStateChanged(auth, async (user) => {
+            if (!user?.uid) {
+                route.push("/login");
+            }
+            try {
+                const { data } = await axios.get(
+                    NODE_SERVER("/user/" + user?.uid)
+                );
+                if (data.success) {
+                    dispatch({
+                        type: LOGIN,
+                        payload: {
+                            displayName: data?.user?.name?.fullName,
+                            profilePic:
+                                data?.user?.profilePic || "/userIcon.png",
+                            uid: auth?.currentUser?.uid,
+                        },
+                    });
+                }
+            } catch (error) {
+            } finally {
+                dispatch({ type: LOADING });
+            }
+        });
+    }, [dispatch, isAuth, route]);
+
+    if (!uid) {
+        return <Loading />;
+    }
     return (
         <>
             <header>

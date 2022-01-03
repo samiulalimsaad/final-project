@@ -3,11 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import React, { memo, useCallback, useState } from "react";
 import { GetState } from "../../state/stateProvider";
-import {
-    NOTIFICATION_ADD,
-    SHOW_IMAGE,
-    SHOW_PROFILE_IMAGE,
-} from "../../state/types";
+import { NOTIFICATION_ADD, SHOW_PROFILE_IMAGE } from "../../state/types";
 import { blurBase64, NODE_SERVER } from "../../util";
 
 const ProfileImage = ({ image, id }: { image: string; id: string }) => {
@@ -36,17 +32,7 @@ const ProfileImage = ({ image, id }: { image: string; id: string }) => {
 
     return (
         <div className="relative inline-block h-28 w-28 rounded-full border-2 border-gray-500 bg-white overflow-hidden">
-            <div
-                className="relative h-28 w-28 rounded-full bg-white  z-40"
-                onClick={() =>
-                    dispatch({
-                        type: SHOW_IMAGE,
-                        payload: {
-                            imageSrc: image,
-                        },
-                    })
-                }
-            >
+            <div className="relative h-28 w-28 rounded-full bg-white  z-40">
                 <Image
                     className="object-center object-cover "
                     src={image}

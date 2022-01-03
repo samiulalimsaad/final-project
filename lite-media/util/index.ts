@@ -112,6 +112,33 @@ export const addFollowingNotification = async (
     }
 };
 
+export const addMessageNotification = async (
+    id: string,
+    name: string,
+    postLink: string,
+    profilePic: string,
+    createdAt: object,
+    dispatch: (arg0: {
+        type: string;
+        payload: { type: string; text: string };
+    }) => void
+) => {
+    try {
+        await push(ref(database, `users/${id}/notifications`), {
+            type: "success",
+            text: `${name} send you a message`,
+            postLink,
+            profilePic,
+            createdAt,
+        });
+    } catch (error) {
+        dispatch({
+            type: NOTIFICATION_ADD,
+            payload: { type: "error", text: (error as Error).message },
+        });
+    }
+};
+
 export const blurBase64 =
     "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPM9wEAATAAvWue51sAAAAASUVORK5CYII=";
 
