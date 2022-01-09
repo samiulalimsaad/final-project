@@ -1,4 +1,4 @@
-import { model, Model, Schema } from "mongoose";
+import { model, Model, models, Schema } from "mongoose";
 import { commentInterface } from "../interfaces";
 
 const commentSchema = new Schema(
@@ -9,12 +9,7 @@ const commentSchema = new Schema(
     { timestamps: true }
 );
 
-let Comment: Model<commentInterface, {}>;
-
-try {
-    Comment = model("Comment");
-} catch {
-    Comment = model("Comment", commentSchema);
-}
+const Comment: Model<commentInterface, {}> =
+    models.Comment || model("Comment", commentSchema);
 
 export default Comment;

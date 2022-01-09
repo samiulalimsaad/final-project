@@ -1,4 +1,4 @@
-import { Model, model, Schema } from "mongoose";
+import { Model, model, models, Schema } from "mongoose";
 import { userInterface } from "../interfaces";
 
 const nameSchema = new Schema(
@@ -96,11 +96,6 @@ const userSchema = new Schema(
     { timestamps: true, _id: false }
 );
 
-let User: Model<userInterface, {}>;
-try {
-    User = model("User");
-} catch {
-    User = model("User", userSchema);
-}
+const User: Model<userInterface, {}> = models.User || model("User", userSchema);
 
 export default User;

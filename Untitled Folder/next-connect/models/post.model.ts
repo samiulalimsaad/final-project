@@ -1,4 +1,4 @@
-import { model, Model, Schema } from "mongoose";
+import { model, Model, models, Schema } from "mongoose";
 import { postInterface } from "../interfaces";
 
 const postSchema = new Schema(
@@ -12,11 +12,6 @@ const postSchema = new Schema(
     { timestamps: true }
 );
 
-let Post: Model<postInterface, {}>;
-try {
-    Post = model("Post");
-} catch {
-    Post = model("Post", postSchema);
-}
+const Post: Model<postInterface, {}> = models.Post || model("Post", postSchema);
 
 export default Post;
