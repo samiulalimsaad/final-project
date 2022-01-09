@@ -1,19 +1,19 @@
-const path = require("path");
+import path from "path";
 require("dotenv").config({ path: path.resolve(".env.local") });
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const morgan = require("morgan");
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import morgan from "morgan";
 
-const postRoute = require("./routes/post.route");
-const userRoute = require("./routes/user.route");
-const followerRoute = require("./routes/follower.route");
-const followingRoute = require("./routes/following.route");
-const bookmarkRoute = require("./routes/bookmark.route");
-const suggestedUserRoute = require("./routes/suggested.route");
-const activeUserRoute = require("./routes/activeUser.route");
-const storyRoute = require("./routes/story.route");
-const infoRoute = require("./routes/info.route");
+import postRoute from "./routes/post.route";
+import userRoute from "./routes/user.route";
+import followerRoute from "./routes/follower.route";
+import followingRoute from "./routes/following.route";
+import bookmarkRoute from "./routes/bookmark.route";
+import suggestedUserRoute from "./routes/suggested.route";
+import activeUserRoute from "./routes/activeUser.route";
+import storyRoute from "./routes/story.route";
+import infoRoute from "./routes/info.route";
 
 const app = express();
 
@@ -39,9 +39,12 @@ app.use("/info", infoRoute);
 app.get("/test", (req, res) => {
     res.json({ query: req.query });
 });
+
 app.get("*", (_, res) => {
     res.send(
-        `<h1 style="display: grid;place-items: center; justify-items: center; height: 100vh;width: 100vw;">Route Not Found</h1>`
+        `<h1 style="display: grid;place-items: center; justify-items: center; height: 100vh;width: 100vw;">Route Not Found
+        ${process.env.MONGODB_URL}
+        </h1>`
     );
 });
 

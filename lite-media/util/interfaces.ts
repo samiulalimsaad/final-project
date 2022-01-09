@@ -14,8 +14,8 @@ export interface userInterface {
     assistant: string;
     message: string[];
     unreadMessage: string[];
-    following: [string];
-    follower: [string];
+    following: string[];
+    follower: string[];
     story: string[];
     createdAt: string;
     profilePic?: string;
