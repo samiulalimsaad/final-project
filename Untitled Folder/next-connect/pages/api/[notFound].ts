@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from "next-connect";
-import connectDB from "../../db/index";
+import connectDB from "../../backend/db/index";
 
 const handler = nc<NextApiRequest, NextApiResponse>().get(
     (_req: NextApiRequest, res: NextApiResponse) => {
