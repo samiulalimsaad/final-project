@@ -1,10 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
-import Script from "next/script";
 import React, { Fragment, memo } from "react";
 import useSWR from "swr";
 import { GetState } from "../../state/stateProvider";
 import { CLOSE_IMAGE, NOTIFICATION_ADD } from "../../state/types";
 import { fetcher, NODE_SERVER, REFRESH_INTERVAL } from "../../util";
+import ShowPost from "../posts/showPost";
 
 const ShowImage = () => {
     const { displayImage, dispatch, uid } = GetState();
@@ -26,10 +26,10 @@ const ShowImage = () => {
     };
 
     return (
-        <Transition appear show={displayImage.isShowing || true} as={Fragment}>
+        <Transition appear show={displayImage.isShowing} as={Fragment}>
             <div
-                className={`absolute inset-0 backdrop-blur-[11px] bg-white z-[500] overflow-y-auto h-screen w-screen ${
-                    (!displayImage.isShowing || true) && "hidden"
+                className={`absolute inset-0 backdrop-blur-[1px] bg-gray-900/50 z-50 overflow-y-auto h-screen w-screen ${
+                    !displayImage.isShowing && "hidden"
                 }`}
             >
                 <Dialog
@@ -66,27 +66,11 @@ const ShowImage = () => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-0"
                         >
-                            <div className="w-[75vw] h-[75vh] overflow-hidden transition-all transform bg-white shadow-xl rounded-2xl">
+                            <div className="w-[75vw] h-[75vh] overflow-hidden transition-all transform bg-black/95 shadow-xl rounded-2xl">
                                 <Dialog.Description as="div">
-                                    <div>
-                                        <link
-                                            rel="stylesheet"
-                                            href="http://52.18.33.238/widget.css"
-                                        />
-                                        <Script
-                                            src="http://52.18.33.238/widget-es2015.js"
-                                            type="module"
-                                        ></Script>
-                                        <Script
-                                            src="http://52.18.33.238/widget-es5.js"
-                                            noModule
-                                            defer
-                                        ></Script>
-                                        <of-widget
-                                            class="of__root"
-                                            instance="ddfa2093-fb81-4dcb-b0da-c35432a17abb"
-                                        ></of-widget>
-                                    </div>
+                                    {data?.success && (
+                                        <ShowPost post={data.post} />
+                                    )}
                                 </Dialog.Description>
                             </div>
                         </Transition.Child>

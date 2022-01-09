@@ -18,6 +18,7 @@ const AllModals = () => {
             <ShowImage />
             <UploadProfilePic />
             <UploadCoverPic />
+            {/* <NotificationBody /> */}
         </div>
     );
 };
