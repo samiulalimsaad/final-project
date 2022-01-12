@@ -50,11 +50,6 @@ export const bar = [
         icon: <UserCircleIcon className="h-6 w-6" aria-hidden="true" />,
         link: "/active",
     },
-    {
-        name: "Test",
-        icon: <UserGroupIcon className="h-6 w-6" aria-hidden="true" />,
-        link: "/test",
-    },
 ];
 
 const LeftSide = () => {
