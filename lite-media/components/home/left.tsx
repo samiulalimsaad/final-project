@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { GetState } from "../../state/stateProvider";
 import { CREATE_POST } from "../../state/types";
+import OF from "../OF";
 
 export const bar = [
     {
@@ -84,7 +85,15 @@ const LeftSide = () => {
                     New Post
                 </button>
             </div>
-            {/* <Assistant /> */}
+            <div className="mt-10 w-full bg-gray-50 py-4 rounded-md">
+                {" "}
+                <h2 className="text-xl font-semibold p-2 border-b border-cyan-300">
+                    AI Apps
+                </h2>
+                <div className="grid place-items-center h-1/2 w-full ">
+                    <OF />
+                </div>
+            </div>
         </section>
     );
 };

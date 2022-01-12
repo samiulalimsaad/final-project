@@ -11,8 +11,8 @@ const { publicRuntimeConfig } = getConfig();
 const nodeServer = publicRuntimeConfig.NODE_SERVER;
 
 export const NODE_SERVER = (v: string) => {
-    const a = nodeServer + v;
-    // console.log("NODE_SERVER", a);
+    const a = "/api" + v;
+    console.log("NODE_SERVER", a);
     return a;
 };
 export const PYTHON_SERVER = (v: string) => {

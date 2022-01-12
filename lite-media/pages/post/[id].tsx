@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import React, { memo } from "react";
+import React from "react";
 import Layout from "../../components/Layout";
 import DetailsPost from "../../components/posts/DetailsPost";
 
@@ -16,4 +16,4 @@ const Index: NextPage = () => {
     );
 };
 
-export default memo(Index);
+export default Index;

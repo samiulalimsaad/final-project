@@ -12,3 +12,5 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const NOTIFICATION_ADD = "NOTIFICATION_ADD";
 export const NOTIFICATION_REMOVE = "NOTIFICATION_REMOVE";
+export const SHOW_OF_MODAL = "SHOW_OF_MODAL";
+export const CLOSE_OF_MODAL = "CLOSE_OF_MODAL";

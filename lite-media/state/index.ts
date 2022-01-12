@@ -16,6 +16,10 @@ export interface initialStateInterface {
     isAuth: boolean;
     uid: string;
     progress: number;
+    OFModal: {
+        index: number;
+        isShowing: boolean;
+    };
     displayImage: {
         imageSrc: string;
         isShowing: boolean;
@@ -37,6 +41,10 @@ export interface initialStateInterface {
 
 export const initialState = {
     createPost: false,
+    OFModal: {
+        index: 0,
+        isShowing: false,
+    },
     displayImage: {
         imageSrc: "",
         isShowing: false,

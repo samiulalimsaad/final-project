@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
     reactStrictMode: true,
+    serverRuntimeConfig: {
+        DATABASE_URL: process.env.DATABASE_URL,
+    },
     publicRuntimeConfig: {
         FIREBASE_apiKey: process.env.FIREBASE_apiKey,
         FIREBASE_authDomain: process.env.FIREBASE_authDomain,

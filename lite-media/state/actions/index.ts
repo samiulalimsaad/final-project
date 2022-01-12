@@ -3,6 +3,7 @@ import {
     CLOSE_COVER_IMAGE,
     CLOSE_IMAGE,
     CLOSE_MODAL,
+    CLOSE_OF_MODAL,
     CLOSE_PROFILE_IMAGE,
     CREATE_POST,
     LOADING,
@@ -13,6 +14,7 @@ import {
     PROGRESS,
     SHOW_COVER_IMAGE,
     SHOW_IMAGE,
+    SHOW_OF_MODAL,
     SHOW_PROFILE_IMAGE,
 } from "../types";
 
@@ -75,6 +77,16 @@ export const rootReducer = (
             return {
                 ...state,
                 uploadCoverPic: { isShowing: false, imageSrc: "" },
+            };
+        case SHOW_OF_MODAL:
+            return {
+                ...state,
+                OFModal: { isShowing: true, index: payload.index },
+            };
+        case CLOSE_OF_MODAL:
+            return {
+                ...state,
+                OFModal: { isShowing: false, index: 0 },
             };
         case PROGRESS:
             return {

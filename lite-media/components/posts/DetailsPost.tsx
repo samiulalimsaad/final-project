@@ -16,13 +16,17 @@ const DetailsPost = ({ postId }: { postId: string | string[] }) => {
             refreshInterval: REFRESH_INTERVAL,
         }
     );
+
     if (error) {
+        console.log(error);
         dispatch({
             type: NOTIFICATION_ADD,
             payload: { type: "error", text: error },
         });
     }
-    console.log({ data });
+
+    console.log({ uid, postId });
+
     return (
         <div>
             {data?.post?._id ? (
