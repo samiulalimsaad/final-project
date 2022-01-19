@@ -56,16 +56,18 @@ const Layout = ({ children, title }: { title: string; children: any }) => {
                 <Home>
                     {title && (
                         <div className="h-14 bg-indigo-700 text-white flex items-center space-x-4">
-                            <button
-                                className="hover:bg-indigo-900/70 p-4"
-                                onClick={() => router.back()}
-                            >
-                                <ArrowLeftIcon
-                                    className="h-6 w-6"
-                                    aria-hidden="true"
-                                />
-                            </button>
-                            <h2 className="text-2xl font-medium capitalize ">
+                            {title !== "home" && (
+                                <button
+                                    className="hover:bg-indigo-900/70 p-4"
+                                    onClick={() => router.back()}
+                                >
+                                    <ArrowLeftIcon
+                                        className="h-6 w-6"
+                                        aria-hidden="true"
+                                    />
+                                </button>
+                            )}
+                            <h2 className="text-2xl font-medium capitalize ml-4">
                                 {title}
                             </h2>
                         </div>

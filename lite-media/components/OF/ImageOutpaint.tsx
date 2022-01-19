@@ -15,7 +15,7 @@ const ImageOutpaint = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="563ab559-dd30-4aab-8ea7-f0f698900e6c"
+                instance="77ffdbd4-a61a-4bd8-9cde-dc3986b33386"
             ></of-widget>
         </div>
     );

@@ -4,7 +4,8 @@ import { MenuIcon, SearchIcon, XIcon } from "@heroicons/react/outline";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { memo, useEffect } from "react";
+import { useRouter } from "next/router";
+import React, { memo, useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { GetState } from "../../state/stateProvider";
@@ -32,6 +33,8 @@ const Navbar = () => {
         notification,
         dispatch,
     } = GetState();
+    const [state, setState] = useState("");
+    const route = useRouter();
 
     useEffect(() => {
         notification.map((v) => {
@@ -49,6 +52,10 @@ const Navbar = () => {
         };
     }, [uid]);
 
+    const searchUser = (e: any) => {
+        e.preventDefault();
+        route.push(`/search?like=${state}`);
+    };
     return (
         <Disclosure as="nav" className="bg-gray-800">
             {({ open }) => (
@@ -86,7 +93,10 @@ const Navbar = () => {
                                         </a>
                                     </Link>
                                 </div>
-                                <form className="hidden sm:flex items-center justify-between ml-auto mr-auto">
+                                <form
+                                    className="hidden sm:flex items-center justify-between ml-auto mr-auto"
+                                    onSubmit={searchUser}
+                                >
                                     <div className="mt-1 relative rounded-md shadow-sm">
                                         <div className="absolute inset-y-0 left-0 px-3 flex items-center pointer-events-none">
                                             <SearchIcon
@@ -98,6 +108,9 @@ const Navbar = () => {
                                             type="text"
                                             name="search"
                                             id="search"
+                                            onChange={(e) => {
+                                                setState(e.target.value);
+                                            }}
                                             className="focus:ring-indigo-500 focus:border-indigo-500 block w-full px-10 sm:text-sm border-gray-300 rounded-md bg-gray-300"
                                             placeholder="Search"
                                         />

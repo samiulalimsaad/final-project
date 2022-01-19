@@ -69,7 +69,6 @@ const UploadProfilePic = () => {
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
-                            console.log("File available at", downloadURL, uid);
                             try {
                                 const post = await axios.put(
                                     NODE_SERVER(`/info/${uid}`),

@@ -8,7 +8,6 @@ export const getComments = async (
     req: NextApiRequest,
     res: NextApiResponse
 ) => {
-    console.log({ query: req.query });
     const postComments = await postModel
         .findById(req.query.postId)
         .select("comments");

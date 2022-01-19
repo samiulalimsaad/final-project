@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { GetState } from "../../state/stateProvider";
 import { SHOW_OF_MODAL } from "../../state/types";
-import Cartoonify from "./Cartoonify";
 import CognitiveAssistant from "./CognitiveAssistant";
 import HandwritingEquationSolver from "./HandwritingEquationSolver";
 import ImageOutpaint from "./ImageOutpaint";
 import ImageToText from "./ImageToText";
 import PhotoToSketch from "./PhotoToSketch";
+import TextSummary from "./TextSummary";
+import TextTranslate from "./TextTranslate";
 
 export const OF_Widget = [
     {
@@ -14,8 +15,8 @@ export const OF_Widget = [
         component: <CognitiveAssistant />,
     },
     {
-        name: "Handwriting Equation Solver",
-        component: <HandwritingEquationSolver />,
+        name: "Translator",
+        component: <TextTranslate />,
     },
     {
         name: "Photo to Sketch",
@@ -27,11 +28,11 @@ export const OF_Widget = [
     },
     {
         name: "Text Summary",
-        component: <ImageOutpaint />,
+        component: <TextSummary />,
     },
     {
-        name: "Cartoonify",
-        component: <Cartoonify />,
+        name: "Handwriting Equation Solver",
+        component: <HandwritingEquationSolver />,
     },
     {
         name: "Image to Text",

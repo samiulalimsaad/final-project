@@ -1,0 +1,10 @@
+FIREBASE_apiKey = AIzaSyBmgf418wB9n_ARZn0SNMcC4FYb69Zc3ds
+FIREBASE_authDomain = final-project-a9e59.firebaseapp.com
+FIREBASE_projectId = final-project-a9e59
+FIREBASE_storageBucket = final-project-a9e59.appspot.com
+FIREBASE_messagingSenderId =  622546471677
+FIREBASE_appId =  1:622546471677:web:2238bdfcd288320ed54c94
+FIREBASE_measurementId =  G-R24M34ZCEZ
+FIREBASE_databaseURL = https://final-project-a9e59-default-rtdb.asia-southeast1.firebasedatabase.app
+DATABASE_URL = mongodb+srv://saadnbiuraj:750297saad@cluster0.6qurt.gcp.mongodb.net/final-project?retryWrites=true&w=majority
+  

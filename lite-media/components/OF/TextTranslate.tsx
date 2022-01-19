@@ -1,6 +1,6 @@
 import Script from "next/script";
 
-const EdgeDetection = () => {
+const TextTranslate = () => {
     return (
         <div>
             <link rel="stylesheet" href="http://52.18.33.238/widget.css" />
@@ -15,10 +15,10 @@ const EdgeDetection = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="65be7b24-0a62-49c0-9079-9b81b2e72250"
+                instance="b1b8c97f-c251-43a8-ad87-7e7afdeb3bda"
             ></of-widget>
         </div>
     );
 };
 
-export default EdgeDetection;
+export default TextTranslate;

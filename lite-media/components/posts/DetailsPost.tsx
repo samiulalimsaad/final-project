@@ -18,14 +18,12 @@ const DetailsPost = ({ postId }: { postId: string | string[] }) => {
     );
 
     if (error) {
-        console.log(error);
+        console.error(error);
         dispatch({
             type: NOTIFICATION_ADD,
             payload: { type: "error", text: error },
         });
     }
-
-    console.log({ uid, postId });
 
     return (
         <div>

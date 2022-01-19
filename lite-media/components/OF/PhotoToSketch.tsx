@@ -15,7 +15,7 @@ const PhotoToSketch = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="da482353-24bf-4b1f-a9d8-79c827d7cece"
+                instance="f3057801-5bf2-4ad8-9cb0-963c288becb8"
             ></of-widget>
         </div>
     );

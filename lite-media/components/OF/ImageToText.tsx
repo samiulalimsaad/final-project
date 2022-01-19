@@ -15,7 +15,7 @@ const ImageToText = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="6808e1b9-15c9-4992-8c07-0bcb849bec66"
+                instance="61e43f92-a842-49f5-869f-32d9a0292fe6"
             ></of-widget>
         </div>
     );

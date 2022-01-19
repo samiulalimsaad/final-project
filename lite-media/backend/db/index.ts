@@ -20,7 +20,6 @@ const connectDB =
         await mongoose
             .connect(serverRuntimeConfig.DATABASE_URL as string)
             .catch((err) => console.log(err));
-        console.log("Mongoose Connection Established");
         return handler(req, res);
     };
 

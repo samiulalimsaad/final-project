@@ -29,15 +29,12 @@ const PostHeader = ({
 }: postHeaderInterface) => {
     const { uid, dispatch } = GetState();
 
-    console.log({ bookmark, id, uid, userId });
-
     const addBookmark = useCallback(async () => {
         try {
             if (bookmark.includes(id!)) {
                 const { data } = await axios.delete(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
-                console.log({ data });
                 if (data.success) {
                     dispatch({
                         type: NOTIFICATION_ADD,
@@ -48,7 +45,6 @@ const PostHeader = ({
                 const { data } = await axios.post(
                     NODE_SERVER(`/bookmark/${uid}/${id}`)
                 );
-                console.log({ data });
                 if (data.success) {
                     dispatch({
                         type: NOTIFICATION_ADD,

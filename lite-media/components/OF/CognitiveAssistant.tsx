@@ -30,7 +30,7 @@ const CognitiveAssistant = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="ddfa2093-fb81-4dcb-b0da-c35432a17abb"
+                instance="f358407b-68f1-4464-98a0-34e31d9d7236"
             ></of-widget>
         </div>
     );

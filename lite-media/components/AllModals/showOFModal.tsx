@@ -1,4 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { XIcon } from "@heroicons/react/solid";
 import React, { Fragment } from "react";
 import { GetState } from "../../state/stateProvider";
 import { CLOSE_OF_MODAL } from "../../state/types";
@@ -21,7 +22,7 @@ const ShowOFModal = () => {
                 <Dialog
                     as="div"
                     className="fixed inset-0 z-[951] overflow-y-auto"
-                    onClose={closeModal}
+                    onClose={() => {}}
                 >
                     <div className="min-h-screen min-w-full px-4 text-center flex items-center justify-center">
                         <Transition.Child
@@ -57,8 +58,18 @@ const ShowOFModal = () => {
                                     as="h3"
                                     className="text-xl font-medium leading-6 text-gray-900 flex items-center justify-between bg-white"
                                 >
-                                    <h3 className="text-2xl p-4 text-center w-full bg-blue-600 text-white">
+                                    <h3 className="text-2xl p-4 px-8 text-center w-full bg-blue-600 text-white flex justify-between items-center">
+                                        <span></span>
                                         {OF_Widget[OFModal.index].name}
+                                        <span
+                                            className="cursor-pointer"
+                                            onClick={closeModal}
+                                        >
+                                            <XIcon
+                                                className=" h-6 w-6"
+                                                aria-hidden="true"
+                                            />
+                                        </span>
                                     </h3>
                                 </Dialog.Title>
                                 <Dialog.Description as="div">

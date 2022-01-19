@@ -15,7 +15,7 @@ const Cartoonify = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="08366790-a24f-474b-af7b-34c43edb9530"
+                instance="daf4aa56-f68a-4761-b60b-9ac2c606ede1"
             ></of-widget>
         </div>
     );

@@ -15,7 +15,7 @@ const TextSummary = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="607305f4-3c50-47d0-aabb-287e54ddae4b"
+                instance="22015b92-74b9-4798-9483-8c59213fee3f"
             ></of-widget>
         </div>
     );

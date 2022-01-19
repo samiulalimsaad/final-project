@@ -1,4 +1,3 @@
-import { PhotographIcon } from "@heroicons/react/outline";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import {
     getDownloadURL,
@@ -37,9 +36,7 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                         Date.now().toString()
                     )}`
                 );
-                console.log({ storageRef });
                 const uploadTask = uploadBytesResumable(storageRef, image!);
-                console.log({ uploadTask });
 
                 uploadTask.on(
                     "state_changed",
@@ -77,11 +74,6 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                     async () => {
                         getDownloadURL(uploadTask.snapshot.ref).then(
                             async (downloadURL) => {
-                                console.log(
-                                    "File available at",
-                                    downloadURL,
-                                    uid
-                                );
                                 try {
                                     await addDoc(
                                         collection(
@@ -209,28 +201,6 @@ const Conversation = ({ conversationId }: conversationInterface) => {
                             placeholder="write a message"
                         />
                         <div className="absolute inset-y-0 right-0 px-3 flex items-center cursor-pointer">
-                            <PhotographIcon
-                                className="h-6 w-6"
-                                aria-hidden="true"
-                            />
-                            <label
-                                htmlFor="message-file"
-                                className="flex items-center py-2 "
-                            >
-                                <button
-                                    type="submit"
-                                    className="flex items-center cursor-pointer"
-                                ></button>
-                            </label>
-                            <input
-                                id="message-file"
-                                type="file"
-                                accept="image/*"
-                                onChange={(e: any) =>
-                                    setImage(e!.target!.files[0]!)
-                                }
-                                hidden
-                            />
                             <button
                                 type="submit"
                                 className="px-1 flex items-center cursor-pointer"

@@ -9,11 +9,9 @@ export const findUserMiddleware = async (
     res: NextApiResponse,
     next: () => void
 ) => {
-    console.log({ beforequery: req.query });
     const user = await userModel.findById(req.query.id);
     if (user) next();
     else {
-        console.log({ afterquery: req.query });
         return res.json({
             message: "User Not Found / Unauthenticated User",
             success: false,
@@ -35,7 +33,6 @@ export const getSingleUser = async (
     req: NextApiRequest,
     res: NextApiResponse
 ) => {
-    console.log({ query: req.query });
     const user = await userModel
         .findById(req.query.id)
         .populate("post follower following");
@@ -65,7 +62,6 @@ export const getSingleUserPosts = async (
 export const createUser = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         const data = req.body;
-        console.log({ data });
         const user = new userModel(data);
         user.save((error, v) => {
             if (error) {

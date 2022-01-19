@@ -1,49 +1,30 @@
-const users = {
-    "-MsAm6MM3evJDY8wRZ_X": {
-        createdAt: 1640875194024,
-        postLink: "/post/61b4b322369342994ac559af",
-        profilePic:
-            "https://firebasestorage.googleapis.com/v0/b/final-project-a9e59.appspot.com/o/profilePic%2FZx2XIwzIPqRbGjHGyjeHCB8RQy72%2F1639455896152?alt=media&token=53f1f62f-8be7-4184-9510-088805984b9c",
-        text: "bbb bbb liked your post",
-        type: "success",
+const users = [
+    { name: { firstName: "aaa", fullName: "aaa aaa", lastName: "aaa" } },
+    {
+        name: {
+            firstName: "Samiul",
+            lastName: "Alim",
+            fullName: "Samiul Alim",
+            createdAt: "2022-01-10T13:14:26.904Z",
+        },
     },
-    "-MsAnYp_-Cvi8a4Pb3Fb": {
-        createdAt: 1640875572722,
-        postLink: "/post/61b4b322369342994ac559af",
-        profilePic: "/userIcon.png",
-        text: "aaa aaa liked your post",
-        type: "success",
+    {
+        name: {
+            firstName: "MD Mustafizur",
+            lastName: "Rahaman",
+            fullName: "MD Mustafizur  Rahaman",
+            _id: "61dc320e124b8107b0bc6803",
+            createdAt: "2022-01-10T13:18:06.502Z",
+        },
     },
-    "-MsAnZiL_wlNiqoSxKc7": {
-        createdAt: 1640875576351,
-        postLink: "/post/61b4b51e369342994ac56054",
-        profilePic: "/userIcon.png",
-        text: "aaa aaa liked your post",
-        type: "success",
+    {
+        name: {
+            firstName: "Sharmin",
+            lastName: "Joty",
+            fullName: "Sharmin Joty",
+            _id: "61e300f0fae79790b0e667e9",
+            createdAt: "2022-01-15T17:14:24.689Z",
+        },
     },
-    "-MsAnrJoqMOgrGMv0-Ep": {
-        createdAt: 1640875652541,
-        postLink: "/post/61b4b308369342994ac55968",
-        profilePic: "/userIcon.png",
-        text: "aaa aaa liked your post",
-        type: "success",
-    },
-    "-MsAnsAdF4sBlKrPdcvu": {
-        createdAt: 1640875656050,
-        postLink: "/post/61b4b322369342994ac559af",
-        profilePic: "/userIcon.png",
-        text: "aaa aaa liked your post",
-        type: "success",
-    },
-    "-MsAnsJbIFuofB0PHnF5": {
-        createdAt: 1640875656622,
-        postLink: "/post/61b4b51e369342994ac56054",
-        profilePic: "/userIcon.png",
-        text: "aaa aaa liked your post",
-        type: "success",
-    },
-};
-
-Object.keys(users).map((v) => {
-    console.log(users[v]);
-});
+];
+console.log(users.filter((v) => v.name.fullName.toLowerCase().includes("a")));

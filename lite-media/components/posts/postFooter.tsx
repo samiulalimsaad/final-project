@@ -25,7 +25,6 @@ const PostFooter = ({ like, comment, userId, id }: postHeaderInterface) => {
                 const { data } = await axios.delete(
                     NODE_SERVER(`/post/like/${uid}/${id}`)
                 );
-                console.log({ data });
                 if (data.success) {
                     console.log("like removed");
                 }
@@ -37,7 +36,6 @@ const PostFooter = ({ like, comment, userId, id }: postHeaderInterface) => {
                         postId: id,
                     }
                 );
-                console.log({ data });
                 if (data.success) {
                     userId !== uid &&
                         addLikeNotification(

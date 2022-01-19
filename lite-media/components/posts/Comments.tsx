@@ -39,7 +39,6 @@ const Comments = ({ postId }: any) => {
             payload: { type: "error", text: error },
         });
     }
-    console.log({ data });
     const deleteComment = useCallback(
         async (id) => {
             try {

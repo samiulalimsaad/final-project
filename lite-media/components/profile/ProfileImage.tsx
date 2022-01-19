@@ -11,7 +11,6 @@ const ProfileImage = ({ image, id }: { image: string; id: string }) => {
     const [State, setState] = useState<File>();
 
     const removeFollow = useCallback(async () => {
-        console.log("clicked");
         try {
             const following = await axios.delete(
                 NODE_SERVER(`/following/${uid}}`)

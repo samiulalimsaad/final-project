@@ -15,7 +15,7 @@ const HandwritingEquationSolver = () => {
             ></Script>
             <of-widget
                 className="of__root"
-                instance="6e75bfb7-dd4b-4300-b97b-411023ccc762"
+                instance="b1aba6ca-a153-4a7f-a1f6-0f85b449f5c9"
             ></of-widget>
         </div>
     );

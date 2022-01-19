@@ -23,7 +23,6 @@ const CreatePost = () => {
     }, [dispatch]);
 
     const uploadPost = useCallback(async () => {
-        console.log({ editorState });
         if (imageState?.name) {
             const storageRef = ref(
                 storage,
@@ -32,16 +31,13 @@ const CreatePost = () => {
                     Date.now().toString()
                 )}`
             );
-            console.log({ storageRef });
             const uploadTask = uploadBytesResumable(storageRef, imageState!);
-            console.log({ uploadTask });
 
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
                     const progress =
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Upload is " + progress + "% done");
                     dispatch({ type: PROGRESS, payload: { progress } });
                     switch (snapshot.state) {
                         case "paused":
@@ -53,12 +49,11 @@ const CreatePost = () => {
                     }
                 },
                 (error) => {
-                    console.log("error", error);
+                    console.error("error", error);
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then(
                         async (downloadURL) => {
-                            console.log("File available at", downloadURL, uid);
                             try {
                                 const post = await axios.post(
                                     NODE_SERVER(`/post/${uid}`),
@@ -68,7 +63,6 @@ const CreatePost = () => {
                                     }
                                 );
                                 if (post.data.success) {
-                                    console.log({ post });
                                     setEditorState("");
                                     setImageState(undefined);
                                     closeModal();
@@ -92,7 +86,6 @@ const CreatePost = () => {
                     postBody: `${editorState}`,
                 });
                 if (post.data.success) {
-                    console.log({ post });
                     setEditorState("");
                     setImageState(undefined);
                     closeModal();
